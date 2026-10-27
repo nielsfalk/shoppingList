@@ -156,3 +156,109 @@ a {
         flex-basis: auto;
     }
 }
+
+/* Controls */
+button,
+input,
+.navigation-link,
+.calendar-day-stored {
+    font: inherit;
+    color: inherit;
+}
+
+button,
+.navigation-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: var(--tap-size);
+    min-height: var(--tap-size);
+    padding: var(--space-2) var(--space-3);
+    background: transparent;
+    border: 1px solid var(--color-cyan);
+    color: var(--color-cyan);
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    cursor: pointer;
+    clip-path: polygon(var(--cut) 0, 100% 0, 100% calc(100% - var(--cut)), calc(100% - var(--cut)) 100%, 0 100%, 0 var(--cut));
+    transition: box-shadow 120ms ease, background-color 120ms ease, color 120ms ease;
+}
+
+button:hover:not([disabled]),
+.navigation-link:hover {
+    background: rgba(0, 240, 255, 0.12);
+    box-shadow: 0 0 12px rgba(0, 240, 255, 0.6), inset 0 0 8px rgba(0, 240, 255, 0.35);
+}
+
+button[disabled] {
+    border-color: var(--color-text-dim);
+    color: var(--color-text-dim);
+    cursor: not-allowed;
+}
+
+.navigation-link[aria-current="page"],
+.language-button[aria-pressed="true"] {
+    border-color: var(--color-magenta);
+    color: var(--color-magenta);
+    box-shadow: 0 0 10px rgba(255, 43, 214, 0.55);
+}
+
+.delete-button {
+    border-color: var(--color-yellow);
+    color: var(--color-yellow);
+}
+
+.delete-button:hover:not([disabled]) {
+    background: rgba(245, 255, 0, 0.1);
+    box-shadow: 0 0 12px rgba(245, 255, 0, 0.55);
+}
+
+input[type="text"] {
+    min-height: var(--tap-size);
+    padding: var(--space-2) var(--space-3);
+    background: var(--color-surface);
+    border: 1px solid var(--color-magenta);
+    color: var(--color-text);
+    clip-path: polygon(var(--cut) 0, 100% 0, 100% calc(100% - var(--cut)), calc(100% - var(--cut)) 100%, 0 100%, 0 var(--cut));
+}
+
+input[type="text"]::placeholder {
+    color: var(--color-text-dim);
+}
+
+:focus-visible {
+    outline: 2px solid var(--color-yellow);
+    outline-offset: 2px;
+    box-shadow: 0 0 14px rgba(245, 255, 0, 0.6);
+}
+
+/* Lists */
+.shopping-item {
+    justify-content: flex-start;
+    text-align: left;
+    text-transform: none;
+    border-color: rgba(0, 240, 255, 0.5);
+    color: var(--color-text);
+}
+
+.default-item-name,
+.read-only-item {
+    display: flex;
+    align-items: center;
+    min-height: var(--tap-size);
+    padding: var(--space-2) var(--space-3);
+    border-left: 2px solid var(--color-cyan);
+    background: var(--color-surface);
+}
+
+/* Headings glow */
+h1,
+h2,
+h3 {
+    text-shadow: 0 0 6px rgba(0, 240, 255, 0.6), 0 0 18px rgba(0, 240, 255, 0.35);
+}
+
+.app-title {
+    text-shadow: 0 0 6px rgba(255, 43, 214, 0.7), 0 0 20px rgba(255, 43, 214, 0.45);
+}

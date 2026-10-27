@@ -6,7 +6,7 @@ This is a single page app for grocery shopping. It runs entirely in the browser,
 
 **Live app:** https://nielsfalk.github.io/shoppingList/
 
-**Status:** the app is deployed to GitHub Pages; the next step is **T39** (see [Tasks](#tasks)).
+**Status:** the app is deployed to GitHub Pages; the next step is **T40** (see [Tasks](#tasks)).
 
 ## Getting started
 
@@ -287,7 +287,7 @@ Each task is small, can be completed on its own and leaves the app in a working 
 ### Design
 
 - [x] **T38** Add `styles.css` with a mobile-first base layout, the cyberpunk color palette as CSS custom properties and the locally bundled fonts.
-- [ ] **T39** Style buttons, inputs, list items and the navigation bar with neon outlines, glow and cut corners; tap targets at least 44 × 44 px, visible focus.
+- [x] **T39** Style buttons, inputs, list items and the navigation bar with neon outlines, glow and cut corners; tap targets at least 44 × 44 px, visible focus.
 - [ ] **T40** Add the scanline overlay and the glitch animation for the title, disabled with `prefers-reduced-motion`.
 - [ ] **T41** Style the calendar (stored days, today) and checked items in the cyberpunk theme; verify WCAG AA contrast.
 
