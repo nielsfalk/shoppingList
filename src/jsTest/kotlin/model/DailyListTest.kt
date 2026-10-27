@@ -9,6 +9,24 @@ import kotlin.test.assertEquals
 
 class DailyListTest {
     @Test
+    fun sortsUncheckedItemsFirstWithoutChangingTheirRelativeOrder() {
+        val checkedFirst = Item(name = "Checked first", checked = true)
+        val uncheckedFirst = Item(name = "Unchecked first")
+        val checkedSecond = Item(name = "Checked second", checked = true)
+        val uncheckedSecond = Item(name = "Unchecked second")
+        val dailyList = DailyList(
+            date = LocalDate.parse("2026-10-27"),
+            items = listOf(checkedFirst, uncheckedFirst, checkedSecond, uncheckedSecond),
+        )
+
+        assertEquals(
+            listOf(uncheckedFirst, uncheckedSecond, checkedFirst, checkedSecond),
+            dailyList.sortedItems(),
+        )
+        assertEquals(listOf(checkedFirst, uncheckedFirst, checkedSecond, uncheckedSecond), dailyList.items)
+    }
+
+    @Test
     fun serializesToTheStoredJsonShape() {
         val dailyList = DailyList(
             date = LocalDate.parse("2026-10-27"),

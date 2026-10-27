@@ -7,4 +7,6 @@ import kotlinx.serialization.Serializable
 data class DailyList(
     val date: LocalDate,
     val items: List<Item>,
-)
+) {
+    fun sortedItems(): List<Item> = items.filterNot { it.checked } + items.filter { it.checked }
+}
