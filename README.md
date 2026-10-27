@@ -100,7 +100,7 @@ There is no backend: all user data lives in the browser's `localStorage`, all la
 
 | Area              | Choice                                                                      |
 |-------------------|-----------------------------------------------------------------------------|
-| Language / build  | Kotlin Multiplatform Gradle plugin with `js(IR) { browser() }`              |
+| Language / build  | Kotlin Multiplatform Gradle plugin with `js { browser() }`                  |
 | UI                | Compose HTML (`org.jetbrains.compose.html:html-core`), renders real DOM     |
 | Persistence       | `localStorage` + `kotlinx.serialization` (JSON)                             |
 | Dates / calendar  | `kotlinx-datetime`                                                          |
@@ -201,7 +201,7 @@ Each task is small, can be completed on its own and leaves the app in a working 
 
 ### Setup
 
-- [x] **T01** Switch `build.gradle.kts` from `kotlin("jvm")` to Kotlin Multiplatform with `js(IR) { browser() }`, add Compose HTML, `kotlinx.serialization` and `kotlinx-datetime`.
+- [x] **T01** Switch `build.gradle.kts` from `kotlin("jvm")` to Kotlin Multiplatform with `js { browser() }`, add Compose HTML, `kotlinx.serialization` and `kotlinx-datetime`.
 - [ ] **T02** Add `index.html` and a `main()` that renders "Hello shoppingList" with Compose HTML; verify with `./gradlew jsBrowserDevelopmentRun`.
 - [ ] **T03** Add `.github/workflows/pages.yml` that builds `jsBrowserDistribution` and deploys it to GitHub Pages.
 - [ ] **T04** Verify the deployed page loads under `https://nielsfalk.github.io/shoppingList/` (relative paths only).

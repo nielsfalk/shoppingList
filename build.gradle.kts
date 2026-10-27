@@ -16,7 +16,7 @@ repositories {
 kotlin {
     jvmToolchain(17)
 
-    js(IR) {
+    js {
         browser()
         binaries.executable()
     }
