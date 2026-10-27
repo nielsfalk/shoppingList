@@ -65,4 +65,26 @@ class AppStateTest {
             storage.keys().forEach(storage::remove)
         }
     }
+
+    @Test
+    fun reordersDefaultListAndRemovesStoredListWhenItMatchesInitialAgain() {
+        val storage = Storage(prefix = "shoppingList:test:${Random.nextLong()}:")
+        val initialList = languageData("en").initialList
+
+        try {
+            val state = AppState(storage, initialLanguageCode = "en", languagePersistence = {}, todayDate = LocalDate.parse("2026-10-27"))
+
+            state.moveDefaultItemDown(initialList[0])
+
+            assertEquals(listOf(initialList[1], initialList[0]), state.defaultList.items.take(2))
+            assertEquals(state.defaultList.items, storage.get<List<String>>("defaultList"))
+
+            state.moveDefaultItemUp(initialList[0])
+
+            assertEquals(initialList, state.defaultList.items)
+            assertEquals(null, storage.getString("defaultList"))
+        } finally {
+            storage.keys().forEach(storage::remove)
+        }
+    }
 }

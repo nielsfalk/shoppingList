@@ -8,6 +8,8 @@ data class UiTexts(
     val addToDefaultList: String,
     val delete: String,
     val copyToToday: String,
+    val moveUp: String,
+    val moveDown: String,
 )
 
 data class LanguageData(

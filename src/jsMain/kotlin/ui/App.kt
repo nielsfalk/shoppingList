@@ -32,7 +32,15 @@ fun App() {
                     state::addToDefaultList,
                 )
             }
-            Route.DefaultList -> H1 { Text(data.ui.defaultList) }
+            Route.DefaultList -> {
+                H1 { Text(data.ui.defaultList) }
+                DefaultListScreen(
+                    state.defaultList,
+                    data.ui,
+                    state::moveDefaultItemUp,
+                    state::moveDefaultItemDown,
+                )
+            }
             is Route.History -> H1 { Text(data.ui.history) }
         }
     }

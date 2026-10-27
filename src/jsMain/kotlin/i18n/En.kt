@@ -9,6 +9,8 @@ val En = LanguageData(
         addToDefaultList = "Add to default list",
         delete = "Delete",
         copyToToday = "Copy to today",
+        moveUp = "Move up",
+        moveDown = "Move down",
     ),
     initialList = listOf("Toilet paper", "Water", "Mustard", "Oat milk", "Apples", "Rolled oats"),
     suggestions = listOf("Bread", "Margarine", "Soy milk", "Tofu", "Lentils", "Bananas", "Tomatoes", "Pasta"),
