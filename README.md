@@ -31,6 +31,18 @@ A default list is only stored in local storage if it differs from the original l
 
 The language is preselected from the browser settings. A language switch in the navigation bar lets the user choose another supported language (e.g. `de`, `en`). The choice is stored in local storage and takes precedence over the browser setting. Switching the language changes the UI texts, the autocomplete items and the original default list; already stored daily lists and a customized default list are kept unchanged.
 
+### Cyberpunk design
+
+The app has a dark cyberpunk look, inspired by neon signs at night:
+
+- **Colors**: near-black background (`#0a0a12`), neon magenta (`#ff2bd6`) and cyan (`#00f0ff`) as accent colors, acid yellow (`#f5ff00`) for warnings and the delete button.
+- **Neon glow**: headings, borders and focused elements glow via `text-shadow` / `box-shadow` in the accent colors.
+- **Typography**: monospace / futuristic font (e.g. `Orbitron` for headings, `Share Tech Mono` for text, bundled locally), uppercase labels with letter spacing.
+- **Shapes**: sharp edges, cut corners (`clip-path`) on buttons and cards, thin neon outlines instead of filled surfaces.
+- **Effects**: subtle scanline overlay and a short glitch animation on the app title; a checked item gets a neon strike-through and fades to a dim color.
+- **Calendar**: days with a stored list are highlighted with a cyan glow, today with a magenta frame.
+- **Accessibility**: contrast stays at least WCAG AA, and all animations are disabled with `prefers-reduced-motion`.
+
 ## Architecture
 
 The app is a client-only static single page app written in **Kotlin/JS** with **Compose HTML** and hosted on **GitHub Pages**.
@@ -49,6 +61,7 @@ There is no backend: all user data lives in the browser's `localStorage`, all la
 | Offline            | `manifest.webmanifest` + small service worker (PWA)                       |
 | Tests              | `kotlin("test")` in `jsTest`                                              |
 | Hosting            | GitHub Pages, deployed by GitHub Actions                                  |
+| Styling            | plain CSS (`styles.css`) with CSS custom properties for the cyberpunk theme |
 
 ### Constraints of GitHub Pages
 
@@ -67,7 +80,7 @@ src/jsMain/kotlin/
   routing/    tiny hash router (window.onhashchange)
   ui/         Compose HTML screens: DailyList, History (calendar), DefaultList
 src/jsMain/resources/
-  index.html, manifest.webmanifest, sw.js, icons/
+  index.html, styles.css, manifest.webmanifest, sw.js, icons/, fonts/
   i18n/de.json, i18n/en.json
 src/jsTest/kotlin/
   tests for model and storage
@@ -153,4 +166,8 @@ Each task is small, can be completed on its own and leaves the app in a working 
 ### Polish
 
 - [ ] **T30** Add mobile-first styling.
+- [ ] **T34** Add `styles.css` with the cyberpunk color palette as CSS custom properties and bundle the fonts locally.
+- [ ] **T35** Style buttons, inputs, list items and the navigation bar with neon outlines, glow and cut corners.
+- [ ] **T36** Add the scanline overlay and the glitch animation for the title, disabled with `prefers-reduced-motion`.
+- [ ] **T37** Style the calendar (stored days, today) and checked items in the cyberpunk theme; verify WCAG AA contrast.
 - [x] **T31** Fix typos in this README.
