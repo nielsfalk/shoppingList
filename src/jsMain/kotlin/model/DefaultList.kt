@@ -21,6 +21,8 @@ data class DefaultList(
         return copy(items = items.filterNot { it.normalizedName() == normalizedName })
     }
 
+    fun differsFrom(initial: List<String>): Boolean = items != initial
+
     private fun move(name: String, offset: Int): DefaultList {
         val currentIndex = items.indexOfFirst { it.normalizedName() == name.normalizedName() }
         val targetIndex = currentIndex + offset

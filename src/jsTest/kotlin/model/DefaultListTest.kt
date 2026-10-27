@@ -25,6 +25,16 @@ class DefaultListTest {
     }
 
     @Test
+    fun detectsDifferencesFromTheInitialList() {
+        val initialList = listOf("Water", "Oat milk", "Apples")
+
+        assertEquals(false, DefaultList(initialList).differsFrom(initialList))
+        assertEquals(true, DefaultList(initialList + "Bread").differsFrom(initialList))
+        assertEquals(true, DefaultList(initialList.dropLast(1)).differsFrom(initialList))
+        assertEquals(true, DefaultList(initialList.reversed()).differsFrom(initialList))
+    }
+
+    @Test
     fun addToDefaultListUpdatesBothListsAndAppliesDuplicateRules() {
         val defaultList = DefaultList(items = listOf("Water"))
         val dailyList = DailyList(
