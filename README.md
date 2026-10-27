@@ -6,7 +6,7 @@ This is a single page app for grocery shopping. It runs entirely in the browser,
 
 **Live app:** https://nielsfalk.github.io/shoppingList/
 
-**Status:** the app is deployed to GitHub Pages; the next step is **T21** (see [Tasks](#tasks)).
+**Status:** the app is deployed to GitHub Pages; the next step is **T22** (see [Tasks](#tasks)).
 
 ## Getting started
 
@@ -251,7 +251,7 @@ Each task is small, can be completed on its own and leaves the app in a working 
 - [x] **T18** Implement a `localStorage` wrapper with the key prefix `shoppingList:` and JSON (de)serialization.
 - [x] **T19** Write `shoppingList:schemaVersion` on first start and add a hook for future migrations.
 - [x] **T20** Save and load the daily list under `shoppingList:day:<yyyy-MM-dd>`.
-- [ ] **T21** Save the default list under `shoppingList:defaultList` only if it differs from the initial list; remove the key otherwise.
+- [x] **T21** Save the default list under `shoppingList:defaultList` only if it differs from the initial list; remove the key otherwise.
 - [ ] **T22** Request persistent storage with `navigator.storage.persist()` on start.
 
 ### Routing
