@@ -22,10 +22,10 @@ cd shoppingList
 
 | Term             | Meaning                                                                                    |
 |------------------|--------------------------------------------------------------------------------------------|
-| **Initial list** | the shopping list shipped in the data file of a language; it is never changed by the user |
+| **Initial list** | the shopping list of a language, built into the app; it is never changed by the user      |
 | **Default list** | the user's own version of the initial list; equal to the initial list until it is changed |
 | **Daily list**   | the shopping list of one day; there is at most one daily list per day                     |
-| **Suggestions**  | the likely items per language in a data file, used for autocompletion; vegan items only   |
+| **Suggestions**  | the likely items per language, used for autocompletion; vegan items only                  |
 
 ## Features
 
@@ -44,12 +44,12 @@ cd shoppingList
 
 - The default list starts as the initial list of the current language.
 - Items can be deleted and their order can be changed with up/down buttons.
-- It is only stored in local storage if it differs from the initial list; otherwise the initial list from the data file is used.
+- It is only stored in local storage if it differs from the initial list; otherwise the initial list of the current language is used.
 - Changes to the default list do not change today's list that has already been created (except "add to default list", which adds to both).
 
 ### Initial list
 
-There is an initial list for each language in a data file.
+There is an initial list for each language in the [language data](#language-data).
 
 | German (`de`) | English (`en`) |
 |---------------|----------------|
@@ -94,7 +94,7 @@ The app has a dark cyberpunk look, inspired by neon signs at night:
 ## Architecture
 
 The app is a client-only static single page app written in **Kotlin/JS** with **Compose HTML** and hosted on **GitHub Pages**.
-There is no backend: all user data lives in the browser's `localStorage`, all language data is shipped as static files.
+There is no backend: all user data lives in the browser's `localStorage`, all language data is compiled into the app as Kotlin code.
 
 ### Tech stack
 
@@ -104,7 +104,7 @@ There is no backend: all user data lives in the browser's `localStorage`, all la
 | UI                | Compose HTML (`org.jetbrains.compose.html:html-core`), renders real DOM     |
 | Persistence       | `localStorage` + `kotlinx.serialization` (JSON)                             |
 | Dates / calendar  | `kotlinx-datetime`                                                          |
-| i18n / data files | static JSON per language (UI texts, initial list, suggestions)              |
+| i18n              | Kotlin object per language (UI texts, initial list, suggestions)            |
 | Autocompletion    | HTML `<datalist>`                                                           |
 | Offline           | `manifest.webmanifest` + small service worker (PWA)                         |
 | Styling           | plain CSS (`styles.css`) with CSS custom properties for the cyberpunk theme |
@@ -115,7 +115,7 @@ There is no backend: all user data lives in the browser's `localStorage`, all la
 
 - **Static files only**: the app is the output of `./gradlew jsBrowserDistribution`.
 - **Hash routing**: there is no server-side rewriting, so routes look like `#/`, `#/history/2026-10-27`, `#/default`.
-- **Relative paths only**: the app is served under a subpath (`https://nielsfalk.github.io/shoppingList/`), so scripts, data files, manifest and service worker are referenced relatively.
+- **Relative paths only**: the app is served under a subpath (`https://nielsfalk.github.io/shoppingList/`), so scripts, manifest, icons and service worker are referenced relatively.
 - **Shared origin**: all pages under `nielsfalk.github.io` share one `localStorage`, so every key is prefixed with `shoppingList:`.
 
 ### Project structure
@@ -124,36 +124,57 @@ There is no backend: all user data lives in the browser's `localStorage`, all la
 src/jsMain/kotlin/
   model/      pure logic: daily list, sort order, add/duplicate rules, diff to the initial list
   storage/    localStorage access + JSON serialization (key prefix "shoppingList:")
-  i18n/       language selection: stored choice, else navigator.language, fallback "en"
+  i18n/       language data per language (De.kt, En.kt) + language selection: stored choice, else navigator.language, fallback "en"
   routing/    tiny hash router (window.onhashchange)
   ui/         Compose HTML screens: DailyList, History (calendar), DefaultList
 src/jsMain/resources/
   index.html, styles.css, manifest.webmanifest, sw.js, icons/, fonts/
-  i18n/de.json, i18n/en.json
 src/jsTest/kotlin/
   tests for model and storage
 .github/workflows/pages.yml
 ```
 
-### Data files
+### Language data
 
-The language files are loaded relatively with `fetch("i18n/<language>.json")` and cached by the service worker, so they also work offline. Example `i18n/de.json`:
+The UI texts, the initial list and the suggestions of each language are plain Kotlin objects in `src/jsMain/kotlin/i18n/`. They are part of the app bundle, so they are available immediately (no loading state) and work offline without extra caching. All texts are constructor parameters without default values, so a missing translation fails the build.
 
-```json
-{
-  "ui": {
-    "dailyList": "Tagesliste",
-    "defaultList": "Standardliste",
-    "history": "Verlauf",
-    "addToDailyList": "Zur Tagesliste",
-    "addToDefaultList": "Zur Standardliste",
-    "delete": "Löschen",
-    "copyToToday": "In heutige Liste übernehmen"
-  },
-  "initialList": ["Klopapier", "Wasser", "Senf", "Hafermilch", "Äpfel", "Haferflocken"],
-  "suggestions": ["Brot", "Margarine", "Sojamilch", "Tofu", "Linsen", "Bananen", "Tomaten", "Nudeln"]
-}
+```kotlin
+data class UiTexts(
+    val dailyList: String,
+    val defaultList: String,
+    val history: String,
+    val addToDailyList: String,
+    val addToDefaultList: String,
+    val delete: String,
+    val copyToToday: String,
+)
+
+data class LanguageData(
+    val ui: UiTexts,
+    val initialList: List<String>,
+    val suggestions: List<String>,
+)
 ```
+
+Example `i18n/De.kt`:
+
+```kotlin
+val De = LanguageData(
+    ui = UiTexts(
+        dailyList = "Tagesliste",
+        defaultList = "Standardliste",
+        history = "Verlauf",
+        addToDailyList = "Zur Tagesliste",
+        addToDefaultList = "Zur Standardliste",
+        delete = "Löschen",
+        copyToToday = "In heutige Liste übernehmen",
+    ),
+    initialList = listOf("Klopapier", "Wasser", "Senf", "Hafermilch", "Äpfel", "Haferflocken"),
+    suggestions = listOf("Brot", "Margarine", "Sojamilch", "Tofu", "Linsen", "Bananen", "Tomaten", "Nudeln"),
+)
+```
+
+The supported languages are registered in one place, e.g. `val languages = mapOf("de" to De, "en" to En)`.
 
 ### Storage keys
 
@@ -218,11 +239,11 @@ Each task is small, can be completed on its own and leaves the app in a working 
 - [x] **T12** Create today's list as a copy of the default list when no list exists for today (local date) with tests.
 - [x] **T13** Implement "copy to today" (add all items of an old list unchecked, duplicate rule applies) with tests.
 
-### i18n and data files
+### i18n and language data
 
-- [ ] **T14** Add `i18n/de.json` with UI texts, the initial list and vegan-only suggestions (see [Data files](#data-files)).
-- [ ] **T15** Add `i18n/en.json` with the same structure (vegan-only suggestions).
-- [ ] **T16** Select the language from `navigator.language` with fallback `en`; load the JSON file relatively.
+- [ ] **T14** Add `UiTexts`, `LanguageData` and the German language data `i18n/De.kt` with UI texts, the initial list and vegan-only suggestions (see [Language data](#language-data)).
+- [ ] **T15** Add `i18n/En.kt` with the same structure (vegan-only suggestions).
+- [ ] **T16** Select the language from `navigator.language` with fallback `en` and look up its `LanguageData`, with tests.
 - [ ] **T17** Store a manually chosen language under `shoppingList:language` and prefer it over `navigator.language`, with tests.
 
 ### Storage
@@ -260,7 +281,7 @@ Each task is small, can be completed on its own and leaves the app in a working 
 ### PWA
 
 - [ ] **T35** Add `manifest.webmanifest` and icons so the app can be installed.
-- [ ] **T36** Add a service worker that caches the app files and the language files for offline use.
+- [ ] **T36** Add a service worker that caches the app files (including the bundled language data) for offline use.
 - [ ] **T37** Use a versioned cache in the service worker, remove old caches and reload the app after an update.
 
 ### Design
