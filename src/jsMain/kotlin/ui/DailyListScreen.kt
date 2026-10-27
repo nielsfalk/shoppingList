@@ -11,11 +11,22 @@ import org.jetbrains.compose.web.dom.Text
 fun DailyListScreen(
     dailyList: DailyList,
     deleteLabel: String,
+    resetToDefaultLabel: String,
+    onResetToDefault: () -> Unit,
     onToggle: (String) -> Unit,
     onDelete: (String) -> Unit,
 ) {
     Div(attrs = { classes("daily-list-screen") }) {
-        H2 { Text(dailyList.date.toString()) }
+        Div(attrs = { classes("daily-list-header") }) {
+            H2 { Text(dailyList.date.toString()) }
+            Button(attrs = {
+                classes("icon-button")
+                attr("aria-label", resetToDefaultLabel)
+                onClick { onResetToDefault() }
+            }) {
+                Text("↻")
+            }
+        }
         Div(attrs = { classes("shopping-list") }) {
             dailyList.sortedItems().forEach { item ->
                 Div(attrs = { classes("shopping-list-item") }) {

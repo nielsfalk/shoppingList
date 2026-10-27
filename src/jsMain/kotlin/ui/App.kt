@@ -25,7 +25,14 @@ fun App() {
         when (route) {
             Route.DailyList -> {
                 H1 { Text(data.ui.dailyList) }
-                DailyListScreen(state.dailyList, data.ui.delete, state::toggleItem, state::deleteItem)
+                DailyListScreen(
+                    state.dailyList,
+                    data.ui.delete,
+                    data.ui.resetToDefault,
+                    state::resetToDefault,
+                    state::toggleItem,
+                    state::deleteItem,
+                )
                 AddItemForm(
                     data.suggestions,
                     data.ui.addToDailyList,

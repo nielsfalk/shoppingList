@@ -59,6 +59,11 @@ class AppState(
         saveDailyList(storage, dailyList)
     }
 
+    fun resetToDefault() {
+        dailyList = dailyListFor(today, null, defaultList)
+        saveDailyList(storage, dailyList)
+    }
+
     fun toggleItem(name: String) {
         dailyList = dailyList.toggle(name)
         saveDailyList(storage, dailyList)

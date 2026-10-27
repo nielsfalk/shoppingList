@@ -8,6 +8,7 @@ val En = LanguageData(
         addToDailyList = "Add to daily list",
         addToDefaultList = "Add to default list",
         delete = "Delete",
+        resetToDefault = "Reset to default list",
         copyToToday = "Copy to today",
         moveUp = "Move up",
         moveDown = "Move down",

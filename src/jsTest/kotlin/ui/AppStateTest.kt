@@ -68,6 +68,27 @@ class AppStateTest {
     }
 
     @Test
+    fun resetsTodayToTheCurrentDefaultListUncheckedAndPersistsIt() {
+        val storage = Storage(prefix = "shoppingList:test:${Random.nextLong()}:")
+        val date = LocalDate.parse("2026-10-27")
+
+        try {
+            val state = AppState(storage, initialLanguageCode = "en", languagePersistence = {}, todayDate = date)
+            state.deleteDefaultItem(state.defaultList.items.first())
+            state.addToDefaultList("Tea")
+            state.toggleItem("Water")
+
+            state.resetToDefault()
+
+            val expectedItems = state.defaultList.items.map(::Item)
+            assertEquals(expectedItems, state.dailyList.items)
+            assertEquals(state.dailyList, storage.get<DailyList>("day:$date"))
+        } finally {
+            storage.keys().forEach(storage::remove)
+        }
+    }
+
+    @Test
     fun reordersDefaultListAndRemovesStoredListWhenItMatchesInitialAgain() {
         val storage = Storage(prefix = "shoppingList:test:${Random.nextLong()}:")
         val initialList = languageData("en").initialList

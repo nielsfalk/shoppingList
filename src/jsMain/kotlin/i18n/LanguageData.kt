@@ -7,6 +7,7 @@ data class UiTexts(
     val addToDailyList: String,
     val addToDefaultList: String,
     val delete: String,
+    val resetToDefault: String,
     val copyToToday: String,
     val moveUp: String,
     val moveDown: String,
