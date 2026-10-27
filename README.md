@@ -25,7 +25,7 @@ cd shoppingList
 | **Initial list** | the shopping list shipped in the data file of a language; it is never changed by the user |
 | **Default list** | the user's own version of the initial list; equal to the initial list until it is changed |
 | **Daily list**   | the shopping list of one day; there is at most one daily list per day                     |
-| **Suggestions**  | the likely items per language in a data file, used for autocompletion                     |
+| **Suggestions**  | the likely items per language in a data file, used for autocompletion; vegan items only   |
 
 ## Features
 
@@ -35,7 +35,7 @@ cd shoppingList
 - **Check**: one tap checks an item, another tap unchecks it.
 - **Delete**: every item has a delete button.
 - **Sort order**: unchecked items first, then checked items; within both groups the items keep their position in the list (the order of the default list, newly added items at the end).
-- **Add**: at the end there is a text field with autocompletion from the suggestions and two buttons:
+- **Add**: at the end there is a text field with autocompletion from the suggestions (vegan items only) and two buttons:
   - "add to daily list" adds the item to today's list.
   - "add to default list" adds the item to the default list **and** to today's list.
 - **Duplicates**: names are compared trimmed and case-insensitively. Adding an item that is already on the list does not create a second entry; if the existing item is checked, it becomes unchecked again.
@@ -151,7 +151,7 @@ The language files are loaded relatively with `fetch("i18n/<language>.json")` an
     "copyToToday": "In heutige Liste übernehmen"
   },
   "initialList": ["Klopapier", "Wasser", "Senf", "Hafermilch", "Äpfel", "Haferflocken"],
-  "suggestions": ["Brot", "Butter", "Milch", "Eier", "Käse", "Bananen", "Tomaten", "Nudeln"]
+  "suggestions": ["Brot", "Margarine", "Sojamilch", "Tofu", "Linsen", "Bananen", "Tomaten", "Nudeln"]
 }
 ```
 
@@ -220,8 +220,8 @@ Each task is small, can be completed on its own and leaves the app in a working 
 
 ### i18n and data files
 
-- [ ] **T14** Add `i18n/de.json` with UI texts, the initial list and suggestions (see [Data files](#data-files)).
-- [ ] **T15** Add `i18n/en.json` with the same structure.
+- [ ] **T14** Add `i18n/de.json` with UI texts, the initial list and vegan-only suggestions (see [Data files](#data-files)).
+- [ ] **T15** Add `i18n/en.json` with the same structure (vegan-only suggestions).
 - [ ] **T16** Select the language from `navigator.language` with fallback `en`; load the JSON file relatively.
 - [ ] **T17** Store a manually chosen language under `shoppingList:language` and prefer it over `navigator.language`, with tests.
 
