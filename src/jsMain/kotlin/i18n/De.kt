@@ -11,6 +11,13 @@ val De = LanguageData(
         copyToToday = "In heutige Liste übernehmen",
         moveUp = "Nach oben",
         moveDown = "Nach unten",
+        previousMonth = "Vorheriger Monat",
+        nextMonth = "Nächster Monat",
+        monthNames = listOf(
+            "Januar", "Februar", "März", "April", "Mai", "Juni",
+            "Juli", "August", "September", "Oktober", "November", "Dezember",
+        ),
+        weekdayNames = listOf("Mo", "Di", "Mi", "Do", "Fr", "Sa", "So"),
     ),
     initialList = listOf("Klopapier", "Wasser", "Senf", "Hafermilch", "Äpfel", "Haferflocken"),
     suggestions = listOf("Brot", "Margarine", "Sojamilch", "Tofu", "Linsen", "Bananen", "Tomaten", "Nudeln"),

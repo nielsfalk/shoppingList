@@ -26,6 +26,8 @@ class AppState(
     private val languagePersistence: (String) -> Unit = ::storeLanguage,
     todayDate: LocalDate = today(),
 ) {
+    val today: LocalDate = todayDate
+
     var languageCode by mutableStateOf(initialLanguageCode)
         private set
 

@@ -6,7 +6,7 @@ This is a single page app for grocery shopping. It runs entirely in the browser,
 
 **Live app:** https://nielsfalk.github.io/shoppingList/
 
-**Status:** the app is deployed to GitHub Pages; the next step is **T32** (see [Tasks](#tasks)).
+**Status:** the app is deployed to GitHub Pages; the next step is **T33** (see [Tasks](#tasks)).
 
 ## Getting started
 
@@ -274,7 +274,7 @@ Each task is small, can be completed on its own and leaves the app in a working 
 
 ### UI: History
 
-- [ ] **T32** Render a month calendar grid with previous/next month navigation.
+- [x] **T32** Render a month calendar grid with previous/next month navigation.
 - [ ] **T33** Mark days that have a stored list; open a day's list read-only via `#/history/<yyyy-MM-dd>`.
 - [ ] **T34** Add the button "copy to today" to a past day's list.
 

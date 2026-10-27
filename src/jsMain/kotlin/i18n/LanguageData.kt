@@ -10,6 +10,10 @@ data class UiTexts(
     val copyToToday: String,
     val moveUp: String,
     val moveDown: String,
+    val previousMonth: String,
+    val nextMonth: String,
+    val monthNames: List<String>,
+    val weekdayNames: List<String>,
 )
 
 data class LanguageData(

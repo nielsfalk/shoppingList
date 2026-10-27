@@ -42,7 +42,10 @@ fun App() {
                     state::deleteDefaultItem,
                 )
             }
-            is Route.History -> H1 { Text(data.ui.history) }
+            is Route.History -> {
+                H1 { Text(data.ui.history) }
+                HistoryScreen(state.today, data.ui)
+            }
         }
     }
 }
