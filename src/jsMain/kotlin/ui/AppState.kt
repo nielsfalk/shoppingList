@@ -52,6 +52,13 @@ class AppState(
 
     fun dailyListOn(date: LocalDate): DailyList? = if (date == today) dailyList else loadDailyList(storage, date)
 
+    fun copyToToday(date: LocalDate) {
+        if (date >= today) return
+        val oldList = loadDailyList(storage, date) ?: return
+        dailyList = dailyList.copyFrom(oldList)
+        saveDailyList(storage, dailyList)
+    }
+
     fun toggleItem(name: String) {
         dailyList = dailyList.toggle(name)
         saveDailyList(storage, dailyList)

@@ -114,4 +114,30 @@ class AppStateTest {
             storage.keys().forEach(storage::remove)
         }
     }
+
+    @Test
+    fun copiesPastDayToTodayUncheckedAndIgnoresTodayAndMissingDays() {
+        val storage = Storage(prefix = "shoppingList:test:${Random.nextLong()}:")
+        val today = LocalDate.parse("2026-10-27")
+        val pastDay = LocalDate.parse("2026-10-20")
+
+        try {
+            storage.set("day:$pastDay", DailyList(pastDay, listOf(Item("Bread", checked = true), Item("water"))))
+            val state = AppState(storage, initialLanguageCode = "en", languagePersistence = {}, todayDate = today)
+            val initialItems = state.dailyList.items
+
+            state.copyToToday(pastDay)
+
+            assertEquals(initialItems + Item("Bread"), state.dailyList.items)
+            assertEquals(state.dailyList, storage.get<DailyList>("day:$today"))
+
+            val afterCopy = state.dailyList
+            state.copyToToday(today)
+            state.copyToToday(LocalDate.parse("2026-10-21"))
+
+            assertEquals(afterCopy, state.dailyList)
+        } finally {
+            storage.keys().forEach(storage::remove)
+        }
+    }
 }

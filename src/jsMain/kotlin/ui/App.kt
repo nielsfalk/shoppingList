@@ -3,11 +3,13 @@ package ui
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
 import kotlinx.browser.document
+import kotlinx.browser.window
 import org.jetbrains.compose.web.dom.Div
 import org.jetbrains.compose.web.dom.H1
 import org.jetbrains.compose.web.dom.Text
 import routing.Route
 import routing.rememberRoute
+import routing.toHash
 
 @Composable
 fun App() {
@@ -50,6 +52,10 @@ fun App() {
                     storedDays = state.storedDays(),
                     selectedList = route.date?.let(state::dailyListOn),
                     texts = data.ui,
+                    onCopyToToday = { date ->
+                        state.copyToToday(date)
+                        window.location.hash = Route.DailyList.toHash()
+                    },
                 )
             }
         }

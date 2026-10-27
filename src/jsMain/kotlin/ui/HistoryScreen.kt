@@ -29,6 +29,7 @@ fun HistoryScreen(
     storedDays: Set<LocalDate>,
     selectedList: DailyList?,
     texts: UiTexts,
+    onCopyToToday: (LocalDate) -> Unit,
 ) {
     var month by remember(selectedDate) { mutableStateOf((selectedDate ?: today).toCalendarMonth()) }
 
@@ -66,13 +67,19 @@ fun HistoryScreen(
             }
         }
         if (selectedDate != null) {
-            ReadOnlyDailyList(selectedDate, selectedList, texts)
+            ReadOnlyDailyList(selectedDate, selectedList, texts, canCopy = selectedDate < today, onCopyToToday)
         }
     }
 }
 
 @Composable
-private fun ReadOnlyDailyList(date: LocalDate, dailyList: DailyList?, texts: UiTexts) {
+private fun ReadOnlyDailyList(
+    date: LocalDate,
+    dailyList: DailyList?,
+    texts: UiTexts,
+    canCopy: Boolean,
+    onCopyToToday: (LocalDate) -> Unit,
+) {
     Div(attrs = { classes("history-day") }) {
         H3 { Text(date.toString()) }
         if (dailyList == null) {
@@ -86,6 +93,14 @@ private fun ReadOnlyDailyList(date: LocalDate, dailyList: DailyList?, texts: UiT
                     }) {
                         Text("${if (item.checked) "☑" else "☐"} ${item.name}")
                     }
+                }
+            }
+            if (canCopy) {
+                Button(attrs = {
+                    classes("copy-button")
+                    onClick { onCopyToToday(date) }
+                }) {
+                    Text(texts.copyToToday)
                 }
             }
         }
