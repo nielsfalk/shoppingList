@@ -6,7 +6,7 @@ This is a single page app for grocery shopping. It runs entirely in the browser,
 
 **Live app:** https://nielsfalk.github.io/shoppingList/
 
-**Status:** the app is deployed to GitHub Pages; the next step is **T23** (see [Tasks](#tasks)).
+**Status:** the app is deployed to GitHub Pages; the next step is **T24** (see [Tasks](#tasks)).
 
 ## Getting started
 
@@ -256,7 +256,7 @@ Each task is small, can be completed on its own and leaves the app in a working 
 
 ### Routing
 
-- [ ] **T23** Implement a tiny hash router for `#/`, `#/default` and `#/history/<yyyy-MM-dd>`.
+- [x] **T23** Implement a tiny hash router for `#/`, `#/default` and `#/history/<yyyy-MM-dd>`.
 - [ ] **T24** Add a navigation bar linking daily list, default list and history.
 - [ ] **T25** Add a language switch to the navigation bar that changes the language without a page reload (depends on T17, T24).
 
