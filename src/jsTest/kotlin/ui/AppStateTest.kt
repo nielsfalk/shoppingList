@@ -2,6 +2,8 @@ package ui
 
 import i18n.En
 import i18n.languageData
+import kotlinx.datetime.LocalDate
+import model.DailyList
 import storage.Storage
 import kotlin.random.Random
 import kotlin.test.Test
@@ -12,15 +14,27 @@ class AppStateTest {
     fun switchingLanguagePersistsChoiceAndLoadsItsInitialList() {
         val storage = Storage(prefix = "shoppingList:test:${Random.nextLong()}:")
         val persistedLanguages = mutableListOf<String>()
+        val date = LocalDate.parse("2026-10-27")
 
         try {
-            val state = AppState(storage, initialLanguageCode = "de", languagePersistence = persistedLanguages::add)
+            val state = AppState(storage, initialLanguageCode = "de", languagePersistence = {
+                persistedLanguages += it
+            }, todayDate = date)
+
+            assertEquals(date, state.dailyList.date)
+            assertEquals(languageData("de").initialList, state.dailyList.items.map { it.name })
+            val firstItem = state.dailyList.items.first()
+            state.toggleItem(firstItem.name)
+            assertEquals(true, state.dailyList.items.first().checked)
+            assertEquals(state.dailyList, storage.get<DailyList>("day:$date"))
 
             state.switchLanguage("en")
 
             assertEquals("en", state.languageCode)
             assertEquals(En, state.languageData)
             assertEquals(languageData("en").initialList, state.defaultList.items)
+            assertEquals(firstItem.name, state.dailyList.items.first().name)
+            assertEquals(true, state.dailyList.items.first().checked)
             assertEquals(listOf("en"), persistedLanguages)
         } finally {
             storage.keys().forEach(storage::remove)

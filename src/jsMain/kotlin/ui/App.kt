@@ -21,7 +21,10 @@ fun App() {
         H1(attrs = { classes("app-title") }) { Text("shoppingList") }
         NavigationBar(route, data, state.languageCode, state::switchLanguage)
         when (route) {
-            Route.DailyList -> H1 { Text(data.ui.dailyList) }
+            Route.DailyList -> {
+                H1 { Text(data.ui.dailyList) }
+                DailyListScreen(state.dailyList, state::toggleItem)
+            }
             Route.DefaultList -> H1 { Text(data.ui.defaultList) }
             is Route.History -> H1 { Text(data.ui.history) }
         }
