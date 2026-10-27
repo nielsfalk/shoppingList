@@ -27,6 +27,21 @@ class DailyListTest {
     }
 
     @Test
+    fun togglesAndDeletesItemsByTrimmedCaseInsensitiveName() {
+        val water = Item(name = "Water")
+        val milk = Item(name = "Oat milk", checked = true)
+        val dailyList = DailyList(
+            date = LocalDate.parse("2026-10-27"),
+            items = listOf(water, milk),
+        )
+
+        assertEquals(listOf(water.copy(checked = true), milk), dailyList.toggle("  wAtEr ").items)
+        assertEquals(listOf(water), dailyList.delete(" OAT MILK ").items)
+        assertEquals(dailyList, dailyList.toggle("Missing"))
+        assertEquals(dailyList, dailyList.delete("Missing"))
+    }
+
+    @Test
     fun serializesToTheStoredJsonShape() {
         val dailyList = DailyList(
             date = LocalDate.parse("2026-10-27"),

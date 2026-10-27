@@ -7,3 +7,5 @@ data class Item(
     val name: String,
     val checked: Boolean = false,
 )
+
+internal fun String.normalizedName(): String = trim().lowercase()

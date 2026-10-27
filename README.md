@@ -6,7 +6,7 @@ This is a single page app for grocery shopping. It runs entirely in the browser,
 
 **Live app:** https://nielsfalk.github.io/shoppingList/
 
-**Status:** the app is deployed to GitHub Pages; the next step is **T07** (see [Tasks](#tasks)).
+**Status:** the app is deployed to GitHub Pages; the next step is **T08** (see [Tasks](#tasks)).
 
 ## Getting started
 
@@ -210,7 +210,7 @@ Each task is small, can be completed on its own and leaves the app in a working 
 
 - [x] **T05** Create `Item` (name, checked) and `DailyList` (date, items) data classes with `@Serializable`.
 - [x] **T06** Implement the sort order "unchecked first, then list order" with tests.
-- [ ] **T07** Implement toggling the checked state and deleting an item with tests.
+- [x] **T07** Implement toggling the checked state and deleting an item with tests.
 - [ ] **T08** Implement adding an item to the daily list with the duplicate rule (trimmed, case-insensitive; a checked duplicate gets unchecked) with tests.
 - [ ] **T09** Implement "add to default list" (adds to the default list and to today's list) with tests.
 - [ ] **T10** Implement moving an item up/down and deleting an item in the default list with tests.
