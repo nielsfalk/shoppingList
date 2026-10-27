@@ -18,6 +18,7 @@ val De = LanguageData(
             "Juli", "August", "September", "Oktober", "November", "Dezember",
         ),
         weekdayNames = listOf("Mo", "Di", "Mi", "Do", "Fr", "Sa", "So"),
+        noList = "Für diesen Tag gibt es keine Liste.",
     ),
     initialList = listOf("Klopapier", "Wasser", "Senf", "Hafermilch", "Äpfel", "Haferflocken"),
     suggestions = listOf("Brot", "Margarine", "Sojamilch", "Tofu", "Linsen", "Bananen", "Tomaten", "Nudeln"),

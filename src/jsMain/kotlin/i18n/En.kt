@@ -18,6 +18,7 @@ val En = LanguageData(
             "July", "August", "September", "October", "November", "December",
         ),
         weekdayNames = listOf("Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"),
+        noList = "There is no list for this day.",
     ),
     initialList = listOf("Toilet paper", "Water", "Mustard", "Oat milk", "Apples", "Rolled oats"),
     suggestions = listOf("Bread", "Margarine", "Soy milk", "Tofu", "Lentils", "Bananas", "Tomatoes", "Pasta"),

@@ -4,6 +4,7 @@ import i18n.En
 import i18n.languageData
 import kotlinx.datetime.LocalDate
 import model.DailyList
+import model.Item
 import storage.Storage
 import kotlin.random.Random
 import kotlin.test.Test
@@ -90,6 +91,25 @@ class AppStateTest {
             assertEquals(initialList.drop(1), state.defaultList.items)
             assertEquals(initialList.drop(1), storage.get<List<String>>("defaultList"))
             assertEquals(dailyListBeforeDelete, state.dailyList)
+        } finally {
+            storage.keys().forEach(storage::remove)
+        }
+    }
+
+    @Test
+    fun exposesStoredDaysAndListsOfPastDays() {
+        val storage = Storage(prefix = "shoppingList:test:${Random.nextLong()}:")
+        val today = LocalDate.parse("2026-10-27")
+        val pastDay = LocalDate.parse("2026-10-20")
+
+        try {
+            storage.set("day:$pastDay", DailyList(pastDay, listOf(Item("Bread", checked = true))))
+            val state = AppState(storage, initialLanguageCode = "en", languagePersistence = {}, todayDate = today)
+
+            assertEquals(setOf(pastDay, today), state.storedDays())
+            assertEquals(listOf(Item("Bread", checked = true)), state.dailyListOn(pastDay)?.items)
+            assertEquals(state.dailyList, state.dailyListOn(today))
+            assertEquals(null, state.dailyListOn(LocalDate.parse("2026-10-21")))
         } finally {
             storage.keys().forEach(storage::remove)
         }

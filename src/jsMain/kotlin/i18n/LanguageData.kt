@@ -14,6 +14,7 @@ data class UiTexts(
     val nextMonth: String,
     val monthNames: List<String>,
     val weekdayNames: List<String>,
+    val noList: String,
 )
 
 data class LanguageData(

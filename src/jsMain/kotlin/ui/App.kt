@@ -44,7 +44,13 @@ fun App() {
             }
             is Route.History -> {
                 H1 { Text(data.ui.history) }
-                HistoryScreen(state.today, data.ui)
+                HistoryScreen(
+                    today = state.today,
+                    selectedDate = route.date,
+                    storedDays = state.storedDays(),
+                    selectedList = route.date?.let(state::dailyListOn),
+                    texts = data.ui,
+                )
             }
         }
     }

@@ -19,6 +19,7 @@ import storage.loadDailyList
 import storage.loadDefaultList
 import storage.saveDailyList
 import storage.saveDefaultList
+import storage.storedDays
 
 class AppState(
     private val storage: Storage = Storage(),
@@ -46,6 +47,10 @@ class AppState(
         this.languageCode = languageCode
         defaultList = loadDefaultList(storage, languageData(languageCode).initialList)
     }
+
+    fun storedDays(): Set<LocalDate> = storedDays(storage).toSet()
+
+    fun dailyListOn(date: LocalDate): DailyList? = if (date == today) dailyList else loadDailyList(storage, date)
 
     fun toggleItem(name: String) {
         dailyList = dailyList.toggle(name)
