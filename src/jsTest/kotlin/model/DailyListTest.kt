@@ -42,6 +42,23 @@ class DailyListTest {
     }
 
     @Test
+    fun addsItemsWithTheDuplicateRule() {
+        val checkedWater = Item(name = "Water", checked = true)
+        val dailyList = DailyList(
+            date = LocalDate.parse("2026-10-27"),
+            items = listOf(checkedWater),
+        )
+
+        val uncheckedDuplicate = dailyList.add(" WATER ")
+
+        assertEquals(listOf(checkedWater.copy(checked = false)), uncheckedDuplicate.items)
+        assertEquals(listOf(checkedWater), dailyList.items)
+        assertEquals(uncheckedDuplicate, uncheckedDuplicate.add("water"))
+        assertEquals(listOf(checkedWater, Item(name = "Oat milk")), dailyList.add(" Oat milk ").items)
+        assertEquals(dailyList, dailyList.add("  "))
+    }
+
+    @Test
     fun serializesToTheStoredJsonShape() {
         val dailyList = DailyList(
             date = LocalDate.parse("2026-10-27"),

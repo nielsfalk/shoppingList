@@ -23,4 +23,21 @@ data class DailyList(
         val normalizedName = name.normalizedName()
         return copy(items = items.filterNot { it.name.normalizedName() == normalizedName })
     }
+
+    fun add(name: String): DailyList {
+        val trimmedName = name.trim()
+        if (trimmedName.isEmpty()) return this
+
+        val normalizedName = trimmedName.normalizedName()
+        val existingIndex = items.indexOfFirst { it.name.normalizedName() == normalizedName }
+        if (existingIndex < 0) return copy(items = items + Item(trimmedName))
+
+        val existingItem = items[existingIndex]
+        if (!existingItem.checked) return this
+        return copy(
+            items = items.mapIndexed { index, item ->
+                if (index == existingIndex) item.copy(checked = false) else item
+            },
+        )
+    }
 }
