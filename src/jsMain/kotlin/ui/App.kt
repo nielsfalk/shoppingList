@@ -23,7 +23,7 @@ fun App() {
         when (route) {
             Route.DailyList -> {
                 H1 { Text(data.ui.dailyList) }
-                DailyListScreen(state.dailyList, state::toggleItem)
+                DailyListScreen(state.dailyList, data.ui.delete, state::toggleItem, state::deleteItem)
             }
             Route.DefaultList -> H1 { Text(data.ui.defaultList) }
             is Route.History -> H1 { Text(data.ui.history) }

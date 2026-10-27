@@ -35,6 +35,11 @@ class AppStateTest {
             assertEquals(languageData("en").initialList, state.defaultList.items)
             assertEquals(firstItem.name, state.dailyList.items.first().name)
             assertEquals(true, state.dailyList.items.first().checked)
+
+            state.deleteItem(firstItem.name)
+
+            assertEquals(false, state.dailyList.items.any { it.name == firstItem.name })
+            assertEquals(state.dailyList, storage.get<DailyList>("day:$date"))
             assertEquals(listOf("en"), persistedLanguages)
         } finally {
             storage.keys().forEach(storage::remove)

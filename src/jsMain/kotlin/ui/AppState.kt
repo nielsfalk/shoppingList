@@ -47,6 +47,11 @@ class AppState(
         dailyList = dailyList.toggle(name)
         saveDailyList(storage, dailyList)
     }
+
+    fun deleteItem(name: String) {
+        dailyList = dailyList.delete(name)
+        saveDailyList(storage, dailyList)
+    }
 }
 
 private fun loadOrCreateDailyList(storage: Storage, date: LocalDate, defaultList: DefaultList): DailyList {
