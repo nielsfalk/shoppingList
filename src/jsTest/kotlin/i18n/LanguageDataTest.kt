@@ -17,6 +17,18 @@ class LanguageDataTest {
         assertEquals("In heutige Liste übernehmen", De.ui.copyToToday)
     }
 
+    @Test
+    fun englishLanguageDataMatchesTheDocumentedInitialListAndHasValidLists() {
+        assertEquals(
+            listOf("Toilet paper", "Water", "Mustard", "Oat milk", "Apples", "Rolled oats"),
+            En.initialList,
+        )
+        assertValidList(En.initialList)
+        assertValidList(En.suggestions)
+        assertEquals("Daily list", En.ui.dailyList)
+        assertEquals("Copy to today", En.ui.copyToToday)
+    }
+
     private fun assertValidList(items: List<String>) {
         assertTrue(items.all { it.isNotBlank() })
         assertEquals(items.size, items.distinctBy { it.trim().lowercase() }.size)
