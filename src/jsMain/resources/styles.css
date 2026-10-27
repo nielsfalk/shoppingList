@@ -1,0 +1,158 @@
+/* Fonts: SIL Open Font License 1.1, see fonts/OFL-*.txt */
+@font-face {
+    font-family: "Orbitron";
+    font-style: normal;
+    font-weight: 700;
+    font-display: swap;
+    src: url("fonts/orbitron-700.woff2") format("woff2");
+}
+
+@font-face {
+    font-family: "Share Tech Mono";
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url("fonts/share-tech-mono-400.woff2") format("woff2");
+}
+
+:root {
+    --color-background: #0a0a12;
+    --color-surface: #12121f;
+    --color-text: #e6e6f0;
+    --color-text-dim: #8a8aa3;
+    --color-magenta: #ff2bd6;
+    --color-cyan: #00f0ff;
+    --color-yellow: #f5ff00;
+    --font-heading: "Orbitron", "Share Tech Mono", monospace;
+    --font-body: "Share Tech Mono", ui-monospace, monospace;
+    --space-1: 0.25rem;
+    --space-2: 0.5rem;
+    --space-3: 1rem;
+    --space-4: 1.5rem;
+    --tap-size: 44px;
+    --cut: 10px;
+    color-scheme: dark;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html {
+    background: var(--color-background);
+    color: var(--color-text);
+    font-family: var(--font-body);
+    font-size: 100%;
+    line-height: 1.5;
+    -webkit-text-size-adjust: 100%;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+}
+
+h1,
+h2,
+h3 {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin: var(--space-3) 0 var(--space-2);
+}
+
+h1 {
+    font-size: 1.4rem;
+}
+
+h2 {
+    font-size: 1.1rem;
+}
+
+h3 {
+    font-size: 1rem;
+}
+
+a {
+    color: var(--color-cyan);
+}
+
+.app {
+    width: 100%;
+    max-width: 40rem;
+    margin: 0 auto;
+    padding: var(--space-3);
+}
+
+.app-title {
+    font-size: 1.6rem;
+    color: var(--color-magenta);
+}
+
+.navigation {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-2);
+}
+
+.language-switch {
+    display: flex;
+    gap: var(--space-2);
+    margin-left: auto;
+}
+
+.shopping-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    margin: var(--space-3) 0;
+    padding: 0;
+    list-style: none;
+}
+
+.shopping-list-item {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+}
+
+.shopping-item,
+.default-item-name {
+    flex: 1;
+    min-width: 0;
+    overflow-wrap: anywhere;
+}
+
+.add-item-form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+}
+
+.add-item-input {
+    flex: 1 1 100%;
+}
+
+.calendar-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-2);
+}
+
+.calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+    gap: var(--space-1);
+    text-align: center;
+}
+
+@media (min-width: 40rem) {
+    .add-item-input {
+        flex-basis: auto;
+    }
+}

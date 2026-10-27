@@ -5,6 +5,9 @@ const APP_FILES = [
     "index.html",
     "shoppingList.js",
     "manifest.webmanifest",
+    "styles.css",
+    "fonts/orbitron-700.woff2",
+    "fonts/share-tech-mono-400.woff2",
     "icons/icon-192.png",
     "icons/icon-512.png",
 ];
