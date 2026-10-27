@@ -6,7 +6,7 @@ This is a single page app for grocery shopping. It runs entirely in the browser,
 
 **Live app:** https://nielsfalk.github.io/shoppingList/
 
-**Status:** GitHub Pages deployment is configured; the next step is **T04** (see [Tasks](#tasks)).
+**Status:** the app is deployed to GitHub Pages; the next step is **T05** (see [Tasks](#tasks)).
 
 ## Getting started
 
@@ -204,7 +204,7 @@ Each task is small, can be completed on its own and leaves the app in a working 
 - [x] **T01** Switch `build.gradle.kts` from `kotlin("jvm")` to Kotlin Multiplatform with `js { browser() }`, add Compose HTML, `kotlinx.serialization` and `kotlinx-datetime`.
 - [x] **T02** Add `index.html` and a `main()` that renders "Hello shoppingList" with Compose HTML; verify with `./gradlew jsBrowserDevelopmentRun`.
 - [x] **T03** Add `.github/workflows/pages.yml` that builds `jsBrowserDistribution` and deploys it to GitHub Pages.
-- [ ] **T04** Verify the deployed page loads under `https://nielsfalk.github.io/shoppingList/` (relative paths only).
+- [x] **T04** Verify the deployed page loads under `https://nielsfalk.github.io/shoppingList/` (relative paths only).
 
 ### Model
 
