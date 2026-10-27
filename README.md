@@ -6,7 +6,7 @@ This is a single page app for grocery shopping. It runs entirely in the browser,
 
 **Live app:** https://nielsfalk.github.io/shoppingList/
 
-**Status:** the app is deployed to GitHub Pages; the next step is **T16** (see [Tasks](#tasks)).
+**Status:** the app is deployed to GitHub Pages; the next step is **T17** (see [Tasks](#tasks)).
 
 ## Getting started
 
@@ -243,7 +243,7 @@ Each task is small, can be completed on its own and leaves the app in a working 
 
 - [x] **T14** Add `UiTexts`, `LanguageData` and the German language data `i18n/De.kt` with UI texts, the initial list and vegan-only suggestions (see [Language data](#language-data)).
 - [x] **T15** Add `i18n/En.kt` with the same structure (vegan-only suggestions).
-- [ ] **T16** Select the language from `navigator.language` with fallback `en` and look up its `LanguageData`, with tests.
+- [x] **T16** Select the language from `navigator.language` with fallback `en` and look up its `LanguageData`, with tests.
 - [ ] **T17** Store a manually chosen language under `shoppingList:language` and prefer it over `navigator.language`, with tests.
 
 ### Storage
