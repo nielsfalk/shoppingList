@@ -43,6 +43,8 @@ data class DailyList(
             },
         )
     }
+
+    fun copyFrom(old: DailyList): DailyList = old.items.fold(this) { dailyList, item -> dailyList.add(item.name) }
 }
 
 fun dailyListFor(today: LocalDate, existing: DailyList?, defaultList: DefaultList): DailyList {

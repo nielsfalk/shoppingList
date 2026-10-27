@@ -76,6 +76,33 @@ class DailyListTest {
     }
 
     @Test
+    fun copiesOldItemsToTodayUncheckedUsingTheDuplicateRule() {
+        val today = LocalDate.parse("2026-10-27")
+        val current = DailyList(
+            today,
+            listOf(Item(name = "Water", checked = true), Item(name = "Bread")),
+        )
+        val old = DailyList(
+            LocalDate.parse("2026-10-26"),
+            listOf(
+                Item(name = " water ", checked = true),
+                Item(name = "Bread", checked = true),
+                Item(name = "Oat milk", checked = true),
+            ),
+        )
+
+        assertEquals(
+            DailyList(
+                today,
+                listOf(Item(name = "Water"), Item(name = "Bread"), Item(name = "Oat milk")),
+            ),
+            current.copyFrom(old),
+        )
+        assertEquals(Item(name = "Water", checked = true), current.items.first())
+        assertEquals(Item(name = "Oat milk", checked = true), old.items.last())
+    }
+
+    @Test
     fun serializesToTheStoredJsonShape() {
         val dailyList = DailyList(
             date = LocalDate.parse("2026-10-27"),
