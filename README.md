@@ -6,7 +6,7 @@ This is a single page app for grocery shopping. It runs entirely in the browser,
 
 **Live app:** https://nielsfalk.github.io/shoppingList/
 
-**Status:** the app is deployed to GitHub Pages; the next step is **T37** (see [Tasks](#tasks)).
+**Status:** the app is deployed to GitHub Pages; the next step is **T38** (see [Tasks](#tasks)).
 
 ## Getting started
 
@@ -282,7 +282,7 @@ Each task is small, can be completed on its own and leaves the app in a working 
 
 - [x] **T35** Add `manifest.webmanifest` and icons so the app can be installed.
 - [x] **T36** Add a service worker that caches the app files (including the bundled language data) for offline use.
-- [ ] **T37** Use a versioned cache in the service worker, remove old caches and reload the app after an update.
+- [x] **T37** Use a versioned cache in the service worker, remove old caches and reload the app after an update.
 
 ### Design
 

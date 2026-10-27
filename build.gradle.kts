@@ -33,3 +33,13 @@ kotlin {
         }
     }
 }
+
+val buildVersion = providers.environmentVariable("GITHUB_SHA").orElse("dev")
+
+tasks.named<ProcessResources>("jsProcessResources") {
+    val version = buildVersion.get()
+    inputs.property("buildVersion", version)
+    filesMatching("sw.js") {
+        filter { line -> line.replace("__BUILD_VERSION__", version) }
+    }
+}
