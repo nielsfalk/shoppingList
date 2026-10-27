@@ -11,12 +11,14 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import model.DailyList
 import model.DefaultList
+import model.addToDefaultList
 import model.dailyListFor
 import model.today
 import storage.Storage
 import storage.loadDailyList
 import storage.loadDefaultList
 import storage.saveDailyList
+import storage.saveDefaultList
 
 class AppState(
     private val storage: Storage = Storage(),
@@ -50,6 +52,19 @@ class AppState(
 
     fun deleteItem(name: String) {
         dailyList = dailyList.delete(name)
+        saveDailyList(storage, dailyList)
+    }
+
+    fun addToDailyList(name: String) {
+        dailyList = dailyList.add(name)
+        saveDailyList(storage, dailyList)
+    }
+
+    fun addToDefaultList(name: String) {
+        val (updatedDefaultList, updatedDailyList) = addToDefaultList(defaultList, dailyList, name)
+        defaultList = updatedDefaultList
+        dailyList = updatedDailyList
+        saveDefaultList(storage, defaultList, languageData.initialList)
         saveDailyList(storage, dailyList)
     }
 }

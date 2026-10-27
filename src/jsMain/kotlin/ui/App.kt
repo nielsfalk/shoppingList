@@ -24,7 +24,13 @@ fun App() {
             Route.DailyList -> {
                 H1 { Text(data.ui.dailyList) }
                 DailyListScreen(state.dailyList, data.ui.delete, state::toggleItem, state::deleteItem)
-                AddItemForm(data.suggestions, data.ui.addToDailyList)
+                AddItemForm(
+                    data.suggestions,
+                    data.ui.addToDailyList,
+                    data.ui.addToDefaultList,
+                    state::addToDailyList,
+                    state::addToDefaultList,
+                )
             }
             Route.DefaultList -> H1 { Text(data.ui.defaultList) }
             is Route.History -> H1 { Text(data.ui.history) }

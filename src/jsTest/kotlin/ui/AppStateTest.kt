@@ -45,4 +45,24 @@ class AppStateTest {
             storage.keys().forEach(storage::remove)
         }
     }
+
+    @Test
+    fun addsItemsToDailyAndDefaultListAndPersistsBoth() {
+        val storage = Storage(prefix = "shoppingList:test:${Random.nextLong()}:")
+        val date = LocalDate.parse("2026-10-27")
+
+        try {
+            val state = AppState(storage, initialLanguageCode = "en", languagePersistence = {}, todayDate = date)
+
+            state.addToDailyList("  Bread ")
+            state.addToDefaultList("Tofu")
+
+            assertEquals(listOf("Bread", "Tofu"), state.dailyList.items.takeLast(2).map { it.name })
+            assertEquals("Tofu", state.defaultList.items.last())
+            assertEquals(state.dailyList, storage.get<DailyList>("day:$date"))
+            assertEquals(state.defaultList.items, storage.get<List<String>>("defaultList"))
+        } finally {
+            storage.keys().forEach(storage::remove)
+        }
+    }
 }
