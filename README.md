@@ -6,7 +6,7 @@ This is a single page app for grocery shopping. It runs entirely in the browser,
 
 **Live app:** https://nielsfalk.github.io/shoppingList/
 
-**Status:** all tasks in [Tasks](#tasks) are done; the app is deployed to GitHub Pages.
+**Status:** the app is deployed to GitHub Pages; the next step is **T43** (see [Tasks](#tasks)).
 
 ## Getting started
 
@@ -294,6 +294,15 @@ Each task is small, can be completed on its own and leaves the app in a working 
 ### Documentation
 
 - [x] **T42** Fix typos in this README.
+
+### UI: Daily list improvements
+
+- [ ] **T43** Add a "reset to default" button with a refresh icon to the daily list; it replaces today's list with an unchecked copy of the current default list.
+- [ ] **T44** Also suggest the items of the default list that are not on today's list in the `<datalist>` autocompletion (no duplicates with the language suggestions).
+- [ ] **T45** Add a button to the daily list that adds a new item to today's list (it opens/focuses the text field).
+- [ ] **T46** Replace the text of the delete buttons with an icon; keep the text as `aria-label`.
+- [ ] **T47** Replace the text of the buttons "add to daily list" and "add to default list" with icons; keep the texts as `aria-label`.
+- [ ] **T48** Pressing Enter (new line) in the text field adds the item to today's list and clears the field.
 
 ## License
 
