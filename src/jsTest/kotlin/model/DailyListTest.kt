@@ -59,6 +59,23 @@ class DailyListTest {
     }
 
     @Test
+    fun createsTodaysListFromTheDefaultWhenNoListExists() {
+        val today = LocalDate.parse("2026-10-27")
+        val defaultList = DefaultList(items = listOf("Water", "Oat milk"))
+        val expected = DailyList(
+            date = today,
+            items = listOf(Item(name = "Water"), Item(name = "Oat milk")),
+        )
+        val existing = DailyList(today, listOf(Item(name = "Existing", checked = true)))
+        val anotherDay = DailyList(LocalDate.parse("2026-10-26"), listOf(Item(name = "Yesterday")))
+
+        assertEquals(expected, dailyListFor(today, null, defaultList))
+        assertEquals(existing, dailyListFor(today, existing, defaultList))
+        assertEquals(expected, dailyListFor(today, anotherDay, defaultList))
+        assertEquals(listOf("Water", "Oat milk"), defaultList.items)
+    }
+
+    @Test
     fun serializesToTheStoredJsonShape() {
         val dailyList = DailyList(
             date = LocalDate.parse("2026-10-27"),

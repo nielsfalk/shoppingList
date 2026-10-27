@@ -1,7 +1,10 @@
 package model
 
 import kotlinx.datetime.LocalDate
+import kotlinx.datetime.TimeZone
+import kotlinx.datetime.todayIn
 import kotlinx.serialization.Serializable
+import kotlin.time.Clock
 
 @Serializable
 data class DailyList(
@@ -41,3 +44,10 @@ data class DailyList(
         )
     }
 }
+
+fun dailyListFor(today: LocalDate, existing: DailyList?, defaultList: DefaultList): DailyList {
+    if (existing?.date == today) return existing
+    return DailyList(today, defaultList.items.map(::Item))
+}
+
+fun today(): LocalDate = Clock.System.todayIn(TimeZone.currentSystemDefault())
