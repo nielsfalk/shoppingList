@@ -27,6 +27,10 @@ Items on the daily list can be checked with one tab or deleted on a button. The 
 
 a default list is only stored in locale storage if there is a diff to the original list. The order in defalt lists can be changed.
 
+### Language switch
+
+The language is preselected from the browser settings. A language switch in the navigation bar lets the user choose another supported language (e.g. `de`, `en`). The choice is stored in local storage and takes precedence over the browser setting. Switching the language changes the UI texts, the autocomplete items and the original default list; already stored daily lists and a customized default list are kept unchanged.
+
 ## Architecture
 
 The app is a client-only static single page app written in **Kotlin/JS** with **Compose HTML** and hosted on **GitHub Pages**.
@@ -59,7 +63,7 @@ There is no backend: all user data lives in the browser's `localStorage`, all la
 src/jsMain/kotlin/
   model/      pure logic: daily list, sort order, diff to the original default list
   storage/    localStorage access + JSON serialization (key prefix "shoppingList:")
-  i18n/       language selection from navigator.language, fallback "en"
+  i18n/       language selection: stored choice, else navigator.language, fallback "en"
   routing/    tiny hash router (window.onhashchange)
   ui/         Compose HTML screens: DailyList, History (calendar), DefaultList
 src/jsMain/resources/
@@ -76,6 +80,7 @@ src/jsTest/kotlin/
 |----------------------------------|-----------------------------------------------------------------|
 | `shoppingList:defaultList`       | the user's default list, only present if it differs from the original |
 | `shoppingList:day:<yyyy-MM-dd>`  | the daily list of that day (items with checked state and order) |
+| `shoppingList:language`          | the language chosen with the language switch, only present if chosen manually |
 
 ### Build and deployment
 
@@ -108,6 +113,8 @@ Each task is small, can be completed on its own and leaves the app in a working 
 - [ ] **T11** Add `i18n/de.json` with UI texts, the initial list and autocomplete items.
 - [ ] **T12** Add `i18n/en.json` with the same structure.
 - [ ] **T13** Select the language from `navigator.language` with fallback `en`; load the JSON file relatively.
+- [ ] **T32** Store a manually chosen language under `shoppingList:language` and prefer it over `navigator.language`, with tests.
+- [ ] **T33** Add a language switch to the navigation bar that changes the language without a page reload.
 
 ### Storage
 
