@@ -6,6 +6,25 @@ import kotlin.test.assertEquals
 
 class DefaultListTest {
     @Test
+    fun movesItemsUpAndDownWithoutCrossingListBoundaries() {
+        val defaultList = DefaultList(items = listOf("Bread", "Water", "Apples"))
+
+        assertEquals(listOf("Water", "Bread", "Apples"), defaultList.moveUp(" water ").items)
+        assertEquals(listOf("Bread", "Apples", "Water"), defaultList.moveDown("WATER").items)
+        assertEquals(defaultList, defaultList.moveUp("Bread"))
+        assertEquals(defaultList, defaultList.moveDown("Apples"))
+        assertEquals(defaultList, defaultList.moveUp("Missing"))
+    }
+
+    @Test
+    fun deletesAnItemByTrimmedCaseInsensitiveName() {
+        val defaultList = DefaultList(items = listOf("Bread", "Water", "Apples"))
+
+        assertEquals(listOf("Bread", "Apples"), defaultList.delete(" water ").items)
+        assertEquals(defaultList, defaultList.delete("Missing"))
+    }
+
+    @Test
     fun addToDefaultListUpdatesBothListsAndAppliesDuplicateRules() {
         val defaultList = DefaultList(items = listOf("Water"))
         val dailyList = DailyList(
