@@ -83,6 +83,13 @@ class AppStateTest {
 
             assertEquals(initialList, state.defaultList.items)
             assertEquals(null, storage.getString("defaultList"))
+
+            val dailyListBeforeDelete = state.dailyList
+            state.deleteDefaultItem(initialList[0])
+
+            assertEquals(initialList.drop(1), state.defaultList.items)
+            assertEquals(initialList.drop(1), storage.get<List<String>>("defaultList"))
+            assertEquals(dailyListBeforeDelete, state.dailyList)
         } finally {
             storage.keys().forEach(storage::remove)
         }

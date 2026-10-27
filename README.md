@@ -6,7 +6,7 @@ This is a single page app for grocery shopping. It runs entirely in the browser,
 
 **Live app:** https://nielsfalk.github.io/shoppingList/
 
-**Status:** the app is deployed to GitHub Pages; the next step is **T31** (see [Tasks](#tasks)).
+**Status:** the app is deployed to GitHub Pages; the next step is **T32** (see [Tasks](#tasks)).
 
 ## Getting started
 
@@ -270,7 +270,7 @@ Each task is small, can be completed on its own and leaves the app in a working 
 ### UI: Default list
 
 - [x] **T30** Render the default list with up/down buttons to change the order.
-- [ ] **T31** Add a delete button per item of the default list.
+- [x] **T31** Add a delete button per item of the default list.
 
 ### UI: History
 

@@ -14,6 +14,7 @@ fun DefaultListScreen(
     texts: UiTexts,
     onMoveUp: (String) -> Unit,
     onMoveDown: (String) -> Unit,
+    onDelete: (String) -> Unit,
 ) {
     Div(attrs = { classes("default-list-screen", "shopping-list") }) {
         defaultList.items.forEachIndexed { index, name ->
@@ -34,6 +35,13 @@ fun DefaultListScreen(
                     onClick { onMoveDown(name) }
                 }) {
                     Text("▼")
+                }
+                Button(attrs = {
+                    classes("delete-button")
+                    attr("aria-label", "${texts.delete} $name")
+                    onClick { onDelete(name) }
+                }) {
+                    Text(texts.delete)
                 }
             }
         }

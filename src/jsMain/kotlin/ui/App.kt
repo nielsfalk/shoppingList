@@ -39,6 +39,7 @@ fun App() {
                     data.ui,
                     state::moveDefaultItemUp,
                     state::moveDefaultItemDown,
+                    state::deleteDefaultItem,
                 )
             }
             is Route.History -> H1 { Text(data.ui.history) }

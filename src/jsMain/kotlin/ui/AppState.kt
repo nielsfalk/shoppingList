@@ -64,6 +64,8 @@ class AppState(
 
     fun moveDefaultItemDown(name: String) = updateDefaultList(defaultList.moveDown(name))
 
+    fun deleteDefaultItem(name: String) = updateDefaultList(defaultList.delete(name))
+
     private fun updateDefaultList(updatedDefaultList: DefaultList) {
         defaultList = updatedDefaultList
         saveDefaultList(storage, defaultList, languageData.initialList)
