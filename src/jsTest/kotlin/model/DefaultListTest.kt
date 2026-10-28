@@ -1,41 +1,42 @@
 package model
 
+import de.nielsfalk.dataTables.Data
+import io.kotest.core.spec.style.FreeSpec
 import kotlinx.datetime.LocalDate
-import kotlin.test.Test
-import kotlin.test.assertEquals
+import kotlin.test.assertTrue as assert
 
-class DefaultListTest {
-    @Test
-    fun movesItemsUpAndDownWithoutCrossingListBoundaries() {
+class DefaultListTest : FreeSpec({
+    "moves items up and down without crossing list boundaries" {
         val defaultList = DefaultList(items = listOf("Bread", "Water", "Apples"))
 
-        assertEquals(listOf("Water", "Bread", "Apples"), defaultList.moveUp(" water ").items)
-        assertEquals(listOf("Bread", "Apples", "Water"), defaultList.moveDown("WATER").items)
-        assertEquals(defaultList, defaultList.moveUp("Bread"))
-        assertEquals(defaultList, defaultList.moveDown("Apples"))
-        assertEquals(defaultList, defaultList.moveUp("Missing"))
+        assert(defaultList.moveUp(" water ").items == listOf("Water", "Bread", "Apples"))
+        assert(defaultList.moveDown("WATER").items == listOf("Bread", "Apples", "Water"))
+        assert(defaultList.moveUp("Bread") == defaultList)
+        assert(defaultList.moveDown("Apples") == defaultList)
+        assert(defaultList.moveUp("Missing") == defaultList)
     }
 
-    @Test
-    fun deletesAnItemByTrimmedCaseInsensitiveName() {
+    "deletes an item by trimmed case-insensitive name" {
         val defaultList = DefaultList(items = listOf("Bread", "Water", "Apples"))
 
-        assertEquals(listOf("Bread", "Apples"), defaultList.delete(" water ").items)
-        assertEquals(defaultList, defaultList.delete("Missing"))
+        assert(defaultList.delete(" water ").items == listOf("Bread", "Apples"))
+        assert(defaultList.delete("Missing") == defaultList)
     }
 
-    @Test
-    fun detectsDifferencesFromTheInitialList() {
-        val initialList = listOf("Water", "Oat milk", "Apples")
+    @Data("items"                                        ,  "expectedDifference") DifferenceFromInitialList {
+          listOf("Water", "Oat milk", "Apples")          ǀǀ false
+          listOf("Water", "Oat milk", "Apples", "Bread") ǀǀ true
+          listOf("Water", "Oat milk")                    ǀǀ true
+          listOf("Apples", "Oat milk", "Water")          ǀǀ true
+    }.each {
+        "the default list $items differs from the initial list: $expectedDifference" {
+            val initialList = listOf("Water", "Oat milk", "Apples")
 
-        assertEquals(false, DefaultList(initialList).differsFrom(initialList))
-        assertEquals(true, DefaultList(initialList + "Bread").differsFrom(initialList))
-        assertEquals(true, DefaultList(initialList.dropLast(1)).differsFrom(initialList))
-        assertEquals(true, DefaultList(initialList.reversed()).differsFrom(initialList))
+            assert(DefaultList(items).differsFrom(initialList) == expectedDifference)
+        }
     }
 
-    @Test
-    fun addToDefaultListUpdatesBothListsAndAppliesDuplicateRules() {
+    "add to default list updates both lists and applies duplicate rules" {
         val defaultList = DefaultList(items = listOf("Water"))
         val dailyList = DailyList(
             date = LocalDate.parse("2026-10-27"),
@@ -44,14 +45,14 @@ class DefaultListTest {
 
         val (updatedDefaultList, updatedDailyList) = addToDefaultList(defaultList, dailyList, " Oat milk ")
 
-        assertEquals(listOf("Water", "Oat milk"), updatedDefaultList.items)
-        assertEquals(listOf(Item(name = "Water", checked = true)), dailyList.items)
-        assertEquals(listOf(Item(name = "Water", checked = true), Item(name = "Oat milk")), updatedDailyList.items)
+        assert(updatedDefaultList.items == listOf("Water", "Oat milk"))
+        assert(dailyList.items == listOf(Item(name = "Water", checked = true)))
+        assert(updatedDailyList.items == listOf(Item(name = "Water", checked = true), Item(name = "Oat milk")))
 
         val (duplicateDefaultList, duplicateDailyList) = addToDefaultList(defaultList, dailyList, " water ")
 
-        assertEquals(defaultList, duplicateDefaultList)
-        assertEquals(listOf(Item(name = "Water")), duplicateDailyList.items)
-        assertEquals(defaultList, defaultList.add(" "))
+        assert(duplicateDefaultList == defaultList)
+        assert(duplicateDailyList.items == listOf(Item(name = "Water")))
+        assert(defaultList.add(" ") == defaultList)
     }
-}
+})

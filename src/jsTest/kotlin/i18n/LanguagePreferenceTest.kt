@@ -1,36 +1,38 @@
 package i18n
 
+import de.nielsfalk.dataTables.Data
+import io.kotest.core.spec.style.FreeSpec
 import kotlinx.browser.localStorage
-import kotlin.test.Test
-import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
-import kotlin.test.assertNull
+import kotlin.test.assertTrue as assert
 
-class LanguagePreferenceTest {
-    @Test
-    fun prefersSupportedStoredLanguageOverBrowserLocale() {
-        assertEquals("de", selectLanguage("de", "en-US"))
-        assertEquals("de", selectLanguage("DE", "en-US"))
-        assertEquals("de", selectLanguage("fr", "de-DE"))
-        assertEquals("en", selectLanguage(null, null))
+class LanguagePreferenceTest : FreeSpec({
+    @Data("storedLanguage" , "browserLocale" ,  "expectedLanguage") LanguagePreference {
+          "de"             ǀ "en-US"         ǀǀ "de"
+          "DE"             ǀ "en-US"         ǀǀ "de"
+          "fr"             ǀ "de-DE"         ǀǀ "de"
+          null             ǀ null            ǀǀ "en"
+    }.each {
+        "selects $expectedLanguage for the stored language '$storedLanguage' and the browser locale '$browserLocale'" {
+            assert(selectLanguage(storedLanguage, browserLocale) == expectedLanguage)
+        }
     }
 
-    @Test
-    fun storesAndReadsManualLanguagePreference() {
+    "stores and reads a manual language preference" {
         val previousValue = localStorage.getItem("shoppingList:language")
 
         try {
             localStorage.removeItem("shoppingList:language")
-            assertNull(storedLanguage())
+            assert(storedLanguage() == null)
 
             storeLanguage("de")
-            assertEquals("de", storedLanguage())
-            assertEquals("de", currentLanguage())
+            assert(storedLanguage() == "de")
+            assert(currentLanguage() == "de")
 
             storeLanguage("en")
-            assertEquals("en", currentLanguage())
+            assert(currentLanguage() == "en")
             assertFailsWith<IllegalArgumentException> { storeLanguage("fr") }
-            assertEquals("en", storedLanguage())
+            assert(storedLanguage() == "en")
         } finally {
             if (previousValue == null) {
                 localStorage.removeItem("shoppingList:language")
@@ -39,4 +41,4 @@ class LanguagePreferenceTest {
             }
         }
     }
-}
+})

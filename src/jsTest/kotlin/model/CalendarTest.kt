@@ -1,33 +1,29 @@
 package model
 
+import io.kotest.core.spec.style.FreeSpec
 import kotlinx.datetime.LocalDate
-import kotlin.test.Test
-import kotlin.test.assertEquals
-import kotlin.test.assertNull
+import kotlin.test.assertTrue as assert
 
-class CalendarTest {
-    @Test
-    fun buildsMondayFirstWeeksWithBlanksOutsideTheMonth() {
+class CalendarTest : FreeSpec({
+    "builds Monday-first weeks with blanks outside the month" {
         val weeks = CalendarMonth(2026, 10).weeks()
 
-        assertEquals(5, weeks.size)
-        weeks.forEach { assertEquals(7, it.size) }
-        assertEquals(listOf(null, null, null), weeks.first().take(3))
-        assertEquals(LocalDate.parse("2026-10-01"), weeks.first()[3])
-        assertEquals(LocalDate.parse("2026-10-31"), weeks.last()[5])
-        assertNull(weeks.last()[6])
+        assert(weeks.size == 5)
+        assert(weeks.all { it.size == 7 })
+        assert(weeks.first().take(3) == listOf(null, null, null))
+        assert(weeks.first()[3] == LocalDate.parse("2026-10-01"))
+        assert(weeks.last()[5] == LocalDate.parse("2026-10-31"))
+        assert(weeks.last()[6] == null)
     }
 
-    @Test
-    fun navigatesAcrossYearBoundaries() {
-        assertEquals(CalendarMonth(2025, 12), CalendarMonth(2026, 1).previous())
-        assertEquals(CalendarMonth(2027, 1), CalendarMonth(2026, 12).next())
+    "navigates across year boundaries" {
+        assert(CalendarMonth(2026, 1).previous() == CalendarMonth(2025, 12))
+        assert(CalendarMonth(2026, 12).next() == CalendarMonth(2027, 1))
     }
 
-    @Test
-    fun handlesLeapYearsAndConvertsDates() {
-        assertEquals(29, CalendarMonth(2028, 2).days().size)
-        assertEquals(28, CalendarMonth(2026, 2).days().size)
-        assertEquals(CalendarMonth(2026, 10), LocalDate.parse("2026-10-27").toCalendarMonth())
+    "handles leap years and converts dates" {
+        assert(CalendarMonth(2028, 2).days().size == 29)
+        assert(CalendarMonth(2026, 2).days().size == 28)
+        assert(LocalDate.parse("2026-10-27").toCalendarMonth() == CalendarMonth(2026, 10))
     }
-}
+})

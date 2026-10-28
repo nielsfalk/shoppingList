@@ -1,44 +1,41 @@
 package storage
 
+import io.kotest.core.spec.style.FreeSpec
 import kotlinx.browser.localStorage
 import model.Item
 import kotlin.random.Random
-import kotlin.test.Test
-import kotlin.test.assertEquals
-import kotlin.test.assertNull
+import kotlin.test.assertTrue as assert
 
-class StorageTest {
-    @Test
-    fun namespacesKeysAndSerializesValuesAsJson() {
+class StorageTest : FreeSpec({
+    "namespaces keys and serializes values as JSON" {
         val storage = Storage(prefix = "shoppingList:test:${Random.nextLong()}:")
 
         try {
             storage.set("item", Item("Water"))
 
-            assertEquals(Item("Water"), storage.get<Item>("item"))
-            assertEquals("{\"name\":\"Water\",\"checked\":false}", storage.getString("item"))
-            assertEquals(listOf("item"), storage.keys())
+            assert(storage.get<Item>("item") == Item("Water"))
+            assert(storage.getString("item") == "{\"name\":\"Water\",\"checked\":false}")
+            assert(storage.keys() == listOf("item"))
         } finally {
             storage.keys().forEach(storage::remove)
         }
     }
 
-    @Test
-    fun removesNamespacedValuesWithoutTouchingOtherKeys() {
-        val prefix = "shoppingList:test:${Random.nextLong()}:"
-        val storage = Storage(prefix = prefix)
+    "removes namespaced values without touching other keys" {
+        val storage = Storage(prefix = "shoppingList:test:${Random.nextLong()}:")
         val unrelatedKey = "shoppingList:other:${Random.nextLong()}"
 
         try {
             localStorage.setItem(unrelatedKey, "keep")
             storage.setString("temporary", "value")
+
             storage.remove("temporary")
 
-            assertNull(storage.getString("temporary"))
-            assertEquals("keep", localStorage.getItem(unrelatedKey))
-            assertEquals(emptyList(), storage.keys())
+            assert(storage.getString("temporary") == null)
+            assert(localStorage.getItem(unrelatedKey) == "keep")
+            assert(storage.keys().isEmpty())
         } finally {
             localStorage.removeItem(unrelatedKey)
         }
     }
-}
+})

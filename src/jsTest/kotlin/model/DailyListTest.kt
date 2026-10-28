@@ -1,15 +1,14 @@
 package model
 
+import io.kotest.core.spec.style.FreeSpec
 import kotlinx.datetime.LocalDate
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
-import kotlin.test.Test
-import kotlin.test.assertEquals
+import kotlin.test.assertTrue as assert
 
-class DailyListTest {
-    @Test
-    fun sortsUncheckedItemsFirstWithoutChangingTheirRelativeOrder() {
+class DailyListTest : FreeSpec({
+    "sorts unchecked items first without changing their relative order" {
         val checkedFirst = Item(name = "Checked first", checked = true)
         val uncheckedFirst = Item(name = "Unchecked first")
         val checkedSecond = Item(name = "Checked second", checked = true)
@@ -19,15 +18,13 @@ class DailyListTest {
             items = listOf(checkedFirst, uncheckedFirst, checkedSecond, uncheckedSecond),
         )
 
-        assertEquals(
-            listOf(uncheckedFirst, uncheckedSecond, checkedFirst, checkedSecond),
-            dailyList.sortedItems(),
-        )
-        assertEquals(listOf(checkedFirst, uncheckedFirst, checkedSecond, uncheckedSecond), dailyList.items)
+        val sortedItems = dailyList.sortedItems()
+
+        assert(sortedItems == listOf(uncheckedFirst, uncheckedSecond, checkedFirst, checkedSecond))
+        assert(dailyList.items == listOf(checkedFirst, uncheckedFirst, checkedSecond, uncheckedSecond))
     }
 
-    @Test
-    fun togglesAndDeletesItemsByTrimmedCaseInsensitiveName() {
+    "toggles and deletes items by trimmed case-insensitive name" {
         val water = Item(name = "Water")
         val milk = Item(name = "Oat milk", checked = true)
         val dailyList = DailyList(
@@ -35,14 +32,13 @@ class DailyListTest {
             items = listOf(water, milk),
         )
 
-        assertEquals(listOf(water.copy(checked = true), milk), dailyList.toggle("  wAtEr ").items)
-        assertEquals(listOf(water), dailyList.delete(" OAT MILK ").items)
-        assertEquals(dailyList, dailyList.toggle("Missing"))
-        assertEquals(dailyList, dailyList.delete("Missing"))
+        assert(dailyList.toggle("  wAtEr ").items == listOf(water.copy(checked = true), milk))
+        assert(dailyList.delete(" OAT MILK ").items == listOf(water))
+        assert(dailyList.toggle("Missing") == dailyList)
+        assert(dailyList.delete("Missing") == dailyList)
     }
 
-    @Test
-    fun addsItemsWithTheDuplicateRule() {
+    "adds items with the duplicate rule" {
         val checkedWater = Item(name = "Water", checked = true)
         val dailyList = DailyList(
             date = LocalDate.parse("2026-10-27"),
@@ -51,15 +47,14 @@ class DailyListTest {
 
         val uncheckedDuplicate = dailyList.add(" WATER ")
 
-        assertEquals(listOf(checkedWater.copy(checked = false)), uncheckedDuplicate.items)
-        assertEquals(listOf(checkedWater), dailyList.items)
-        assertEquals(uncheckedDuplicate, uncheckedDuplicate.add("water"))
-        assertEquals(listOf(checkedWater, Item(name = "Oat milk")), dailyList.add(" Oat milk ").items)
-        assertEquals(dailyList, dailyList.add("  "))
+        assert(uncheckedDuplicate.items == listOf(checkedWater.copy(checked = false)))
+        assert(dailyList.items == listOf(checkedWater))
+        assert(uncheckedDuplicate.add("water") == uncheckedDuplicate)
+        assert(dailyList.add(" Oat milk ").items == listOf(checkedWater, Item(name = "Oat milk")))
+        assert(dailyList.add("  ") == dailyList)
     }
 
-    @Test
-    fun createsTodaysListFromTheDefaultWhenNoListExists() {
+    "creates today's list from the default list when no list exists" {
         val today = LocalDate.parse("2026-10-27")
         val defaultList = DefaultList(items = listOf("Water", "Oat milk"))
         val expected = DailyList(
@@ -69,14 +64,13 @@ class DailyListTest {
         val existing = DailyList(today, listOf(Item(name = "Existing", checked = true)))
         val anotherDay = DailyList(LocalDate.parse("2026-10-26"), listOf(Item(name = "Yesterday")))
 
-        assertEquals(expected, dailyListFor(today, null, defaultList))
-        assertEquals(existing, dailyListFor(today, existing, defaultList))
-        assertEquals(expected, dailyListFor(today, anotherDay, defaultList))
-        assertEquals(listOf("Water", "Oat milk"), defaultList.items)
+        assert(dailyListFor(today, null, defaultList) == expected)
+        assert(dailyListFor(today, existing, defaultList) == existing)
+        assert(dailyListFor(today, anotherDay, defaultList) == expected)
+        assert(defaultList.items == listOf("Water", "Oat milk"))
     }
 
-    @Test
-    fun copiesOldItemsToTodayUncheckedUsingTheDuplicateRule() {
+    "copies old items to today unchecked using the duplicate rule" {
         val today = LocalDate.parse("2026-10-27")
         val current = DailyList(
             today,
@@ -91,19 +85,14 @@ class DailyListTest {
             ),
         )
 
-        assertEquals(
-            DailyList(
-                today,
-                listOf(Item(name = "Water"), Item(name = "Bread"), Item(name = "Oat milk")),
-            ),
-            current.copyFrom(old),
-        )
-        assertEquals(Item(name = "Water", checked = true), current.items.first())
-        assertEquals(Item(name = "Oat milk", checked = true), old.items.last())
+        val copied = current.copyFrom(old)
+
+        assert(copied == DailyList(today, listOf(Item(name = "Water"), Item(name = "Bread"), Item(name = "Oat milk"))))
+        assert(current.items.first() == Item(name = "Water", checked = true))
+        assert(old.items.last() == Item(name = "Oat milk", checked = true))
     }
 
-    @Test
-    fun serializesToTheStoredJsonShape() {
+    "serializes to the stored JSON shape" {
         val dailyList = DailyList(
             date = LocalDate.parse("2026-10-27"),
             items = listOf(
@@ -114,7 +103,7 @@ class DailyListTest {
         val expectedJson = """{"date":"2026-10-27","items":[{"name":"Wasser","checked":false},{"name":"Senf","checked":true}]}"""
         val json = Json { encodeDefaults = true }
 
-        assertEquals(expectedJson, json.encodeToString(dailyList))
-        assertEquals(dailyList, json.decodeFromString(expectedJson))
+        assert(json.encodeToString(dailyList) == expectedJson)
+        assert(json.decodeFromString<DailyList>(expectedJson) == dailyList)
     }
-}
+})

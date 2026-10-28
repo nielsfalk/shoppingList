@@ -1,27 +1,30 @@
 package routing
 
+import de.nielsfalk.dataTables.Data
+import io.kotest.core.spec.style.FreeSpec
 import kotlinx.datetime.LocalDate
-import kotlin.test.Test
-import kotlin.test.assertEquals
+import kotlin.test.assertTrue as assert
 
-class RouteTest {
-    @Test
-    fun parsesSupportedRoutes() {
-        assertEquals(Route.DailyList, parseRoute("#/"))
-        assertEquals(Route.DefaultList, parseRoute("#/default"))
-        assertEquals(Route.History(LocalDate.parse("2026-10-27")), parseRoute("#/history/2026-10-27"))
+class RouteTest : FreeSpec({
+    @Data("hash"                 ,  "expectedRoute"                             ) ParsedRoute {
+          "#/"                   ǀǀ Route.DailyList
+          "#/default"            ǀǀ Route.DefaultList
+          "#/history/2026-10-27" ǀǀ Route.History(LocalDate.parse("2026-10-27"))
+          "#/unknown"            ǀǀ Route.DailyList
+          "#/history/not-a-date" ǀǀ Route.History()
+    }.each {
+        "parses '$hash' as $expectedRoute" {
+            assert(parseRoute(hash) == expectedRoute)
+        }
     }
 
-    @Test
-    fun invalidRoutesFallBackSafely() {
-        assertEquals(Route.DailyList, parseRoute("#/unknown"))
-        assertEquals(Route.History(), parseRoute("#/history/not-a-date"))
+    @Data("route"                                      ,  "expectedHash"        ) RouteHash {
+          Route.DailyList                              ǀǀ "#/"
+          Route.DefaultList                            ǀǀ "#/default"
+          Route.History(LocalDate.parse("2026-10-27")) ǀǀ "#/history/2026-10-27"
+    }.each {
+        "$route has the hash '$expectedHash'" {
+            assert(route.toHash() == expectedHash)
+        }
     }
-
-    @Test
-    fun routesProduceTheirHashRepresentation() {
-        assertEquals("#/", Route.DailyList.toHash())
-        assertEquals("#/default", Route.DefaultList.toHash())
-        assertEquals("#/history/2026-10-27", Route.History(LocalDate.parse("2026-10-27")).toHash())
-    }
-}
+})

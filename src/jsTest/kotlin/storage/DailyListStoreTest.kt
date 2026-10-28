@@ -1,16 +1,14 @@
 package storage
 
+import io.kotest.core.spec.style.FreeSpec
 import kotlinx.datetime.LocalDate
 import model.DailyList
 import model.Item
 import kotlin.random.Random
-import kotlin.test.Test
-import kotlin.test.assertEquals
-import kotlin.test.assertNull
+import kotlin.test.assertTrue as assert
 
-class DailyListStoreTest {
-    @Test
-    fun savesAndLoadsDailyListsByDate() {
+class DailyListStoreTest : FreeSpec({
+    "saves and loads daily lists by date" {
         val storage = newTestStorage()
         val date = LocalDate.parse("2026-10-27")
         val dailyList = DailyList(date, listOf(Item("Water"), Item("Mustard", checked = true)))
@@ -18,15 +16,14 @@ class DailyListStoreTest {
         try {
             saveDailyList(storage, dailyList)
 
-            assertEquals(dailyList, loadDailyList(storage, date))
-            assertNull(loadDailyList(storage, LocalDate.parse("2026-10-26")))
+            assert(loadDailyList(storage, date) == dailyList)
+            assert(loadDailyList(storage, LocalDate.parse("2026-10-26")) == null)
         } finally {
             storage.keys().forEach(storage::remove)
         }
     }
 
-    @Test
-    fun returnsStoredDaysInChronologicalOrderAndSkipsInvalidKeys() {
+    "returns stored days in chronological order and skips invalid keys" {
         val storage = newTestStorage()
         val dates = listOf("2026-10-27", "2026-01-09", "2025-12-31")
 
@@ -35,14 +32,11 @@ class DailyListStoreTest {
             storage.setString("day:not-a-date", "invalid")
             storage.setString("defaultList", "not a daily list")
 
-            assertEquals(
-                listOf("2025-12-31", "2026-01-09", "2026-10-27").map(LocalDate::parse),
-                storedDays(storage),
-            )
+            assert(storedDays(storage) == listOf("2025-12-31", "2026-01-09", "2026-10-27").map(LocalDate::parse))
         } finally {
             storage.keys().forEach(storage::remove)
         }
     }
+})
 
-    private fun newTestStorage() = Storage(prefix = "shoppingList:test:${Random.nextLong()}:")
-}
+private fun newTestStorage() = Storage(prefix = "shoppingList:test:${Random.nextLong()}:")
