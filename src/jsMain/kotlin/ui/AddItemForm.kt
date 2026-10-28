@@ -40,23 +40,25 @@ fun AddItemForm(
         }
         Button(attrs = {
             classes("add-button")
+            attr("aria-label", addToDailyListLabel)
             if (name.isBlank()) attr("disabled", "")
             onClick {
                 onAddToDailyList(name)
                 name = ""
             }
         }) {
-            Text(addToDailyListLabel)
+            Text("+")
         }
         Button(attrs = {
             classes("add-button")
+            attr("aria-label", addToDefaultListLabel)
             if (name.isBlank()) attr("disabled", "")
             onClick {
                 onAddToDefaultList(name)
                 name = ""
             }
         }) {
-            Text(addToDefaultListLabel)
+            Text("★")
         }
     }
 }
