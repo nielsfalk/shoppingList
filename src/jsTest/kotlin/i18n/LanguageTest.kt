@@ -1,22 +1,31 @@
 package i18n
 
+import de.nielsfalk.dataTables.Data
 import io.kotest.core.spec.style.FreeSpec
 import kotlin.test.assertTrue as assert
 
 class LanguageTest : FreeSpec({
-    "selects a supported language from the browser locale or falls back to English" {
-        assert(selectLanguage("de") == "de")
-        assert(selectLanguage("de-DE") == "de")
-        assert(selectLanguage("en-US") == "en")
-        assert(selectLanguage(null) == "en")
-        assert(selectLanguage("") == "en")
-        assert(selectLanguage("fr-FR") == "en")
+    @Data("locale" ,  "expectedLanguage") LanguageSelection {
+          "de"     ǀǀ "de"
+          "de-DE"  ǀǀ "de"
+          "en-US"  ǀǀ "en"
+          null     ǀǀ "en"
+          ""       ǀǀ "en"
+          "fr-FR"  ǀǀ "en"
+    }.each {
+        "selects $expectedLanguage for the browser locale '$locale'" {
+            assert(selectLanguage(locale) == expectedLanguage)
+        }
     }
 
-    "looks up language data and falls back to English for unknown codes" {
-        assert(languageData("de") === De)
-        assert(languageData("DE") === De)
-        assert(languageData("en") === En)
-        assert(languageData("fr") === En)
+    @Data("code" ,  "expectedLanguageData") LanguageDataLookup {
+          "de"   ǀǀ De
+          "DE"   ǀǀ De
+          "en"   ǀǀ En
+          "fr"   ǀǀ En
+    }.each {
+        "looks up the language data for '$code'" {
+            assert(languageData(code) === expectedLanguageData)
+        }
     }
 })
