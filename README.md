@@ -6,7 +6,7 @@ This is a single page app for grocery shopping. It runs entirely in the browser,
 
 **Live app:** https://nielsfalk.github.io/shoppingList/
 
-**Status:** the app is deployed to GitHub Pages; implementation is current through **T48** (see [Tasks](#tasks)).
+**Status:** the app is deployed to GitHub Pages; implementation is current through **T49** (see [Tasks](#tasks)).
 
 ## Getting started
 
@@ -47,7 +47,7 @@ cd shoppingList
 - The default list starts as the initial list of the current language.
 - Items can be deleted with a `✕` button and their order can be changed with up/down buttons.
 - It is only stored in local storage if it differs from the initial list; otherwise the initial list of the current language is used.
-- Changes to the default list do not change today's list that has already been created (except "add to default list", which adds to both).
+- The default-list text field and "★" button add an item only to the default list, following the duplicate rule; the daily-list "add to default list" action adds to both lists.
 
 ### Initial list
 
@@ -305,6 +305,10 @@ Each task is small, can be completed on its own and leaves the app in a working 
 - [x] **T46** Replace the text of the delete buttons with an icon; keep the text as `aria-label`.
 - [x] **T47** Replace the text of the buttons "add to daily list" and "add to default list" with icons; keep the texts as `aria-label`.
 - [x] **T48** Pressing Enter (new line) in the text field adds the item to today's list and clears the field.
+
+### UI: Default list improvements
+
+- [x] **T49** Add a text field and a "★" button to the default list that add the item to the default list only (duplicate rule applies); keep the text as `aria-label`.
 
 ## License
 

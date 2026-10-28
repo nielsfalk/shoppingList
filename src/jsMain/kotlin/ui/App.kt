@@ -52,6 +52,7 @@ fun App() {
                     state::moveDefaultItemUp,
                     state::moveDefaultItemDown,
                     state::deleteDefaultItem,
+                    state::addDefaultItem,
                 )
             }
             is Route.History -> {
