@@ -1,12 +1,11 @@
 package model
 
+import io.kotest.core.spec.style.FreeSpec
 import kotlinx.datetime.LocalDate
-import kotlin.test.Test
-import kotlin.test.assertEquals
+import kotlin.test.assertTrue as assert
 
-class SuggestionsTest {
-    @Test
-    fun suggestsDefaultItemsNotInTheDailyListWithoutDuplicateLanguageSuggestions() {
+class SuggestionsTest : FreeSpec({
+    "suggests default items not in the daily list without duplicate language suggestions" {
         val dailyList = DailyList(
             date = LocalDate.parse("2026-10-27"),
             items = listOf(Item("Bread"), Item(" water "), Item("Bread", checked = true)),
@@ -19,6 +18,6 @@ class SuggestionsTest {
             listOf("Tofu", "oat milk", "Apples", "Apples"),
         )
 
-        assertEquals(listOf("Tofu", "Oat milk", "Apples"), suggestions)
+        assert(suggestions == listOf("Tofu", "Oat milk", "Apples"))
     }
-}
+})
