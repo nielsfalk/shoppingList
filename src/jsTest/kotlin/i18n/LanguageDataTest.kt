@@ -1,23 +1,21 @@
 package i18n
 
+import de.nielsfalk.dataTables.Data
 import io.kotest.core.spec.style.FreeSpec
 import kotlin.test.assertTrue as assert
 
 class LanguageDataTest : FreeSpec({
-    "German language data matches the documented initial list and has valid lists" {
-        assert(De.initialList == listOf("Klopapier", "Wasser", "Senf", "Hafermilch", "Äpfel", "Haferflocken"))
-        assertValidList(De.initialList)
-        assertValidList(De.suggestions)
-        assert(De.ui.dailyList == "Tagesliste")
-        assert(De.ui.copyToToday == "In heutige Liste übernehmen")
-    }
-
-    "English language data matches the documented initial list and has valid lists" {
-        assert(En.initialList == listOf("Toilet paper", "Water", "Mustard", "Oat milk", "Apples", "Rolled oats"))
-        assertValidList(En.initialList)
-        assertValidList(En.suggestions)
-        assert(En.ui.dailyList == "Daily list")
-        assert(En.ui.copyToToday == "Copy to today")
+    @Data("languageData" ,  "expectedInitialList"                                                           , "expectedDailyList" , "expectedCopyToToday"        ) DocumentedLanguageData {
+          De             ǀǀ listOf("Klopapier", "Wasser", "Senf", "Hafermilch", "Äpfel", "Haferflocken")    ǀ "Tagesliste"        ǀ "In heutige Liste übernehmen"
+          En             ǀǀ listOf("Toilet paper", "Water", "Mustard", "Oat milk", "Apples", "Rolled oats") ǀ "Daily list"        ǀ "Copy to today"
+    }.each {
+        "'${languageData.ui.dailyList}' language data matches the documented initial list and has valid lists" {
+            assert(languageData.initialList == expectedInitialList)
+            assertValidList(languageData.initialList)
+            assertValidList(languageData.suggestions)
+            assert(languageData.ui.dailyList == expectedDailyList)
+            assert(languageData.ui.copyToToday == expectedCopyToToday)
+        }
     }
 })
 
