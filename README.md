@@ -310,6 +310,15 @@ Each task is small, can be completed on its own and leaves the app in a working 
 
 - [x] **T49** Add a text field and a "★" button to the default list that add the item to the default list only (duplicate rule applies); keep the text as `aria-label`.
 
+### Testing
+
+- [ ] **T50** Refactor all tests in `src/jsTest/kotlin/` to Kotest `FreeSpec` with Kotlin power asserts and data tables:
+  - Add Kotest (`FreeSpec`, JS-compatible engine) and the `org.jetbrains.kotlin.plugin.power-assert` plugin (same version as Kotlin); use plain `assert(condition)` instead of `assertEquals`/`assertTrue`.
+  - Add the [Kotlin Datatable Plugin](https://github.com/nielsfalk/kotlin-datatable-plugin) (`io.github.nielsfalk.datatable`, see its KMP sample) and make the test compilation depend on `generateDataTables`.
+  - Turn similar tests that only differ in their data into `@Data(...)` tables with `.each { ... }` (separate inputs from expected values with `ǀǀ`), and run `./gradlew formatDataTables` afterwards.
+  - Separate given (optional), when and then with empty lines; no comments or labels for these blocks.
+  - Keep the test coverage the same (no tests dropped), keep `./gradlew jsTest` green, and update the tech stack table in this README.
+
 ## License
 
 [MIT](LICENSE)
