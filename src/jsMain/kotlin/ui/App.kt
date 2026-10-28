@@ -4,6 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
 import kotlinx.browser.document
 import kotlinx.browser.window
+import model.suggestionsFor
 import org.jetbrains.compose.web.dom.Div
 import org.jetbrains.compose.web.dom.H1
 import org.jetbrains.compose.web.dom.Text
@@ -34,7 +35,7 @@ fun App() {
                     state::deleteItem,
                 )
                 AddItemForm(
-                    data.suggestions,
+                    suggestionsFor(state.dailyList, state.defaultList, data.suggestions),
                     data.ui.addToDailyList,
                     data.ui.addToDefaultList,
                     state::addToDailyList,

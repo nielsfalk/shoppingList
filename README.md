@@ -6,7 +6,7 @@ This is a single page app for grocery shopping. It runs entirely in the browser,
 
 **Live app:** https://nielsfalk.github.io/shoppingList/
 
-**Status:** the app is deployed to GitHub Pages; the next step is **T44** (see [Tasks](#tasks)).
+**Status:** the app is deployed to GitHub Pages; the next step is **T45** (see [Tasks](#tasks)).
 
 ## Getting started
 
@@ -36,7 +36,8 @@ cd shoppingList
 - **Check**: one tap checks an item, another tap unchecks it.
 - **Delete**: every item has a delete button.
 - **Sort order**: unchecked items first, then checked items; within both groups the items keep their position in the list (the order of the default list, newly added items at the end).
-- **Add**: at the end there is a text field with autocompletion from the suggestions (vegan items only) and two buttons:
+- **Suggestions**: autocompletion combines the language suggestions (vegan items only) with items from the default list that are not already in today's list, without duplicates.
+- **Add**: at the end there is a text field and two buttons:
   - "add to daily list" adds the item to today's list.
   - "add to default list" adds the item to the default list **and** to today's list.
 - **Duplicates**: names are compared trimmed and case-insensitively. Adding an item that is already on the list does not create a second entry; if the existing item is checked, it becomes unchecked again.
@@ -299,7 +300,7 @@ Each task is small, can be completed on its own and leaves the app in a working 
 ### UI: Daily list improvements
 
 - [x] **T43** Add a "reset to default" button with a refresh icon to the daily list; it replaces today's list with an unchecked copy of the current default list.
-- [ ] **T44** Also suggest the items of the default list that are not on today's list in the `<datalist>` autocompletion (no duplicates with the language suggestions).
+- [x] **T44** Also suggest the items of the default list that are not on today's list in the `<datalist>` autocompletion (no duplicates with the language suggestions).
 - [ ] **T45** Add a button to the daily list that adds a new item to today's list (it opens/focuses the text field).
 - [ ] **T46** Replace the text of the delete buttons with an icon; keep the text as `aria-label`.
 - [ ] **T47** Replace the text of the buttons "add to daily list" and "add to default list" with icons; keep the texts as `aria-label`.
