@@ -2,17 +2,16 @@ package ui
 
 import i18n.En
 import i18n.languageData
+import io.kotest.core.spec.style.FreeSpec
 import kotlinx.datetime.LocalDate
 import model.DailyList
 import model.Item
 import storage.Storage
 import kotlin.random.Random
-import kotlin.test.Test
-import kotlin.test.assertEquals
+import kotlin.test.assertTrue as assert
 
-class AppStateTest {
-    @Test
-    fun switchingLanguagePersistsChoiceAndLoadsItsInitialList() {
+class AppStateTest : FreeSpec({
+    "switching the language persists the choice and loads its initial list" {
         val storage = Storage(prefix = "shoppingList:test:${Random.nextLong()}:")
         val persistedLanguages = mutableListOf<String>()
         val date = LocalDate.parse("2026-10-27")
@@ -22,33 +21,32 @@ class AppStateTest {
                 persistedLanguages += it
             }, todayDate = date)
 
-            assertEquals(date, state.dailyList.date)
-            assertEquals(languageData("de").initialList, state.dailyList.items.map { it.name })
+            assert(state.dailyList.date == date)
+            assert(state.dailyList.items.map { it.name } == languageData("de").initialList)
             val firstItem = state.dailyList.items.first()
             state.toggleItem(firstItem.name)
-            assertEquals(true, state.dailyList.items.first().checked)
-            assertEquals(state.dailyList, storage.get<DailyList>("day:$date"))
+            assert(state.dailyList.items.first().checked)
+            assert(storage.get<DailyList>("day:$date") == state.dailyList)
 
             state.switchLanguage("en")
 
-            assertEquals("en", state.languageCode)
-            assertEquals(En, state.languageData)
-            assertEquals(languageData("en").initialList, state.defaultList.items)
-            assertEquals(firstItem.name, state.dailyList.items.first().name)
-            assertEquals(true, state.dailyList.items.first().checked)
+            assert(state.languageCode == "en")
+            assert(state.languageData == En)
+            assert(state.defaultList.items == languageData("en").initialList)
+            assert(state.dailyList.items.first().name == firstItem.name)
+            assert(state.dailyList.items.first().checked)
 
             state.deleteItem(firstItem.name)
 
-            assertEquals(false, state.dailyList.items.any { it.name == firstItem.name })
-            assertEquals(state.dailyList, storage.get<DailyList>("day:$date"))
-            assertEquals(listOf("en"), persistedLanguages)
+            assert(!state.dailyList.items.any { it.name == firstItem.name })
+            assert(storage.get<DailyList>("day:$date") == state.dailyList)
+            assert(persistedLanguages == listOf("en"))
         } finally {
             storage.keys().forEach(storage::remove)
         }
     }
 
-    @Test
-    fun addsItemsToDailyAndDefaultListAndPersistsBoth() {
+    "adds items to the daily and default list and persists both" {
         val storage = Storage(prefix = "shoppingList:test:${Random.nextLong()}:")
         val date = LocalDate.parse("2026-10-27")
 
@@ -58,17 +56,16 @@ class AppStateTest {
             state.addToDailyList("  Bread ")
             state.addToDefaultList("Tofu")
 
-            assertEquals(listOf("Bread", "Tofu"), state.dailyList.items.takeLast(2).map { it.name })
-            assertEquals("Tofu", state.defaultList.items.last())
-            assertEquals(state.dailyList, storage.get<DailyList>("day:$date"))
-            assertEquals(state.defaultList.items, storage.get<List<String>>("defaultList"))
+            assert(state.dailyList.items.takeLast(2).map { it.name } == listOf("Bread", "Tofu"))
+            assert(state.defaultList.items.last() == "Tofu")
+            assert(storage.get<DailyList>("day:$date") == state.dailyList)
+            assert(storage.get<List<String>>("defaultList") == state.defaultList.items)
         } finally {
             storage.keys().forEach(storage::remove)
         }
     }
 
-    @Test
-    fun resetsTodayToTheCurrentDefaultListUncheckedAndPersistsIt() {
+    "resets today to the current default list unchecked and persists it" {
         val storage = Storage(prefix = "shoppingList:test:${Random.nextLong()}:")
         val date = LocalDate.parse("2026-10-27")
 
@@ -81,15 +78,14 @@ class AppStateTest {
             state.resetToDefault()
 
             val expectedItems = state.defaultList.items.map(::Item)
-            assertEquals(expectedItems, state.dailyList.items)
-            assertEquals(state.dailyList, storage.get<DailyList>("day:$date"))
+            assert(state.dailyList.items == expectedItems)
+            assert(storage.get<DailyList>("day:$date") == state.dailyList)
         } finally {
             storage.keys().forEach(storage::remove)
         }
     }
 
-    @Test
-    fun reordersDefaultListAndRemovesStoredListWhenItMatchesInitialAgain() {
+    "reorders the default list and removes the stored list when it matches the initial list again" {
         val storage = Storage(prefix = "shoppingList:test:${Random.nextLong()}:")
         val initialList = languageData("en").initialList
 
@@ -98,27 +94,26 @@ class AppStateTest {
 
             state.moveDefaultItemDown(initialList[0])
 
-            assertEquals(listOf(initialList[1], initialList[0]), state.defaultList.items.take(2))
-            assertEquals(state.defaultList.items, storage.get<List<String>>("defaultList"))
+            assert(state.defaultList.items.take(2) == listOf(initialList[1], initialList[0]))
+            assert(storage.get<List<String>>("defaultList") == state.defaultList.items)
 
             state.moveDefaultItemUp(initialList[0])
 
-            assertEquals(initialList, state.defaultList.items)
-            assertEquals(null, storage.getString("defaultList"))
+            assert(state.defaultList.items == initialList)
+            assert(storage.getString("defaultList") == null)
 
             val dailyListBeforeDelete = state.dailyList
             state.deleteDefaultItem(initialList[0])
 
-            assertEquals(initialList.drop(1), state.defaultList.items)
-            assertEquals(initialList.drop(1), storage.get<List<String>>("defaultList"))
-            assertEquals(dailyListBeforeDelete, state.dailyList)
+            assert(state.defaultList.items == initialList.drop(1))
+            assert(storage.get<List<String>>("defaultList") == initialList.drop(1))
+            assert(state.dailyList == dailyListBeforeDelete)
         } finally {
             storage.keys().forEach(storage::remove)
         }
     }
 
-    @Test
-    fun exposesStoredDaysAndListsOfPastDays() {
+    "exposes stored days and lists of past days" {
         val storage = Storage(prefix = "shoppingList:test:${Random.nextLong()}:")
         val today = LocalDate.parse("2026-10-27")
         val pastDay = LocalDate.parse("2026-10-20")
@@ -127,17 +122,16 @@ class AppStateTest {
             storage.set("day:$pastDay", DailyList(pastDay, listOf(Item("Bread", checked = true))))
             val state = AppState(storage, initialLanguageCode = "en", languagePersistence = {}, todayDate = today)
 
-            assertEquals(setOf(pastDay, today), state.storedDays())
-            assertEquals(listOf(Item("Bread", checked = true)), state.dailyListOn(pastDay)?.items)
-            assertEquals(state.dailyList, state.dailyListOn(today))
-            assertEquals(null, state.dailyListOn(LocalDate.parse("2026-10-21")))
+            assert(state.storedDays() == setOf(pastDay, today))
+            assert(state.dailyListOn(pastDay)?.items == listOf(Item("Bread", checked = true)))
+            assert(state.dailyListOn(today) == state.dailyList)
+            assert(state.dailyListOn(LocalDate.parse("2026-10-21")) == null)
         } finally {
             storage.keys().forEach(storage::remove)
         }
     }
 
-    @Test
-    fun copiesPastDayToTodayUncheckedAndIgnoresTodayAndMissingDays() {
+    "copies a past day to today unchecked and ignores today and missing days" {
         val storage = Storage(prefix = "shoppingList:test:${Random.nextLong()}:")
         val today = LocalDate.parse("2026-10-27")
         val pastDay = LocalDate.parse("2026-10-20")
@@ -149,16 +143,16 @@ class AppStateTest {
 
             state.copyToToday(pastDay)
 
-            assertEquals(initialItems + Item("Bread"), state.dailyList.items)
-            assertEquals(state.dailyList, storage.get<DailyList>("day:$today"))
+            assert(state.dailyList.items == initialItems + Item("Bread"))
+            assert(storage.get<DailyList>("day:$today") == state.dailyList)
 
             val afterCopy = state.dailyList
             state.copyToToday(today)
             state.copyToToday(LocalDate.parse("2026-10-21"))
 
-            assertEquals(afterCopy, state.dailyList)
+            assert(state.dailyList == afterCopy)
         } finally {
             storage.keys().forEach(storage::remove)
         }
     }
-}
+})
