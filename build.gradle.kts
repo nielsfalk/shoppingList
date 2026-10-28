@@ -7,6 +7,7 @@ plugins {
     kotlin("plugin.power-assert") version "2.4.10"
     id("com.google.devtools.ksp") version "2.3.12"
     id("io.kotest") version "6.2.6"
+    id("io.github.nielsfalk.datatable") version "0.2.1"
     id("org.jetbrains.compose") version "1.12.2"
 }
 
@@ -38,6 +39,14 @@ kotlin {
             implementation("io.kotest:kotest-framework-engine:6.2.6")
         }
     }
+}
+
+dataTableScanner {
+    sourceSets = listOf("jsTest")
+}
+
+tasks.named("compileTestKotlinJs") {
+    dependsOn("generateDataTables")
 }
 
 @OptIn(ExperimentalKotlinGradlePluginApi::class)
