@@ -51,7 +51,7 @@ fun DailyListScreen(
                         attr("aria-label", "$deleteLabel ${item.name}")
                         onClick { onDelete(item.name) }
                     }) {
-                        Text(deleteLabel)
+                        Text("✕")
                     }
                 }
             }

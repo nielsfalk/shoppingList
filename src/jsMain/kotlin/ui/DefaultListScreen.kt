@@ -41,7 +41,7 @@ fun DefaultListScreen(
                     attr("aria-label", "${texts.delete} $name")
                     onClick { onDelete(name) }
                 }) {
-                    Text(texts.delete)
+                    Text("✕")
                 }
             }
         }
