@@ -34,6 +34,12 @@ fun AddItemForm(
             attr("autocomplete", "off")
             value(name)
             onInput { name = it.value }
+            onKeyDown {
+                if (it.key == "Enter" && name.isNotBlank()) {
+                    onAddToDailyList(name)
+                    name = ""
+                }
+            }
         })
         Datalist(attrs = { id(SUGGESTIONS_ID) }) {
             suggestions.forEach { suggestion -> Option(value = suggestion) }
