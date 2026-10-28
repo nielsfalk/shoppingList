@@ -6,11 +6,11 @@ This is a single page app for grocery shopping. It runs entirely in the browser,
 
 **Live app:** https://nielsfalk.github.io/shoppingList/
 
-**Status:** the app is deployed to GitHub Pages; implementation is current through **T49** (see [Tasks](#tasks)).
+**Status:** the app is deployed to GitHub Pages; implementation is current through **T50** (see [Tasks](#tasks)).
 
 ## Getting started
 
-Requirements: JDK 17 and a current browser.
+Requirements: JDK 17 for compilation, JDK 21 for the Gradle daemon (see `gradle/gradle-daemon-jvm.properties`) and a current browser.
 
 ```
 git clone https://github.com/nielsfalk/shoppingList.git
@@ -110,7 +110,7 @@ There is no backend: all user data lives in the browser's `localStorage`, all la
 | Autocompletion    | HTML `<datalist>`                                                           |
 | Offline           | `manifest.webmanifest` + small service worker (PWA)                         |
 | Styling           | plain CSS (`styles.css`) with CSS custom properties for the cyberpunk theme |
-| Tests             | `kotlin("test")` in `jsTest`                                                |
+| Tests             | Kotest `FreeSpec`, Kotlin power asserts and the Kotlin Datatable Plugin in `jsTest` |
 | Hosting           | GitHub Pages, deployed by GitHub Actions                                    |
 
 ### Constraints of GitHub Pages
@@ -312,7 +312,7 @@ Each task is small, can be completed on its own and leaves the app in a working 
 
 ### Testing
 
-- [ ] **T50** Refactor all tests in `src/jsTest/kotlin/` to Kotest `FreeSpec` with Kotlin power asserts and data tables:
+- [x] **T50** Refactor all tests in `src/jsTest/kotlin/` to Kotest `FreeSpec` with Kotlin power asserts and data tables:
   - Add Kotest (`FreeSpec`, JS-compatible engine) and the `org.jetbrains.kotlin.plugin.power-assert` plugin (same version as Kotlin); use plain `assert(condition)` instead of `assertEquals`/`assertTrue`.
   - Add the [Kotlin Datatable Plugin](https://github.com/nielsfalk/kotlin-datatable-plugin) (`io.github.nielsfalk.datatable`, see its KMP sample) and make the test compilation depend on `generateDataTables`.
   - Turn similar tests that only differ in their data into `@Data(...)` tables with `.each { ... }` (separate inputs from expected values with `ǀǀ`), and run `./gradlew formatDataTables` afterwards.
