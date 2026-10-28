@@ -1,5 +1,6 @@
 package model
 
+import de.nielsfalk.dataTables.Data
 import io.kotest.core.spec.style.FreeSpec
 import kotlinx.datetime.LocalDate
 import kotlin.test.assertTrue as assert
@@ -22,13 +23,17 @@ class DefaultListTest : FreeSpec({
         assert(defaultList.delete("Missing") == defaultList)
     }
 
-    "detects differences from the initial list" {
-        val initialList = listOf("Water", "Oat milk", "Apples")
+    @Data("items"                                        ,  "expectedDifference") DifferenceFromInitialList {
+          listOf("Water", "Oat milk", "Apples")          ǀǀ false
+          listOf("Water", "Oat milk", "Apples", "Bread") ǀǀ true
+          listOf("Water", "Oat milk")                    ǀǀ true
+          listOf("Apples", "Oat milk", "Water")          ǀǀ true
+    }.each {
+        "the default list $items differs from the initial list: $expectedDifference" {
+            val initialList = listOf("Water", "Oat milk", "Apples")
 
-        assert(!DefaultList(initialList).differsFrom(initialList))
-        assert(DefaultList(initialList + "Bread").differsFrom(initialList))
-        assert(DefaultList(initialList.dropLast(1)).differsFrom(initialList))
-        assert(DefaultList(initialList.reversed()).differsFrom(initialList))
+            assert(DefaultList(items).differsFrom(initialList) == expectedDifference)
+        }
     }
 
     "add to default list updates both lists and applies duplicate rules" {
