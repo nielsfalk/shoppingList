@@ -1,16 +1,21 @@
 package i18n
 
+import de.nielsfalk.dataTables.Data
 import io.kotest.core.spec.style.FreeSpec
 import kotlinx.browser.localStorage
 import kotlin.test.assertFailsWith
 import kotlin.test.assertTrue as assert
 
 class LanguagePreferenceTest : FreeSpec({
-    "prefers a supported stored language over the browser locale" {
-        assert(selectLanguage("de", "en-US") == "de")
-        assert(selectLanguage("DE", "en-US") == "de")
-        assert(selectLanguage("fr", "de-DE") == "de")
-        assert(selectLanguage(null, null) == "en")
+    @Data("storedLanguage" , "browserLocale" ,  "expectedLanguage") LanguagePreference {
+          "de"             ǀ "en-US"         ǀǀ "de"
+          "DE"             ǀ "en-US"         ǀǀ "de"
+          "fr"             ǀ "de-DE"         ǀǀ "de"
+          null             ǀ null            ǀǀ "en"
+    }.each {
+        "selects $expectedLanguage for the stored language '$storedLanguage' and the browser locale '$browserLocale'" {
+            assert(selectLanguage(storedLanguage, browserLocale) == expectedLanguage)
+        }
     }
 
     "stores and reads a manual language preference" {
