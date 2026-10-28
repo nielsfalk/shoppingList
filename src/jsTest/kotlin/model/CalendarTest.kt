@@ -1,13 +1,12 @@
 package model
 
+import io.kotest.core.spec.style.FreeSpec
 import kotlinx.datetime.LocalDate
-import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertNull
 
-class CalendarTest {
-    @Test
-    fun buildsMondayFirstWeeksWithBlanksOutsideTheMonth() {
+class CalendarTest : FreeSpec({
+    "builds Monday-first weeks with blanks outside the month" {
         val weeks = CalendarMonth(2026, 10).weeks()
 
         assertEquals(5, weeks.size)
@@ -18,16 +17,14 @@ class CalendarTest {
         assertNull(weeks.last()[6])
     }
 
-    @Test
-    fun navigatesAcrossYearBoundaries() {
+    "navigates across year boundaries" {
         assertEquals(CalendarMonth(2025, 12), CalendarMonth(2026, 1).previous())
         assertEquals(CalendarMonth(2027, 1), CalendarMonth(2026, 12).next())
     }
 
-    @Test
-    fun handlesLeapYearsAndConvertsDates() {
+    "handles leap years and converts dates" {
         assertEquals(29, CalendarMonth(2028, 2).days().size)
         assertEquals(28, CalendarMonth(2026, 2).days().size)
         assertEquals(CalendarMonth(2026, 10), LocalDate.parse("2026-10-27").toCalendarMonth())
     }
-}
+})
