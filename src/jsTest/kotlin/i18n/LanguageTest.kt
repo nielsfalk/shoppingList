@@ -1,25 +1,22 @@
 package i18n
 
-import kotlin.test.Test
-import kotlin.test.assertEquals
-import kotlin.test.assertSame
+import io.kotest.core.spec.style.FreeSpec
+import kotlin.test.assertTrue as assert
 
-class LanguageTest {
-    @Test
-    fun selectsSupportedLanguageFromBrowserLocaleOrFallsBackToEnglish() {
-        assertEquals("de", selectLanguage("de"))
-        assertEquals("de", selectLanguage("de-DE"))
-        assertEquals("en", selectLanguage("en-US"))
-        assertEquals("en", selectLanguage(null))
-        assertEquals("en", selectLanguage(""))
-        assertEquals("en", selectLanguage("fr-FR"))
+class LanguageTest : FreeSpec({
+    "selects a supported language from the browser locale or falls back to English" {
+        assert(selectLanguage("de") == "de")
+        assert(selectLanguage("de-DE") == "de")
+        assert(selectLanguage("en-US") == "en")
+        assert(selectLanguage(null) == "en")
+        assert(selectLanguage("") == "en")
+        assert(selectLanguage("fr-FR") == "en")
     }
 
-    @Test
-    fun looksUpLanguageDataAndFallsBackToEnglishForUnknownCodes() {
-        assertSame(De, languageData("de"))
-        assertSame(De, languageData("DE"))
-        assertSame(En, languageData("en"))
-        assertSame(En, languageData("fr"))
+    "looks up language data and falls back to English for unknown codes" {
+        assert(languageData("de") === De)
+        assert(languageData("DE") === De)
+        assert(languageData("en") === En)
+        assert(languageData("fr") === En)
     }
-}
+})
