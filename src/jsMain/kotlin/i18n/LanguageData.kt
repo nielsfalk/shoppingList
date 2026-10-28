@@ -4,6 +4,7 @@ data class UiTexts(
     val dailyList: String,
     val defaultList: String,
     val history: String,
+    val addItem: String,
     val addToDailyList: String,
     val addToDefaultList: String,
     val delete: String,

@@ -5,6 +5,7 @@ val En = LanguageData(
         dailyList = "Daily list",
         defaultList = "Default list",
         history = "History",
+        addItem = "Add item",
         addToDailyList = "Add to daily list",
         addToDefaultList = "Add to default list",
         delete = "Delete",

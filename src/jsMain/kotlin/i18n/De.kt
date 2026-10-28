@@ -5,6 +5,7 @@ val De = LanguageData(
         dailyList = "Tagesliste",
         defaultList = "Standardliste",
         history = "Verlauf",
+        addItem = "Artikel hinzufügen",
         addToDailyList = "Zur Tagesliste",
         addToDefaultList = "Zur Standardliste",
         delete = "Löschen",

@@ -30,7 +30,9 @@ fun App() {
                     state.dailyList,
                     data.ui.delete,
                     data.ui.resetToDefault,
+                    data.ui.addItem,
                     state::resetToDefault,
+                    { document.getElementById("add-item-input")?.asDynamic()?.focus() },
                     state::toggleItem,
                     state::deleteItem,
                 )

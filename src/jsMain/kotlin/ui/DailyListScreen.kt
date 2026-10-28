@@ -12,7 +12,9 @@ fun DailyListScreen(
     dailyList: DailyList,
     deleteLabel: String,
     resetToDefaultLabel: String,
+    addItemLabel: String,
     onResetToDefault: () -> Unit,
+    onAddItem: () -> Unit,
     onToggle: (String) -> Unit,
     onDelete: (String) -> Unit,
 ) {
@@ -25,6 +27,13 @@ fun DailyListScreen(
                 onClick { onResetToDefault() }
             }) {
                 Text("↻")
+            }
+            Button(attrs = {
+                classes("icon-button")
+                attr("aria-label", addItemLabel)
+                onClick { onAddItem() }
+            }) {
+                Text("+")
             }
         }
         Div(attrs = { classes("shopping-list") }) {

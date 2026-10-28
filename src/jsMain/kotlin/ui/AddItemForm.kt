@@ -28,6 +28,7 @@ fun AddItemForm(
     Div(attrs = { classes("add-item-form") }) {
         Input(type = InputType.Text, attrs = {
             classes("add-item-input")
+            id("add-item-input")
             attr("list", SUGGESTIONS_ID)
             attr("aria-label", addToDailyListLabel)
             attr("autocomplete", "off")
