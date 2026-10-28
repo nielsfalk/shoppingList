@@ -1,7 +1,10 @@
+import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
+
 plugins {
     kotlin("multiplatform") version "2.4.10"
     kotlin("plugin.compose") version "2.4.10"
     kotlin("plugin.serialization") version "2.4.10"
+    kotlin("plugin.power-assert") version "2.4.10"
     id("com.google.devtools.ksp") version "2.3.12"
     id("io.kotest") version "6.2.6"
     id("org.jetbrains.compose") version "1.12.2"
@@ -35,6 +38,11 @@ kotlin {
             implementation("io.kotest:kotest-framework-engine:6.2.6")
         }
     }
+}
+
+@OptIn(ExperimentalKotlinGradlePluginApi::class)
+powerAssert {
+    functions = listOf("kotlin.test.assertTrue")
 }
 
 val buildVersion = providers.environmentVariable("GITHUB_SHA").orElse("dev")
