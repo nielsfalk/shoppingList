@@ -203,6 +203,8 @@ The flat `suggestions` list is derived in department order and is passed to the 
 Example `i18n/De.kt`:
 
 ```kotlin
+import model.Department.*
+
 val De = LanguageData(
     ui = UiTexts(
         dailyList = "Tagesliste",
@@ -213,34 +215,34 @@ val De = LanguageData(
         delete = "Löschen",
         copyToToday = "In heutige Liste übernehmen",
         departmentNames = mapOf(
-            Department.FRUIT_AND_VEGETABLES to "Obst und Gemüse",
-            Department.BAKERY to "Bäckerei",
-            Department.DRY_GOODS to "Trockenwaren",
-            Department.CANNED_AND_JARS to "Konserven und Gläser",
-            Department.OILS_SPICES_AND_SAUCES to "Öle, Gewürze und Soßen",
-            Department.BAKING to "Backzutaten",
-            Department.SWEETS_AND_SNACKS to "Süßigkeiten und Snacks",
-            Department.BEVERAGES to "Getränke",
-            Department.CHILLED to "Kühlregal",
-            Department.FROZEN to "Tiefkühlprodukte",
-            Department.DRUGSTORE_AND_HOUSEHOLD to "Drogerie und Haushalt",
-            Department.NON_FOOD to "Non-Food",
+            FRUIT_AND_VEGETABLES to "Obst und Gemüse",
+            BAKERY to "Bäckerei",
+            DRY_GOODS to "Trockenwaren",
+            CANNED_AND_JARS to "Konserven und Gläser",
+            OILS_SPICES_AND_SAUCES to "Öle, Gewürze und Soßen",
+            BAKING to "Backzutaten",
+            SWEETS_AND_SNACKS to "Süßigkeiten und Snacks",
+            BEVERAGES to "Getränke",
+            CHILLED to "Kühlregal",
+            FROZEN to "Tiefkühlprodukte",
+            DRUGSTORE_AND_HOUSEHOLD to "Drogerie und Haushalt",
+            NON_FOOD to "Non-Food",
         ),
     ),
     initialList = listOf("Klopapier", "Wasser", "Senf", "Hafermilch", "Äpfel", "Haferflocken"),
     suggestionsByDepartment = mapOf(
-        Department.FRUIT_AND_VEGETABLES to listOf("Äpfel", "Bananen", "Tomaten"),
-        Department.BAKERY to listOf("Brot"),
-        Department.DRY_GOODS to listOf("Haferflocken", "Linsen", "Nudeln"),
-        Department.CANNED_AND_JARS to listOf("Kichererbsen"),
-        Department.OILS_SPICES_AND_SAUCES to listOf("Senf"),
-        Department.BAKING to listOf("Mehl"),
-        Department.SWEETS_AND_SNACKS to listOf("Vegane Kekse"),
-        Department.BEVERAGES to listOf("Wasser"),
-        Department.CHILLED to listOf("Vegane Margarine", "Hafermilch", "Tofu"),
-        Department.FROZEN to listOf("Tiefkühlgemüse"),
-        Department.DRUGSTORE_AND_HOUSEHOLD to listOf("Klopapier"),
-        Department.NON_FOOD to listOf("Batterien"),
+        FRUIT_AND_VEGETABLES to listOf("Äpfel", "Bananen", "Tomaten"),
+        BAKERY to listOf("Brot"),
+        DRY_GOODS to listOf("Haferflocken", "Linsen", "Nudeln"),
+        CANNED_AND_JARS to listOf("Kichererbsen"),
+        OILS_SPICES_AND_SAUCES to listOf("Senf"),
+        BAKING to listOf("Mehl"),
+        SWEETS_AND_SNACKS to listOf("Vegane Kekse"),
+        BEVERAGES to listOf("Wasser"),
+        CHILLED to listOf("Vegane Margarine", "Hafermilch", "Tofu"),
+        FROZEN to listOf("Tiefkühlgemüse"),
+        DRUGSTORE_AND_HOUSEHOLD to listOf("Klopapier"),
+        NON_FOOD to listOf("Batterien"),
     ),
 )
 ```
