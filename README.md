@@ -6,7 +6,7 @@ This is a single page app for grocery shopping. It runs entirely in the browser,
 
 **Live app:** https://nielsfalk.github.io/shoppingList/
 
-**Status:** the app is deployed to GitHub Pages; implementation is current through **T52** (see [Tasks](#tasks)).
+**Status:** the app is deployed to GitHub Pages; implementation is current through **T53** (see [Tasks](#tasks)).
 
 ## Getting started
 
@@ -369,7 +369,7 @@ Each task is small, can be completed on its own and leaves the app in a working 
   11. `DRUGSTORE_AND_HOUSEHOLD` (toilet paper, soap, toothpaste, detergent, dish soap, trash bags)
   12. `NON_FOOD` (all other non-food in one block: batteries, light bulbs, candles, aluminium foil)
 - [x] **T52** Fill the suggestions of `de` and `en` with all generic items (no brand names) a supermarket usually sells, keeping the vegan-only rule for food. Store them per department (e.g. `suggestions: Map<Department, List<String>>` or a list of `(name, Department)`), ordered by department in the order of T51; derive the flat suggestion list for the `<datalist>` from it. Add tests that there are no duplicates (trimmed, case-insensitive) and no empty department, and update the [Language data](#language-data) section (depends on T51).
-- [ ] **T53** Add a lookup "department and position of an item name in the suggestion order" (trimmed, case-insensitive); unknown items (not in the suggestions) get no department and sort after all known items, keeping their list order. With data-table tests (depends on T52).
+- [x] **T53** Add a lookup "department and position of an item name in the suggestion order" (trimmed, case-insensitive); unknown items (not in the suggestions) get no department and sort after all known items, keeping their list order. With data-table tests (depends on T52).
 - [ ] **T54** Add to the initial list of `de` and `en` everything a vegan person would usually buy (fruit, vegetables, bread, oats, legumes, rice, pasta, tofu, plant-based milk, nuts, spices, household basics, …); every item of the initial list must also be a suggestion. Update the [Initial list](#initial-list) table (depends on T52).
 - [ ] **T55** Sort the initial list of every language by the suggestion order, with a test that checks the order for all languages (depends on T53, T54).
 - [ ] **T56** Sort the daily list by "unchecked first, then suggestion order" (unknown items after the known ones in list order) instead of "unchecked first, then list order"; update the existing sort tests and the **Sort order** feature description (depends on T53).
