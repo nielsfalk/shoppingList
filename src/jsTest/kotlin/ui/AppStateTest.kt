@@ -53,11 +53,11 @@ class AppStateTest : FreeSpec({
         try {
             val state = AppState(storage, initialLanguageCode = "en", languagePersistence = {}, todayDate = date)
 
-            state.addToDailyList("  Bread ")
-            state.addToDefaultList("Tofu")
+            state.addToDailyList("  New daily item ")
+            state.addToDefaultList("New default item")
 
-            assert(state.dailyList.items.takeLast(2).map { it.name } == listOf("Bread", "Tofu"))
-            assert(state.defaultList.items.last() == "Tofu")
+            assert(state.dailyList.items.takeLast(2).map { it.name } == listOf("New daily item", "New default item"))
+            assert(state.defaultList.items.last() == "New default item")
             assert(storage.get<DailyList>("day:$date") == state.dailyList)
             assert(storage.get<List<String>>("defaultList") == state.defaultList.items)
         } finally {
@@ -85,21 +85,13 @@ class AppStateTest : FreeSpec({
         }
     }
 
-    "reorders the default list and removes the stored list when it matches the initial list again" {
+    "deletes a default item, persists the default list and keeps today's list" {
         val storage = Storage(prefix = "shoppingList:test:${Random.nextLong()}:")
         val initialList = languageData("en").initialList
 
         try {
             val state = AppState(storage, initialLanguageCode = "en", languagePersistence = {}, todayDate = LocalDate.parse("2026-10-27"))
 
-            state.moveDefaultItemDown(initialList[0])
-
-            assert(state.defaultList.items.take(2) == listOf(initialList[1], initialList[0]))
-            assert(storage.get<List<String>>("defaultList") == state.defaultList.items)
-
-            state.moveDefaultItemUp(initialList[0])
-
-            assert(state.defaultList.items == initialList)
             assert(storage.getString("defaultList") == null)
 
             val dailyListBeforeDelete = state.dailyList
@@ -108,6 +100,24 @@ class AppStateTest : FreeSpec({
             assert(state.defaultList.items == initialList.drop(1))
             assert(storage.get<List<String>>("defaultList") == initialList.drop(1))
             assert(state.dailyList == dailyListBeforeDelete)
+        } finally {
+            storage.keys().forEach(storage::remove)
+        }
+    }
+
+    "resets the default list to the initial list and removes the stored list" {
+        val storage = Storage(prefix = "shoppingList:test:${Random.nextLong()}:")
+        val initialList = languageData("en").initialList
+
+        try {
+            val state = AppState(storage, initialLanguageCode = "en", languagePersistence = {}, todayDate = LocalDate.parse("2026-10-27"))
+            state.deleteDefaultItem(initialList[0])
+            state.addDefaultItem("New default item")
+
+            state.resetDefaultList()
+
+            assert(state.defaultList.items == initialList)
+            assert(storage.getString("defaultList") == null)
         } finally {
             storage.keys().forEach(storage::remove)
         }
@@ -137,13 +147,13 @@ class AppStateTest : FreeSpec({
         val pastDay = LocalDate.parse("2026-10-20")
 
         try {
-            storage.set("day:$pastDay", DailyList(pastDay, listOf(Item("Bread", checked = true), Item("water"))))
+            storage.set("day:$pastDay", DailyList(pastDay, listOf(Item("Past item", checked = true), Item("water"))))
             val state = AppState(storage, initialLanguageCode = "en", languagePersistence = {}, todayDate = today)
             val initialItems = state.dailyList.items
 
             state.copyToToday(pastDay)
 
-            assert(state.dailyList.items == initialItems + Item("Bread"))
+            assert(state.dailyList.items == initialItems + Item("Past item"))
             assert(storage.get<DailyList>("day:$today") == state.dailyList)
 
             val afterCopy = state.dailyList

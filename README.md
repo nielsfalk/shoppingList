@@ -6,7 +6,7 @@ This is a single page app for grocery shopping. It runs entirely in the browser,
 
 **Live app:** https://nielsfalk.github.io/shoppingList/
 
-**Status:** the app is deployed to GitHub Pages; implementation is current through **T50** (see [Tasks](#tasks)).
+**Status:** the app is deployed to GitHub Pages; implementation is current through **T60** (see [Tasks](#tasks)).
 
 ## Getting started
 
@@ -25,7 +25,7 @@ cd shoppingList
 | **Initial list** | the shopping list of a language, built into the app; it is never changed by the user      |
 | **Default list** | the user's own version of the initial list; equal to the initial list until it is changed |
 | **Daily list**   | the shopping list of one day; there is at most one daily list per day                     |
-| **Suggestions**  | the likely items per language, used for autocompletion; vegan items only                  |
+| **Suggestions**  | the likely items per language, used for autocompletion, grouped by supermarket department |
 
 ## Features
 
@@ -36,8 +36,9 @@ cd shoppingList
 - **Add item**: a "+" button next to the daily list header focuses the item input.
 - **Check**: one tap checks an item, another tap unchecks it.
 - **Delete**: every item has a `✕` button with an accessible label.
-- **Sort order**: unchecked items first, then checked items; within both groups the items keep their position in the list (the order of the default list, newly added items at the end).
-- **Suggestions**: autocompletion combines the language suggestions (vegan items only) with items from the default list that are not already in today's list, without duplicates.
+- **Departments**: the items are grouped by supermarket department with the translated department name as a heading, in the walking order of the departments; items that are not in the suggestions are shown in a last group ("Other"/"Sonstiges"). Empty departments are not shown.
+- **Sort order**: unchecked items first, then checked items; within both groups the items follow the suggestion order (supermarket departments), and items that are not in the suggestions come last in their list order.
+- **Suggestions**: autocompletion combines the language suggestions (all generic supermarket items, vegan and non-vegan) with items from the default list that are not already in today's list, without duplicates.
 - **Add**: at the end there is a text field and two icon buttons: "+" adds the item to today's list, and "★" adds it to the default list **and** to today's list. Both buttons have descriptive accessible labels.
 - **Keyboard**: pressing Enter in the item text field adds a non-blank item to today's list and clears the field.
 - **Duplicates**: names are compared trimmed and case-insensitively. Adding an item that is already on the list does not create a second entry; if the existing item is checked, it becomes unchecked again.
@@ -45,22 +46,58 @@ cd shoppingList
 ### Default list
 
 - The default list starts as the initial list of the current language.
-- Items can be deleted with a `✕` button and their order can be changed with up/down buttons.
+- Items can be deleted with a `✕` button. There is no manual sorting: new items are appended at the end, and the daily list is sorted by the suggestion order.
 - It is only stored in local storage if it differs from the initial list; otherwise the initial list of the current language is used.
+- A "↻" button (with an accessible label) resets the default list to the initial list of the current language; it is only enabled when the default list differs from the initial list.
 - The default-list text field and "★" button add an item only to the default list, following the duplicate rule; the daily-list "add to default list" action adds to both lists.
 
 ### Initial list
 
-There is an initial list for each language in the [language data](#language-data).
+There is an initial list for each language in the [language data](#language-data), sorted by the suggestion order (supermarket departments).
 
-| German (`de`) | English (`en`) |
-|---------------|----------------|
-| Klopapier     | Toilet paper   |
-| Wasser        | Water          |
-| Senf          | Mustard        |
-| Hafermilch    | Oat milk       |
-| Äpfel         | Apples         |
-| Haferflocken  | Rolled oats    |
+| German (`de`)        | English (`en`)     |
+|----------------------|--------------------|
+| Äpfel                | Apples             |
+| Bananen              | Bananas            |
+| Orangen              | Oranges            |
+| Tomaten              | Tomatoes           |
+| Gurken               | Cucumbers          |
+| Paprika              | Bell peppers       |
+| Karotten             | Carrots            |
+| Kartoffeln           | Potatoes           |
+| Zwiebeln             | Onions             |
+| Knoblauch            | Garlic             |
+| Salat                | Lettuce            |
+| Brot                 | Bread              |
+| Haferflocken         | Rolled oats        |
+| Reis                 | Rice               |
+| Nudeln               | Pasta              |
+| Linsen               | Lentils            |
+| Getrocknete Bohnen   | Dried beans        |
+| Mandeln              | Almonds            |
+| Gehackte Tomaten     | Chopped tomatoes   |
+| Kichererbsen         | Chickpeas          |
+| Olivenöl             | Olive oil          |
+| Salz                 | Salt               |
+| Pfeffer              | Pepper             |
+| Senf                 | Mustard            |
+| Mehl                 | Flour              |
+| Vegane Schokolade    | Vegan chocolate    |
+| Wasser               | Water              |
+| Kaffee               | Coffee             |
+| Hafermilch           | Oat milk           |
+| Pflanzlicher Joghurt | Plant-based yogurt |
+| Tofu                 | Tofu               |
+| Vegane Margarine     | Vegan margarine    |
+| Veganer Aufstrich    | Vegan spread       |
+| Tiefkühlgemüse       | Frozen vegetables  |
+| Toilettenpapier      | Toilet paper       |
+| Shampoo              | Shampoo            |
+| Zahnpasta            | Toothpaste         |
+| Waschmittel          | Laundry detergent  |
+| Spülmittel           | Dish soap          |
+| Müllbeutel           | Trash bags         |
+| Batterien            | Batteries          |
 
 ### History
 
@@ -141,6 +178,8 @@ src/jsTest/kotlin/
 The UI texts, the initial list and the suggestions of each language are plain Kotlin objects in `src/jsMain/kotlin/i18n/`. They are part of the app bundle, so they are available immediately (no loading state) and work offline without extra caching. All texts are constructor parameters without default values, so a missing translation fails the build.
 
 ```kotlin
+import model.Department
+
 data class UiTexts(
     val dailyList: String,
     val defaultList: String,
@@ -149,18 +188,25 @@ data class UiTexts(
     val addToDefaultList: String,
     val delete: String,
     val copyToToday: String,
+    val departmentNames: Map<Department, String>,
 )
 
 data class LanguageData(
     val ui: UiTexts,
     val initialList: List<String>,
-    val suggestions: List<String>,
-)
+    val suggestionsByDepartment: Map<Department, List<String>>,
+) {
+    val suggestions: List<String> = Department.entries.flatMap { suggestionsByDepartment[it].orEmpty() }
+}
 ```
+
+The flat `suggestions` list is derived in department order and is passed to the `<datalist>` used for autocompletion. Every department has its own non-empty list of generic items (no brand names), vegan and non-vegan; the initial list only contains vegan items.
 
 Example `i18n/De.kt`:
 
 ```kotlin
+import model.Department.*
+
 val De = LanguageData(
     ui = UiTexts(
         dailyList = "Tagesliste",
@@ -170,9 +216,36 @@ val De = LanguageData(
         addToDefaultList = "Zur Standardliste",
         delete = "Löschen",
         copyToToday = "In heutige Liste übernehmen",
+        departmentNames = mapOf(
+            FRUIT_AND_VEGETABLES to "Obst und Gemüse",
+            BAKERY to "Bäckerei",
+            DRY_GOODS to "Trockenwaren",
+            CANNED_AND_JARS to "Konserven und Gläser",
+            OILS_SPICES_AND_SAUCES to "Öle, Gewürze und Soßen",
+            BAKING to "Backzutaten",
+            SWEETS_AND_SNACKS to "Süßigkeiten und Snacks",
+            BEVERAGES to "Getränke",
+            CHILLED to "Kühlregal",
+            FROZEN to "Tiefkühlprodukte",
+            DRUGSTORE_AND_HOUSEHOLD to "Drogerie und Haushalt",
+            NON_FOOD to "Non-Food",
+        ),
     ),
     initialList = listOf("Klopapier", "Wasser", "Senf", "Hafermilch", "Äpfel", "Haferflocken"),
-    suggestions = listOf("Brot", "Margarine", "Sojamilch", "Tofu", "Linsen", "Bananen", "Tomaten", "Nudeln"),
+    suggestionsByDepartment = mapOf(
+        FRUIT_AND_VEGETABLES to listOf("Äpfel", "Bananen", "Tomaten"),
+        BAKERY to listOf("Brot"),
+        DRY_GOODS to listOf("Haferflocken", "Linsen", "Nudeln"),
+        CANNED_AND_JARS to listOf("Kichererbsen"),
+        OILS_SPICES_AND_SAUCES to listOf("Senf"),
+        BAKING to listOf("Mehl"),
+        SWEETS_AND_SNACKS to listOf("Vegane Kekse"),
+        BEVERAGES to listOf("Wasser"),
+        CHILLED to listOf("Vegane Margarine", "Hafermilch", "Tofu"),
+        FROZEN to listOf("Tiefkühlgemüse"),
+        DRUGSTORE_AND_HOUSEHOLD to listOf("Klopapier"),
+        NON_FOOD to listOf("Batterien"),
+    ),
 )
 ```
 
@@ -321,7 +394,7 @@ Each task is small, can be completed on its own and leaves the app in a working 
 
 ### Supermarket departments
 
-- [ ] **T51** Add an enum `Department` in `model/` with the supermarket departments in walking order through a typical supermarket, and a translated name per department in `UiTexts` (or `LanguageData`) for `de` and `en`, with tests that every department has a non-blank name in every language:
+- [x] **T51** Add an enum `Department` in `model/` with the supermarket departments in walking order through a typical supermarket, and a translated name per department in `UiTexts` (or `LanguageData`) for `de` and `en`, with tests that every department has a non-blank name in every language:
   1. `FRUIT_AND_VEGETABLES` (first)
   2. `BAKERY` (bread, rolls)
   3. `DRY_GOODS` (pasta, rice, grains, legumes, cereals, nuts)
@@ -334,17 +407,25 @@ Each task is small, can be completed on its own and leaves the app in a working 
   10. `FROZEN` (all frozen products in one block: frozen vegetables, fruit, fries, pizza, ice cream)
   11. `DRUGSTORE_AND_HOUSEHOLD` (toilet paper, soap, toothpaste, detergent, dish soap, trash bags)
   12. `NON_FOOD` (all other non-food in one block: batteries, light bulbs, candles, aluminium foil)
-- [ ] **T52** Fill the suggestions of `de` and `en` with all generic items (no brand names) a supermarket usually sells, keeping the vegan-only rule for food. Store them per department (e.g. `suggestions: Map<Department, List<String>>` or a list of `(name, Department)`), ordered by department in the order of T51; derive the flat suggestion list for the `<datalist>` from it. Add tests that there are no duplicates (trimmed, case-insensitive) and no empty department, and update the [Language data](#language-data) section (depends on T51).
-- [ ] **T53** Add a lookup "department and position of an item name in the suggestion order" (trimmed, case-insensitive); unknown items (not in the suggestions) get no department and sort after all known items, keeping their list order. With data-table tests (depends on T52).
-- [ ] **T54** Add to the initial list of `de` and `en` everything a vegan person would usually buy (fruit, vegetables, bread, oats, legumes, rice, pasta, tofu, plant-based milk, nuts, spices, household basics, …); every item of the initial list must also be a suggestion. Update the [Initial list](#initial-list) table (depends on T52).
-- [ ] **T55** Sort the initial list of every language by the suggestion order, with a test that checks the order for all languages (depends on T53, T54).
-- [ ] **T56** Sort the daily list by "unchecked first, then suggestion order" (unknown items after the known ones in list order) instead of "unchecked first, then list order"; update the existing sort tests and the **Sort order** feature description (depends on T53).
-- [ ] **T57** Group the items of the daily list by department with the translated department name as a heading, in the department order of T51; items without a department go into a last group (e.g. "Other"/"Sonstiges"). Within each group the sort order of T56 applies; empty departments are not shown (depends on T51, T56).
+- [x] **T52** Fill the suggestions of `de` and `en` with all generic items (no brand names) a supermarket usually sells, keeping the vegan-only rule for food. Store them per department (e.g. `suggestions: Map<Department, List<String>>` or a list of `(name, Department)`), ordered by department in the order of T51; derive the flat suggestion list for the `<datalist>` from it. Add tests that there are no duplicates (trimmed, case-insensitive) and no empty department, and update the [Language data](#language-data) section (depends on T51).
+- [x] **T53** Add a lookup "department and position of an item name in the suggestion order" (trimmed, case-insensitive); unknown items (not in the suggestions) get no department and sort after all known items, keeping their list order. With data-table tests (depends on T52).
+- [x] **T54** Add to the initial list of `de` and `en` everything a vegan person would usually buy (fruit, vegetables, bread, oats, legumes, rice, pasta, tofu, plant-based milk, nuts, spices, household basics, …); every item of the initial list must also be a suggestion. Update the [Initial list](#initial-list) table (depends on T52).
+- [x] **T55** Sort the initial list of every language by the suggestion order, with a test that checks the order for all languages (depends on T53, T54).
+- [x] **T56** Sort the daily list by "unchecked first, then suggestion order" (unknown items after the known ones in list order) instead of "unchecked first, then list order"; update the existing sort tests and the **Sort order** feature description (depends on T53).
+- [x] **T57** Group the items of the daily list by department with the translated department name as a heading, in the department order of T51; items without a department go into a last group (e.g. "Other"/"Sonstiges"). Within each group the sort order of T56 applies; empty departments are not shown (depends on T51, T56).
 
 ### UI: Default list improvements (2)
 
-- [ ] **T58** Add a refresh button with a refresh icon (text as `aria-label`) to the default list that resets it to the initial list of the current language; the stored `shoppingList:defaultList` key is removed. The button is only enabled when the default list differs from the initial list.
-- [ ] **T59** Remove the manual sorting of the default list: drop the up/down buttons (T30) from `DefaultListScreen`, `DefaultList.moveUp`/`moveDown`, `AppState.moveDefaultItemUp`/`moveDefaultItemDown`, the `moveUp`/`moveDown` texts in `UiTexts`, `De.kt` and `En.kt`, the now unused `.move-button` styles and the move tests. Newly added items are still appended at the end; the daily list gets its order from the suggestion order (T56). Update the [Default list](#default-list) feature description.
+- [x] **T58** Add a refresh button with a refresh icon (text as `aria-label`) to the default list that resets it to the initial list of the current language; the stored `shoppingList:defaultList` key is removed. The button is only enabled when the default list differs from the initial list.
+- [x] **T59** Remove the manual sorting of the default list: drop the up/down buttons (T30) from `DefaultListScreen`, `DefaultList.moveUp`/`moveDown`, `AppState.moveDefaultItemUp`/`moveDefaultItemDown`, the `moveUp`/`moveDown` texts in `UiTexts`, `De.kt` and `En.kt`, the now unused `.move-button` styles and the move tests. Newly added items are still appended at the end; the daily list gets its order from the suggestion order (T56). Update the [Default list](#default-list) feature description.
+
+### Suggestions
+
+- [x] **T60** Add all generic non-vegan items (no brand names) a supermarket usually sells to the suggestions of `de` and `en`, in their departments of T51 (e.g. meat, sausages, fish, milk, cheese, butter, yogurt, cream and eggs in `CHILLED`; frozen fish and meat in `FROZEN`; canned tuna and honey in `CANNED_AND_JARS`; gelatine in `BAKING`; milk chocolate and gummy bears in `SWEETS_AND_SNACKS`). Drop the vegan-only rule for suggestions (the initial list stays vegan), keep the no-duplicates and every-initial-item-is-a-suggestion tests green, and update the glossary, the **Suggestions** feature description and the [Language data](#language-data) section.
+
+### Maintenance
+
+- [ ] **T61** Update all dependencies to their latest stable versions: Gradle wrapper, Kotlin (and the power-assert plugin), Compose, KSP, Kotest, the Kotlin Datatable Plugin, `kotlinx.serialization`, `kotlinx-datetime`, the npm/yarn lock in `kotlin-js-store`, and the GitHub Actions in `.github/workflows/pages.yml`. Keep `./gradlew build` green. Add a table to this README of every dependency that was **not** updated to the latest version, with its current version, the latest version and the reason (e.g. incompatible with the Kotlin version, breaks the Kotlin/JS browser tests).
 
 ## License
 

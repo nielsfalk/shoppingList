@@ -8,6 +8,7 @@ import androidx.compose.runtime.setValue
 import i18n.UiTexts
 import kotlinx.datetime.LocalDate
 import model.DailyList
+import model.SuggestionOrder
 import model.toCalendarMonth
 import org.jetbrains.compose.web.dom.A
 import org.jetbrains.compose.web.dom.Button
@@ -29,6 +30,7 @@ fun HistoryScreen(
     storedDays: Set<LocalDate>,
     selectedList: DailyList?,
     texts: UiTexts,
+    suggestionOrder: SuggestionOrder,
     onCopyToToday: (LocalDate) -> Unit,
 ) {
     var month by remember(selectedDate) { mutableStateOf((selectedDate ?: today).toCalendarMonth()) }
@@ -67,7 +69,7 @@ fun HistoryScreen(
             }
         }
         if (selectedDate != null) {
-            ReadOnlyDailyList(selectedDate, selectedList, texts, canCopy = selectedDate < today, onCopyToToday)
+            ReadOnlyDailyList(selectedDate, selectedList, texts, suggestionOrder, canCopy = selectedDate < today, onCopyToToday)
         }
     }
 }
@@ -77,6 +79,7 @@ private fun ReadOnlyDailyList(
     date: LocalDate,
     dailyList: DailyList?,
     texts: UiTexts,
+    suggestionOrder: SuggestionOrder,
     canCopy: Boolean,
     onCopyToToday: (LocalDate) -> Unit,
 ) {
@@ -86,7 +89,7 @@ private fun ReadOnlyDailyList(
             P { Text(texts.noList) }
         } else {
             Ul(attrs = { classes("shopping-list", "read-only-list") }) {
-                dailyList.sortedItems().forEach { item ->
+                dailyList.sortedItems(suggestionOrder).forEach { item ->
                     Li(attrs = {
                         classes("read-only-item")
                         if (item.checked) classes("checked")

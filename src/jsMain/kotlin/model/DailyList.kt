@@ -11,7 +11,15 @@ data class DailyList(
     val date: LocalDate,
     val items: List<Item>,
 ) {
-    fun sortedItems(): List<Item> = items.filterNot { it.checked } + items.filter { it.checked }
+    fun sortedItems(order: SuggestionOrder): List<Item> =
+        order.sorted(items.filterNot { it.checked }, Item::name) + order.sorted(items.filter { it.checked }, Item::name)
+
+    fun groupedItems(order: SuggestionOrder): List<Pair<Department?, List<Item>>> {
+        val itemsByDepartment = sortedItems(order).groupBy { order.departmentOf(it.name) }
+        return (Department.entries + null).mapNotNull { department ->
+            itemsByDepartment[department]?.let { department to it }
+        }
+    }
 
     fun toggle(name: String): DailyList {
         val normalizedName = name.normalizedName()

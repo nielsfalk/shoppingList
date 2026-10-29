@@ -28,6 +28,9 @@ fun App() {
                 H1 { Text(data.ui.dailyList) }
                 DailyListScreen(
                     state.dailyList,
+                    data.suggestionOrder,
+                    data.ui.departmentNames,
+                    data.ui.otherDepartment,
                     data.ui.delete,
                     data.ui.resetToDefault,
                     data.ui.addItem,
@@ -48,11 +51,11 @@ fun App() {
                 H1 { Text(data.ui.defaultList) }
                 DefaultListScreen(
                     state.defaultList,
+                    data.initialList,
                     data.ui,
-                    state::moveDefaultItemUp,
-                    state::moveDefaultItemDown,
                     state::deleteDefaultItem,
                     state::addDefaultItem,
+                    state::resetDefaultList,
                 )
             }
             is Route.History -> {
@@ -63,6 +66,7 @@ fun App() {
                     storedDays = state.storedDays(),
                     selectedList = route.date?.let(state::dailyListOn),
                     texts = data.ui,
+                    suggestionOrder = data.suggestionOrder,
                     onCopyToToday = { date ->
                         state.copyToToday(date)
                         window.location.hash = Route.DailyList.toHash()

@@ -17,34 +17,28 @@ import org.jetbrains.compose.web.dom.Text
 @Composable
 fun DefaultListScreen(
     defaultList: DefaultList,
+    initialList: List<String>,
     texts: UiTexts,
-    onMoveUp: (String) -> Unit,
-    onMoveDown: (String) -> Unit,
     onDelete: (String) -> Unit,
     onAdd: (String) -> Unit,
+    onReset: () -> Unit,
 ) {
     var name by remember { mutableStateOf("") }
 
+    Div(attrs = { classes("default-list-header") }) {
+        Button(attrs = {
+            classes("icon-button")
+            attr("aria-label", texts.resetDefaultList)
+            if (!defaultList.differsFrom(initialList)) attr("disabled", "")
+            onClick { onReset() }
+        }) {
+            Text("↻")
+        }
+    }
     Div(attrs = { classes("default-list-screen", "shopping-list") }) {
-        defaultList.items.forEachIndexed { index, name ->
+        defaultList.items.forEach { name ->
             Div(attrs = { classes("shopping-list-item") }) {
                 Span(attrs = { classes("default-item-name") }) { Text(name) }
-                Button(attrs = {
-                    classes("move-button")
-                    attr("aria-label", "${texts.moveUp} $name")
-                    if (index == 0) attr("disabled", "")
-                    onClick { onMoveUp(name) }
-                }) {
-                    Text("▲")
-                }
-                Button(attrs = {
-                    classes("move-button")
-                    attr("aria-label", "${texts.moveDown} $name")
-                    if (index == defaultList.items.lastIndex) attr("disabled", "")
-                    onClick { onMoveDown(name) }
-                }) {
-                    Text("▼")
-                }
                 Button(attrs = {
                     classes("delete-button")
                     attr("aria-label", "${texts.delete} $name")

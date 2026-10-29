@@ -79,13 +79,11 @@ class AppState(
         saveDailyList(storage, dailyList)
     }
 
-    fun moveDefaultItemUp(name: String) = updateDefaultList(defaultList.moveUp(name))
-
-    fun moveDefaultItemDown(name: String) = updateDefaultList(defaultList.moveDown(name))
-
     fun deleteDefaultItem(name: String) = updateDefaultList(defaultList.delete(name))
 
     fun addDefaultItem(name: String) = updateDefaultList(defaultList.add(name))
+
+    fun resetDefaultList() = updateDefaultList(DefaultList(languageData.initialList))
 
     private fun updateDefaultList(updatedDefaultList: DefaultList) {
         defaultList = updatedDefaultList
