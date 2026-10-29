@@ -319,6 +319,33 @@ Each task is small, can be completed on its own and leaves the app in a working 
   - Separate given (optional), when and then with empty lines; no comments or labels for these blocks.
   - Keep the test coverage the same (no tests dropped), keep `./gradlew jsTest` green, and update the tech stack table in this README.
 
+### Supermarket departments
+
+- [ ] **T51** Add an enum `Department` in `model/` with the supermarket departments in walking order through a typical supermarket, and a translated name per department in `UiTexts` (or `LanguageData`) for `de` and `en`, with tests that every department has a non-blank name in every language:
+  1. `FRUIT_AND_VEGETABLES` (first)
+  2. `BAKERY` (bread, rolls)
+  3. `DRY_GOODS` (pasta, rice, grains, legumes, cereals, nuts)
+  4. `CANNED_AND_JARS` (canned tomatoes, beans, pickles, spreads)
+  5. `OILS_SPICES_AND_SAUCES` (oil, vinegar, salt, spices, mustard, ketchup)
+  6. `BAKING` (flour, sugar, baking powder, yeast)
+  7. `SWEETS_AND_SNACKS` (chocolate, crisps, cookies)
+  8. `BEVERAGES` (water, juice, coffee, tea)
+  9. `CHILLED` (all cooled products in one block: plant-based milk and yogurt, tofu, tempeh, vegan spreads, fresh pasta)
+  10. `FROZEN` (all frozen products in one block: frozen vegetables, fruit, fries, pizza, ice cream)
+  11. `DRUGSTORE_AND_HOUSEHOLD` (toilet paper, soap, toothpaste, detergent, dish soap, trash bags)
+  12. `NON_FOOD` (all other non-food in one block: batteries, light bulbs, candles, aluminium foil)
+- [ ] **T52** Fill the suggestions of `de` and `en` with all generic items (no brand names) a supermarket usually sells, keeping the vegan-only rule for food. Store them per department (e.g. `suggestions: Map<Department, List<String>>` or a list of `(name, Department)`), ordered by department in the order of T51; derive the flat suggestion list for the `<datalist>` from it. Add tests that there are no duplicates (trimmed, case-insensitive) and no empty department, and update the [Language data](#language-data) section (depends on T51).
+- [ ] **T53** Add a lookup "department and position of an item name in the suggestion order" (trimmed, case-insensitive); unknown items (not in the suggestions) get no department and sort after all known items, keeping their list order. With data-table tests (depends on T52).
+- [ ] **T54** Add to the initial list of `de` and `en` everything a vegan person would usually buy (fruit, vegetables, bread, oats, legumes, rice, pasta, tofu, plant-based milk, nuts, spices, household basics, …); every item of the initial list must also be a suggestion. Update the [Initial list](#initial-list) table (depends on T52).
+- [ ] **T55** Sort the initial list of every language by the suggestion order, with a test that checks the order for all languages (depends on T53, T54).
+- [ ] **T56** Sort the daily list by "unchecked first, then suggestion order" (unknown items after the known ones in list order) instead of "unchecked first, then list order"; update the existing sort tests and the **Sort order** feature description (depends on T53).
+- [ ] **T57** Group the items of the daily list by department with the translated department name as a heading, in the department order of T51; items without a department go into a last group (e.g. "Other"/"Sonstiges"). Within each group the sort order of T56 applies; empty departments are not shown (depends on T51, T56).
+
+### UI: Default list improvements (2)
+
+- [ ] **T58** Add a refresh button with a refresh icon (text as `aria-label`) to the default list that resets it to the initial list of the current language; the stored `shoppingList:defaultList` key is removed. The button is only enabled when the default list differs from the initial list.
+- [ ] **T59** Remove the manual sorting of the default list: drop the up/down buttons (T30) from `DefaultListScreen`, `DefaultList.moveUp`/`moveDown`, `AppState.moveDefaultItemUp`/`moveDefaultItemDown`, the `moveUp`/`moveDown` texts in `UiTexts`, `De.kt` and `En.kt`, the now unused `.move-button` styles and the move tests. Newly added items are still appended at the end; the daily list gets its order from the suggestion order (T56). Update the [Default list](#default-list) feature description.
+
 ## License
 
 [MIT](LICENSE)
