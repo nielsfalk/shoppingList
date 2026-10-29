@@ -6,7 +6,7 @@ This is a single page app for grocery shopping. It runs entirely in the browser,
 
 **Live app:** https://nielsfalk.github.io/shoppingList/
 
-**Status:** the app is deployed to GitHub Pages; implementation is current through **T50** (see [Tasks](#tasks)).
+**Status:** the app is deployed to GitHub Pages; implementation is current through **T51** (see [Tasks](#tasks)).
 
 ## Getting started
 
@@ -321,7 +321,7 @@ Each task is small, can be completed on its own and leaves the app in a working 
 
 ### Supermarket departments
 
-- [ ] **T51** Add an enum `Department` in `model/` with the supermarket departments in walking order through a typical supermarket, and a translated name per department in `UiTexts` (or `LanguageData`) for `de` and `en`, with tests that every department has a non-blank name in every language:
+- [x] **T51** Add an enum `Department` in `model/` with the supermarket departments in walking order through a typical supermarket, and a translated name per department in `UiTexts` (or `LanguageData`) for `de` and `en`, with tests that every department has a non-blank name in every language:
   1. `FRUIT_AND_VEGETABLES` (first)
   2. `BAKERY` (bread, rolls)
   3. `DRY_GOODS` (pasta, rice, grains, legumes, cereals, nuts)

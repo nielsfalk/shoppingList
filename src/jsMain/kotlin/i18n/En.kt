@@ -1,5 +1,7 @@
 package i18n
 
+import model.Department
+
 val En = LanguageData(
     ui = UiTexts(
         dailyList = "Daily list",
@@ -21,6 +23,20 @@ val En = LanguageData(
         ),
         weekdayNames = listOf("Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"),
         noList = "There is no list for this day.",
+        departmentNames = mapOf(
+            Department.FRUIT_AND_VEGETABLES to "Fruit and vegetables",
+            Department.BAKERY to "Bakery",
+            Department.DRY_GOODS to "Dry goods",
+            Department.CANNED_AND_JARS to "Canned goods and jars",
+            Department.OILS_SPICES_AND_SAUCES to "Oils, spices and sauces",
+            Department.BAKING to "Baking",
+            Department.SWEETS_AND_SNACKS to "Sweets and snacks",
+            Department.BEVERAGES to "Beverages",
+            Department.CHILLED to "Chilled",
+            Department.FROZEN to "Frozen",
+            Department.DRUGSTORE_AND_HOUSEHOLD to "Drugstore and household",
+            Department.NON_FOOD to "Non-food",
+        ),
     ),
     initialList = listOf("Toilet paper", "Water", "Mustard", "Oat milk", "Apples", "Rolled oats"),
     suggestions = listOf("Bread", "Margarine", "Soy milk", "Tofu", "Lentils", "Bananas", "Tomatoes", "Pasta"),

@@ -2,6 +2,7 @@ package i18n
 
 import de.nielsfalk.dataTables.Data
 import io.kotest.core.spec.style.FreeSpec
+import model.Department
 import kotlin.test.assertTrue as assert
 
 class LanguageDataTest : FreeSpec({
@@ -16,6 +17,13 @@ class LanguageDataTest : FreeSpec({
             assert(languageData.ui.dailyList == expectedDailyList)
             assert(languageData.ui.copyToToday == expectedCopyToToday)
         }
+    }
+
+    "every department has a non-blank translated name in every language" {
+        assert(languages.values.all { language ->
+            language.ui.departmentNames.keys == Department.entries.toSet() &&
+                language.ui.departmentNames.values.all { it.isNotBlank() }
+        })
     }
 })
 

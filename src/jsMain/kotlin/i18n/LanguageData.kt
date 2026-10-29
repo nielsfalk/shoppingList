@@ -1,5 +1,7 @@
 package i18n
 
+import model.Department
+
 data class UiTexts(
     val dailyList: String,
     val defaultList: String,
@@ -17,6 +19,7 @@ data class UiTexts(
     val monthNames: List<String>,
     val weekdayNames: List<String>,
     val noList: String,
+    val departmentNames: Map<Department, String>,
 )
 
 data class LanguageData(

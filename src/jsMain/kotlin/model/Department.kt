@@ -1,0 +1,16 @@
+package model
+
+enum class Department {
+    FRUIT_AND_VEGETABLES,
+    BAKERY,
+    DRY_GOODS,
+    CANNED_AND_JARS,
+    OILS_SPICES_AND_SAUCES,
+    BAKING,
+    SWEETS_AND_SNACKS,
+    BEVERAGES,
+    CHILLED,
+    FROZEN,
+    DRUGSTORE_AND_HOUSEHOLD,
+    NON_FOOD,
+}
