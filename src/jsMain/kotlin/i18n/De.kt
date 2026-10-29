@@ -41,7 +41,7 @@ val De = LanguageData(
     ),
     initialList = listOf(
         "Äpfel", "Bananen", "Tomaten", "Karotten", "Salat", "Brot", "Haferflocken", "Nudeln", "Senf",
-        "Vegane Schokolade", "Wasser", "Hafermilch", "Pflanzlicher Joghurt", "Tofu", "Vegane Margarine",
+        "Vegane Margarine", "Vegane Schokolade", "Wasser", "Hafermilch", "Pflanzlicher Joghurt", "Tofu",
         "Veganer Käse", "Vegane Pizza", "Toilettenpapier",
     ),
     suggestionsByDepartment = mapOf(
@@ -66,11 +66,11 @@ val De = LanguageData(
         OILS_SPICES_AND_SAUCES to listOf(
             "Olivenöl", "Rapsöl", "Essig", "Salz", "Pfeffer", "Paprikapulver", "Currypulver", "Zimt", "Senf",
             "Ketchup", "Sojasoße", "Vegane Mayonnaise", "Gemüsebrühe", "Mayonnaise", "Rinderbrühe",
-            "Hühnerbrühe", "Fischsoße", "Remoulade",
+            "Hühnerbrühe", "Fischsoße", "Remoulade", "Vegane Margarine",
         ),
         BAKING to listOf(
             "Mehl", "Zucker", "Backpulver", "Hefe", "Vanillezucker", "Kakao", "Speisestärke", "Gelatine",
-            "Kondensmilch",
+            "Kondensmilch", "Eier",
         ),
         SWEETS_AND_SNACKS to listOf(
             "Vegane Schokolade", "Vegane Kekse", "Kartoffelchips", "Popcorn", "Salzstangen", "Trockenfrüchte",
@@ -81,9 +81,9 @@ val De = LanguageData(
         ),
         CHILLED to listOf(
             "Hafermilch", "Sojadrink", "Mandeldrink", "Pflanzlicher Joghurt", "Tofu", "Tempeh",
-            "Vegane Margarine", "Veganer Aufstrich", "Frische Pasta", "Vegane Sahne", "Veganer Käse",
+            "Veganer Aufstrich", "Frische Pasta", "Vegane Sahne", "Veganer Käse",
             "Räuchertofu", "Milch", "Buttermilch", "Butter", "Käse", "Gouda", "Mozzarella", "Feta",
-            "Parmesan", "Frischkäse", "Quark", "Joghurt", "Sahne", "Schmand", "Eier", "Schinken", "Salami",
+            "Parmesan", "Frischkäse", "Quark", "Joghurt", "Sahne", "Schmand", "Schinken", "Salami",
             "Speck", "Würstchen", "Hackfleisch", "Hähnchenbrust", "Schweinekotelett", "Rindersteak", "Lachs",
             "Räucherlachs", "Garnelen", "Hering",
         ),

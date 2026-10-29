@@ -41,7 +41,7 @@ val En = LanguageData(
     ),
     initialList = listOf(
         "Apples", "Bananas", "Tomatoes", "Carrots", "Lettuce", "Bread", "Rolled oats", "Pasta", "Mustard",
-        "Vegan chocolate", "Water", "Oat milk", "Plant-based yogurt", "Tofu", "Vegan margarine",
+        "Vegan margarine", "Vegan chocolate", "Water", "Oat milk", "Plant-based yogurt", "Tofu",
         "Vegan cheese", "Vegan pizza", "Toilet paper",
     ),
     suggestionsByDepartment = mapOf(
@@ -66,11 +66,11 @@ val En = LanguageData(
         OILS_SPICES_AND_SAUCES to listOf(
             "Olive oil", "Rapeseed oil", "Vinegar", "Salt", "Pepper", "Paprika", "Curry powder", "Cinnamon",
             "Mustard", "Ketchup", "Soy sauce", "Vegan mayonnaise", "Vegetable stock", "Mayonnaise",
-            "Beef stock", "Chicken stock", "Fish sauce", "Tartar sauce",
+            "Beef stock", "Chicken stock", "Fish sauce", "Tartar sauce", "Vegan margarine",
         ),
         BAKING to listOf(
             "Flour", "Sugar", "Baking powder", "Yeast", "Vanilla sugar", "Cocoa", "Cornstarch", "Gelatine",
-            "Condensed milk",
+            "Condensed milk", "Eggs",
         ),
         SWEETS_AND_SNACKS to listOf(
             "Vegan chocolate", "Vegan cookies", "Potato crisps", "Popcorn", "Pretzels", "Dried fruit",
@@ -81,10 +81,10 @@ val En = LanguageData(
             "Iced coffee",
         ),
         CHILLED to listOf(
-            "Oat milk", "Soy milk", "Almond milk", "Plant-based yogurt", "Tofu", "Tempeh", "Vegan margarine",
+            "Oat milk", "Soy milk", "Almond milk", "Plant-based yogurt", "Tofu", "Tempeh",
             "Vegan spread", "Fresh pasta", "Vegan cream", "Vegan cheese", "Smoked tofu", "Milk", "Buttermilk",
             "Butter", "Cheese", "Gouda", "Mozzarella", "Feta", "Parmesan", "Cream cheese", "Quark", "Yogurt",
-            "Cream", "Sour cream", "Eggs", "Ham", "Salami", "Bacon", "Sausages", "Minced meat",
+            "Cream", "Sour cream", "Ham", "Salami", "Bacon", "Sausages", "Minced meat",
             "Chicken breast", "Pork chops", "Beef steak", "Salmon", "Smoked salmon", "Shrimp", "Herring",
         ),
         FROZEN to listOf(
