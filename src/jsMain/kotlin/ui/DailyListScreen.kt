@@ -1,8 +1,8 @@
 package ui
 
 import androidx.compose.runtime.Composable
+import i18n.UiTexts
 import model.DailyList
-import model.Department
 import model.Item
 import model.SuggestionOrder
 import org.jetbrains.compose.web.dom.Button
@@ -11,34 +11,34 @@ import org.jetbrains.compose.web.dom.H2
 import org.jetbrains.compose.web.dom.H3
 import org.jetbrains.compose.web.dom.Text
 
+class DailyListActions(
+    val onResetToDefault: () -> Unit,
+    val onAddItem: () -> Unit,
+    val onToggle: (String) -> Unit,
+    val onDelete: (String) -> Unit,
+)
+
 @Composable
 fun DailyListScreen(
     dailyList: DailyList,
     suggestionOrder: SuggestionOrder,
-    departmentNames: Map<Department, String>,
-    otherDepartmentName: String,
-    deleteLabel: String,
-    resetToDefaultLabel: String,
-    addItemLabel: String,
-    onResetToDefault: () -> Unit,
-    onAddItem: () -> Unit,
-    onToggle: (String) -> Unit,
-    onDelete: (String) -> Unit,
+    texts: UiTexts,
+    actions: DailyListActions,
 ) {
     Div(attrs = { classes("daily-list-screen") }) {
         Div(attrs = { classes("daily-list-header") }) {
             H2 { Text(dailyList.date.toString()) }
             Button(attrs = {
                 classes("icon-button")
-                attr("aria-label", resetToDefaultLabel)
-                onClick { onResetToDefault() }
+                attr("aria-label", texts.resetToDefault)
+                onClick { actions.onResetToDefault() }
             }) {
                 Text("↻")
             }
             Button(attrs = {
                 classes("icon-button")
-                attr("aria-label", addItemLabel)
-                onClick { onAddItem() }
+                attr("aria-label", texts.addItem)
+                onClick { actions.onAddItem() }
             }) {
                 Text("+")
             }
@@ -46,9 +46,9 @@ fun DailyListScreen(
         Div(attrs = { classes("shopping-list") }) {
             dailyList.groupedItems(suggestionOrder).forEach { (department, items) ->
                 H3(attrs = { classes("department-heading") }) {
-                    Text(department?.let(departmentNames::get) ?: otherDepartmentName)
+                    Text(department?.let(texts.departmentNames::get) ?: texts.otherDepartment)
                 }
-                items.forEach { item -> DailyListItem(item, deleteLabel, onToggle, onDelete) }
+                items.forEach { item -> DailyListItem(item, texts.delete, actions.onToggle, actions.onDelete) }
             }
         }
     }

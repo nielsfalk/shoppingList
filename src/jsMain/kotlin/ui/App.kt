@@ -10,6 +10,8 @@ import model.suggestionsFor
 import org.jetbrains.compose.web.dom.Div
 import org.jetbrains.compose.web.dom.H1
 import org.jetbrains.compose.web.dom.Text
+import org.w3c.dom.HTMLElement
+import org.w3c.dom.events.Event
 import routing.Route
 import routing.rememberRoute
 import routing.toHash
@@ -21,7 +23,7 @@ fun App() {
     val data = state.languageData
 
     DisposableEffect(state) {
-        val onFocusOrVisible: (dynamic) -> Unit = {
+        val onFocusOrVisible: (Event) -> Unit = {
             state.updateToday()
         }
         window.addEventListener("focus", onFocusOrVisible)
@@ -41,17 +43,15 @@ fun App() {
             Route.DailyList -> {
                 H1 { Text(data.ui.dailyList) }
                 DailyListScreen(
-                    state.dailyList,
-                    data.suggestionOrder,
-                    data.ui.departmentNames,
-                    data.ui.otherDepartment,
-                    data.ui.delete,
-                    data.ui.resetToDefault,
-                    data.ui.addItem,
-                    state::resetToDefault,
-                    { document.getElementById("add-item-input")?.asDynamic()?.focus() },
-                    state::toggleItem,
-                    state::deleteItem,
+                    dailyList = state.dailyList,
+                    suggestionOrder = data.suggestionOrder,
+                    texts = data.ui,
+                    actions = DailyListActions(
+                        onResetToDefault = state::resetToDefault,
+                        onAddItem = { (document.getElementById("add-item-input") as? HTMLElement)?.focus() },
+                        onToggle = state::toggleItem,
+                        onDelete = state::deleteItem,
+                    ),
                 )
                 AddItemForm(
                     suggestionsFor(state.dailyList, state.defaultList, data.suggestions),

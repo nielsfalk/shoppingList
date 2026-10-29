@@ -419,7 +419,7 @@ Each task is small, can be completed on its own and leaves the app in a working 
 
 ### Refactoring: UI & Architecture
 
-- [ ] **T68** Unify screen parameter signatures and extract `DailyListActions`: group `DailyListScreen`'s loose translation and callback parameters into `UiTexts` and a `DailyListActions` handler class, aligning its API with other screens.
+- [x] **T68** Unify screen parameter signatures and extract `DailyListActions`: group `DailyListScreen`'s loose translation and callback parameters into `UiTexts` and a `DailyListActions` handler class, aligning its API with other screens.
 - [ ] **T69** Extract reusable `ItemNameInput` composable: deduplicate the text input field, Enter-key submission, blank check, and button rendering shared between `AddItemForm` and `DefaultListScreen`.
 - [ ] **T70** (obsolete) Extract UI constants for CSS classes and glyphs: define `Styles` and `Glyphs` constants for CSS class names and symbol literals (`"☑"`, `"☐"`, `"↻"`, `"★"`, `"✕"`).
 - [ ] **T71** Centralize persistence and introduce repository abstractions: group storage free functions into repositories (`DailyListRepository`, `LanguageRepository`) and add an `updateDailyList` helper in `AppState` to eliminate repetitive state mutation and save pairs.
