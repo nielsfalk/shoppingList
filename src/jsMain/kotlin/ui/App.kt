@@ -47,7 +47,11 @@ fun App() {
                     suggestionOrder = data.suggestionOrder,
                     texts = data.ui,
                     actions = DailyListActions(
-                        onResetToDefault = state::resetToDefault,
+                        onResetToDefault = {
+                            if (window.confirm(data.ui.confirmResetDailyList)) {
+                                state.resetToDefault()
+                            }
+                        },
                         onAddItem = {
                             (document.getElementById("add-item-input") as? HTMLElement)?.let { input ->
                                 input.scrollIntoView()
@@ -74,7 +78,11 @@ fun App() {
                     data.ui,
                     state::deleteDefaultItem,
                     state::addDefaultItem,
-                    state::resetDefaultList,
+                    onReset = {
+                        if (window.confirm(data.ui.confirmResetDefaultList)) {
+                            state.resetDefaultList()
+                        }
+                    },
                 )
             }
             is Route.History -> {

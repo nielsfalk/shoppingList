@@ -13,6 +13,8 @@ data class UiTexts(
     val delete: String,
     val resetToDefault: String,
     val resetDefaultList: String,
+    val confirmResetDailyList: String,
+    val confirmResetDefaultList: String,
     val copyToToday: String,
     val previousMonth: String,
     val nextMonth: String,

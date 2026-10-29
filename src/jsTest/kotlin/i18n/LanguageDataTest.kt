@@ -30,7 +30,9 @@ class LanguageDataTest : FreeSpec({
             language.data.ui.departmentNames.keys == Department.entries.toSet() &&
                 language.data.ui.departmentNames.values.all { it.isNotBlank() } &&
                 language.data.ui.otherDepartment.isNotBlank() &&
-                language.data.ui.completed.isNotBlank()
+                language.data.ui.completed.isNotBlank() &&
+                language.data.ui.confirmResetDailyList.isNotBlank() &&
+                language.data.ui.confirmResetDefaultList.isNotBlank()
         })
     }
 
