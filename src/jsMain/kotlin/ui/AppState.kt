@@ -2,8 +2,6 @@ package ui
 
 import i18n.Language
 import i18n.LanguageData
-import i18n.currentLanguage
-import i18n.storeLanguage
 import kotlinx.datetime.LocalDate
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -13,17 +11,17 @@ import model.DefaultList
 import model.addToDefaultList
 import model.dailyListFor
 import model.today
+import storage.DailyListRepository
+import storage.DefaultListRepository
+import storage.LanguageRepository
 import storage.Storage
-import storage.loadDailyList
-import storage.loadDefaultList
-import storage.saveDailyList
-import storage.saveDefaultList
-import storage.storedDays
 
 class AppState(
-    private val storage: Storage = Storage(),
-    initialLanguage: Language = currentLanguage(),
-    private val languagePersistence: (Language) -> Unit = ::storeLanguage,
+    storage: Storage = Storage(),
+    private val dailyLists: DailyListRepository = DailyListRepository(storage),
+    private val defaultLists: DefaultListRepository = DefaultListRepository(storage),
+    private val languages: LanguageRepository = LanguageRepository(storage),
+    initialLanguage: Language = languages.currentLanguage(),
     todayDate: LocalDate = today(),
 ) {
     var today by mutableStateOf(todayDate)
@@ -38,80 +36,63 @@ class AppState(
     val languageData: LanguageData
         get() = language.data
 
-    var defaultList by mutableStateOf(loadDefaultList(storage, initialLanguage.data.initialList))
+    var defaultList by mutableStateOf(defaultLists.load(initialLanguage.data.initialList))
         private set
 
-    var dailyList by mutableStateOf(loadOrCreateDailyList(storage, todayDate, defaultList))
+    var dailyList by mutableStateOf(dailyLists.loadOrCreate(todayDate, defaultList))
         private set
+
+    private fun updateDailyList(transform: (DailyList) -> DailyList) {
+        dailyList = transform(dailyList)
+        dailyLists.save(dailyList)
+    }
+
+    private fun updateDefaultList(transform: (DefaultList) -> DefaultList) {
+        defaultList = transform(defaultList)
+        defaultLists.save(defaultList, languageData.initialList)
+    }
 
     fun switchLanguage(language: Language) {
-        languagePersistence(language)
+        languages.storeLanguage(language)
         this.language = language
-        defaultList = loadDefaultList(storage, language.data.initialList)
+        defaultList = defaultLists.load(language.data.initialList)
     }
 
     fun updateToday(newToday: LocalDate = today()) {
         if (newToday == today) return
         today = newToday
-        dailyList = loadOrCreateDailyList(storage, newToday, defaultList)
+        dailyList = dailyLists.loadOrCreate(newToday, defaultList)
     }
 
-    fun storedDays(): Set<LocalDate> = storedDays(storage).toSet()
+    fun storedDays(): Set<LocalDate> = dailyLists.storedDays().toSet()
 
-    fun dailyListOn(date: LocalDate): DailyList? = if (date == today) dailyList else loadDailyList(storage, date)
+    fun dailyListOn(date: LocalDate): DailyList? = if (date == today) dailyList else dailyLists.load(date)
 
     fun copyToToday(date: LocalDate) {
         if (date >= today) return
-        val oldList = loadDailyList(storage, date) ?: return
-        dailyList = dailyList.copyFrom(oldList)
-        saveDailyList(storage, dailyList)
+        val oldList = dailyLists.load(date) ?: return
+        updateDailyList { it.copyFrom(oldList) }
     }
 
-    fun resetToDefault() {
-        dailyList = dailyListFor(today, null, defaultList)
-        saveDailyList(storage, dailyList)
-    }
+    fun resetToDefault() = updateDailyList { dailyListFor(today, null, defaultList) }
 
-    fun toggleItem(name: String) {
-        dailyList = dailyList.toggle(name)
-        saveDailyList(storage, dailyList)
-    }
+    fun toggleItem(name: String) = updateDailyList { it.toggle(name) }
 
-    fun deleteItem(name: String) {
-        dailyList = dailyList.delete(name)
-        saveDailyList(storage, dailyList)
-    }
+    fun deleteItem(name: String) = updateDailyList { it.delete(name) }
 
-    fun addToDailyList(name: String) {
-        dailyList = dailyList.add(name)
-        saveDailyList(storage, dailyList)
-    }
+    fun addToDailyList(name: String) = updateDailyList { it.add(name) }
 
-    fun deleteDefaultItem(name: String) = updateDefaultList(defaultList.delete(name))
+    fun deleteDefaultItem(name: String) = updateDefaultList { it.delete(name) }
 
-    fun addDefaultItem(name: String) = updateDefaultList(defaultList.add(name))
+    fun addDefaultItem(name: String) = updateDefaultList { it.add(name) }
 
-    fun resetDefaultList() = updateDefaultList(DefaultList(languageData.initialList))
-
-    private fun updateDefaultList(updatedDefaultList: DefaultList) {
-        defaultList = updatedDefaultList
-        saveDefaultList(storage, defaultList, languageData.initialList)
-    }
+    fun resetDefaultList() = updateDefaultList { DefaultList(languageData.initialList) }
 
     fun addToDefaultList(name: String) {
         val (updatedDefaultList, updatedDailyList) = addToDefaultList(defaultList, dailyList, name)
         defaultList = updatedDefaultList
         dailyList = updatedDailyList
-        saveDefaultList(storage, defaultList, languageData.initialList)
-        saveDailyList(storage, dailyList)
+        defaultLists.save(defaultList, languageData.initialList)
+        dailyLists.save(dailyList)
     }
-}
-
-private fun loadOrCreateDailyList(storage: Storage, date: LocalDate, defaultList: DefaultList): DailyList {
-    val existing = loadDailyList(storage, date)
-    val dailyList = dailyListFor(date, existing, defaultList)
-    if (existing?.date != date) {
-        saveDailyList(storage, dailyList)
-    }
-    return dailyList
 }
