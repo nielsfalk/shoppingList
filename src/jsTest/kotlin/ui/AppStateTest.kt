@@ -53,11 +53,11 @@ class AppStateTest : FreeSpec({
         try {
             val state = AppState(storage, initialLanguageCode = "en", languagePersistence = {}, todayDate = date)
 
-            state.addToDailyList("  Bread ")
-            state.addToDefaultList("Tofu")
+            state.addToDailyList("  New daily item ")
+            state.addToDefaultList("New default item")
 
-            assert(state.dailyList.items.takeLast(2).map { it.name } == listOf("Bread", "Tofu"))
-            assert(state.defaultList.items.last() == "Tofu")
+            assert(state.dailyList.items.takeLast(2).map { it.name } == listOf("New daily item", "New default item"))
+            assert(state.defaultList.items.last() == "New default item")
             assert(storage.get<DailyList>("day:$date") == state.dailyList)
             assert(storage.get<List<String>>("defaultList") == state.defaultList.items)
         } finally {
@@ -137,13 +137,13 @@ class AppStateTest : FreeSpec({
         val pastDay = LocalDate.parse("2026-10-20")
 
         try {
-            storage.set("day:$pastDay", DailyList(pastDay, listOf(Item("Bread", checked = true), Item("water"))))
+            storage.set("day:$pastDay", DailyList(pastDay, listOf(Item("Past item", checked = true), Item("water"))))
             val state = AppState(storage, initialLanguageCode = "en", languagePersistence = {}, todayDate = today)
             val initialItems = state.dailyList.items
 
             state.copyToToday(pastDay)
 
-            assert(state.dailyList.items == initialItems + Item("Bread"))
+            assert(state.dailyList.items == initialItems + Item("Past item"))
             assert(storage.get<DailyList>("day:$today") == state.dailyList)
 
             val afterCopy = state.dailyList

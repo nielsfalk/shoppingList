@@ -38,7 +38,14 @@ val De = LanguageData(
             Department.NON_FOOD to "Non-Food",
         ),
     ),
-    initialList = listOf("Klopapier", "Wasser", "Senf", "Hafermilch", "Äpfel", "Haferflocken"),
+    initialList = listOf(
+        "Toilettenpapier", "Wasser", "Senf", "Hafermilch", "Äpfel", "Haferflocken", "Bananen", "Orangen",
+        "Tomaten", "Gurken", "Paprika", "Karotten", "Kartoffeln", "Zwiebeln", "Knoblauch", "Salat", "Brot",
+        "Reis", "Nudeln", "Linsen", "Getrocknete Bohnen", "Kichererbsen", "Mandeln", "Gehackte Tomaten",
+        "Olivenöl", "Salz", "Pfeffer", "Mehl", "Vegane Schokolade", "Kaffee", "Pflanzlicher Joghurt", "Tofu",
+        "Vegane Margarine", "Veganer Aufstrich", "Tiefkühlgemüse", "Shampoo", "Zahnpasta", "Waschmittel",
+        "Spülmittel", "Müllbeutel", "Batterien",
+    ),
     suggestionsByDepartment = mapOf(
         Department.FRUIT_AND_VEGETABLES to listOf(
             "Äpfel", "Birnen", "Bananen", "Orangen", "Zitronen", "Beeren", "Trauben", "Avocados",
