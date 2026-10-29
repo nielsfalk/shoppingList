@@ -17,14 +17,26 @@ import org.jetbrains.compose.web.dom.Text
 @Composable
 fun DefaultListScreen(
     defaultList: DefaultList,
+    initialList: List<String>,
     texts: UiTexts,
     onMoveUp: (String) -> Unit,
     onMoveDown: (String) -> Unit,
     onDelete: (String) -> Unit,
     onAdd: (String) -> Unit,
+    onReset: () -> Unit,
 ) {
     var name by remember { mutableStateOf("") }
 
+    Div(attrs = { classes("default-list-header") }) {
+        Button(attrs = {
+            classes("icon-button")
+            attr("aria-label", texts.resetDefaultList)
+            if (!defaultList.differsFrom(initialList)) attr("disabled", "")
+            onClick { onReset() }
+        }) {
+            Text("↻")
+        }
+    }
     Div(attrs = { classes("default-list-screen", "shopping-list") }) {
         defaultList.items.forEachIndexed { index, name ->
             Div(attrs = { classes("shopping-list-item") }) {

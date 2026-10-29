@@ -113,6 +113,24 @@ class AppStateTest : FreeSpec({
         }
     }
 
+    "resets the default list to the initial list and removes the stored list" {
+        val storage = Storage(prefix = "shoppingList:test:${Random.nextLong()}:")
+        val initialList = languageData("en").initialList
+
+        try {
+            val state = AppState(storage, initialLanguageCode = "en", languagePersistence = {}, todayDate = LocalDate.parse("2026-10-27"))
+            state.deleteDefaultItem(initialList[0])
+            state.addDefaultItem("New default item")
+
+            state.resetDefaultList()
+
+            assert(state.defaultList.items == initialList)
+            assert(storage.getString("defaultList") == null)
+        } finally {
+            storage.keys().forEach(storage::remove)
+        }
+    }
+
     "exposes stored days and lists of past days" {
         val storage = Storage(prefix = "shoppingList:test:${Random.nextLong()}:")
         val today = LocalDate.parse("2026-10-27")

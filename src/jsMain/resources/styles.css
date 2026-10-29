@@ -128,7 +128,8 @@ a {
     color: var(--color-magenta);
 }
 
-.daily-list-header {
+.daily-list-header,
+.default-list-header {
     display: flex;
     align-items: center;
     justify-content: space-between;

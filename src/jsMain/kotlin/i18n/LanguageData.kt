@@ -12,6 +12,7 @@ data class UiTexts(
     val addToDefaultList: String,
     val delete: String,
     val resetToDefault: String,
+    val resetDefaultList: String,
     val copyToToday: String,
     val moveUp: String,
     val moveDown: String,

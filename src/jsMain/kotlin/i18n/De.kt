@@ -12,6 +12,7 @@ val De = LanguageData(
         addToDefaultList = "Zur Standardliste",
         delete = "Löschen",
         resetToDefault = "Auf Standardliste zurücksetzen",
+        resetDefaultList = "Standardliste auf Ausgangsliste zurücksetzen",
         copyToToday = "In heutige Liste übernehmen",
         moveUp = "Nach oben",
         moveDown = "Nach unten",

@@ -12,6 +12,7 @@ val En = LanguageData(
         addToDefaultList = "Add to default list",
         delete = "Delete",
         resetToDefault = "Reset to default list",
+        resetDefaultList = "Reset default list to initial list",
         copyToToday = "Copy to today",
         moveUp = "Move up",
         moveDown = "Move down",

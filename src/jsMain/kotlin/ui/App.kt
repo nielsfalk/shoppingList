@@ -51,11 +51,13 @@ fun App() {
                 H1 { Text(data.ui.defaultList) }
                 DefaultListScreen(
                     state.defaultList,
+                    data.initialList,
                     data.ui,
                     state::moveDefaultItemUp,
                     state::moveDefaultItemDown,
                     state::deleteDefaultItem,
                     state::addDefaultItem,
+                    state::resetDefaultList,
                 )
             }
             is Route.History -> {
