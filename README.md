@@ -6,7 +6,7 @@ This is a single page app for grocery shopping. It runs entirely in the browser,
 
 **Live app:** https://nielsfalk.github.io/shoppingList/
 
-**Status:** the app is deployed to GitHub Pages; implementation is current through **T60** (see [Tasks](#tasks)).
+**Status:** the app is deployed to GitHub Pages; implementation is current through **T62** (see [Tasks](#tasks)).
 
 ## Getting started
 
@@ -59,45 +59,22 @@ There is an initial list for each language in the [language data](#language-data
 |----------------------|--------------------|
 | Äpfel                | Apples             |
 | Bananen              | Bananas            |
-| Orangen              | Oranges            |
 | Tomaten              | Tomatoes           |
-| Gurken               | Cucumbers          |
-| Paprika              | Bell peppers       |
 | Karotten             | Carrots            |
-| Kartoffeln           | Potatoes           |
-| Zwiebeln             | Onions             |
-| Knoblauch            | Garlic             |
 | Salat                | Lettuce            |
 | Brot                 | Bread              |
 | Haferflocken         | Rolled oats        |
-| Reis                 | Rice               |
 | Nudeln               | Pasta              |
-| Linsen               | Lentils            |
-| Getrocknete Bohnen   | Dried beans        |
-| Mandeln              | Almonds            |
-| Gehackte Tomaten     | Chopped tomatoes   |
-| Kichererbsen         | Chickpeas          |
-| Olivenöl             | Olive oil          |
-| Salz                 | Salt               |
-| Pfeffer              | Pepper             |
 | Senf                 | Mustard            |
-| Mehl                 | Flour              |
 | Vegane Schokolade    | Vegan chocolate    |
 | Wasser               | Water              |
-| Kaffee               | Coffee             |
 | Hafermilch           | Oat milk           |
 | Pflanzlicher Joghurt | Plant-based yogurt |
 | Tofu                 | Tofu               |
 | Vegane Margarine     | Vegan margarine    |
-| Veganer Aufstrich    | Vegan spread       |
-| Tiefkühlgemüse       | Frozen vegetables  |
+| Veganer Käse         | Vegan cheese       |
+| Vegane Pizza         | Vegan pizza        |
 | Toilettenpapier      | Toilet paper       |
-| Shampoo              | Shampoo            |
-| Zahnpasta            | Toothpaste         |
-| Waschmittel          | Laundry detergent  |
-| Spülmittel           | Dish soap          |
-| Müllbeutel           | Trash bags         |
-| Batterien            | Batteries          |
 
 ### History
 
@@ -422,6 +399,7 @@ Each task is small, can be completed on its own and leaves the app in a working 
 ### Suggestions
 
 - [x] **T60** Add all generic non-vegan items (no brand names) a supermarket usually sells to the suggestions of `de` and `en`, in their departments of T51 (e.g. meat, sausages, fish, milk, cheese, butter, yogurt, cream and eggs in `CHILLED`; frozen fish and meat in `FROZEN`; canned tuna and honey in `CANNED_AND_JARS`; gelatine in `BAKING`; milk chocolate and gummy bears in `SWEETS_AND_SNACKS`). Drop the vegan-only rule for suggestions (the initial list stays vegan), keep the no-duplicates and every-initial-item-is-a-suggestion tests green, and update the glossary, the **Suggestions** feature description and the [Language data](#language-data) section.
+- [x] **T62** Replace the initial list of every language with the new curated 18-item vegan shopping list (Äpfel, Bananen, Tomaten, Karotten, Salat, Brot, Haferflocken, Nudeln, Senf, Vegane Schokolade, Wasser, Hafermilch, Pflanzlicher Joghurt, Tofu, Vegane Margarine, Veganer Käse, Vegane Pizza, Toilettenpapier), translated per language. Every item must remain a suggestion, the list must stay sorted by the suggestion order, and the [Initial list](#initial-list) table must be updated (depends on T54, T55).
 
 ### Maintenance
 
