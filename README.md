@@ -409,7 +409,7 @@ Each task is small, can be completed on its own and leaves the app in a working 
 
 - [x] **T63** Fix midnight date rollover: recompute/update `AppState.today` when the app regains focus or visibility (`visibilitychange` / `window.onfocus`) so long-running PWA sessions roll over to the new day automatically.
 - [x] **T64** Make `Storage.get` deserialization fault-tolerant: wrap JSON deserialization in `runCatching` with fallback handling to prevent corrupt or incompatible `localStorage` entries from crashing app startup.
-- [ ] **T65** Optimize history storage scan: avoid scanning all `localStorage` keys on every Compose recomposition of the history screen by reading/caching `storedDays` only when needed.
+- [x] **T65** Optimize history storage scan: avoid scanning all `localStorage` keys on every Compose recomposition of the history screen by reading/caching `storedDays` only when needed.
 
 ### Refactoring: Domain & Type Safety
 

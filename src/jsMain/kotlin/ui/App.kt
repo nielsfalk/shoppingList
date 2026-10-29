@@ -74,10 +74,11 @@ fun App() {
             }
             is Route.History -> {
                 H1 { Text(data.ui.history) }
+                val storedDays = remember { state.storedDays() }
                 HistoryScreen(
                     today = state.today,
                     selectedDate = route.date,
-                    storedDays = state.storedDays(),
+                    storedDays = storedDays,
                     selectedList = route.date?.let(state::dailyListOn),
                     texts = data.ui,
                     suggestionOrder = data.suggestionOrder,
