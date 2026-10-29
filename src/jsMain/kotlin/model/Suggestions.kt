@@ -1,12 +1,12 @@
 package model
 
 fun suggestionsFor(dailyList: DailyList, defaultList: DefaultList, languageSuggestions: List<String>): List<String> {
-    val dailyItemNames = dailyList.items.mapTo(mutableSetOf()) { it.name.normalizedName() }
+    val dailyItemKeys = dailyList.items.mapTo(mutableSetOf()) { it.key }
     val suggestions = mutableListOf<String>()
-    val seenNames = mutableSetOf<String>()
+    val seenKeys = mutableSetOf<ItemKey>()
 
-    (defaultList.items.filterNot { it.normalizedName() in dailyItemNames } + languageSuggestions).forEach { suggestion ->
-        if (seenNames.add(suggestion.normalizedName())) suggestions += suggestion
+    (defaultList.items.filterNot { it.toItemKey() in dailyItemKeys } + languageSuggestions).forEach { suggestion ->
+        if (seenKeys.add(suggestion.toItemKey())) suggestions += suggestion
     }
 
     return suggestions

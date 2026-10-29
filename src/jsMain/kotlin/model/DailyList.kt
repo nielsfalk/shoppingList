@@ -22,25 +22,25 @@ data class DailyList(
     }
 
     fun toggle(name: String): DailyList {
-        val normalizedName = name.normalizedName()
+        val targetKey = name.toItemKey()
         return copy(
             items = items.map { item ->
-                if (item.name.normalizedName() == normalizedName) item.copy(checked = !item.checked) else item
+                if (item.key == targetKey) item.copy(checked = !item.checked) else item
             },
         )
     }
 
     fun delete(name: String): DailyList {
-        val normalizedName = name.normalizedName()
-        return copy(items = items.filterNot { it.name.normalizedName() == normalizedName })
+        val targetKey = name.toItemKey()
+        return copy(items = items.filterNot { it.key == targetKey })
     }
 
     fun add(name: String): DailyList {
         val trimmedName = name.trim()
         if (trimmedName.isEmpty()) return this
 
-        val normalizedName = trimmedName.normalizedName()
-        val existingIndex = items.indexOfFirst { it.name.normalizedName() == normalizedName }
+        val targetKey = trimmedName.toItemKey()
+        val existingIndex = items.indexOfFirst { it.key == targetKey }
         if (existingIndex < 0) return copy(items = items + Item(trimmedName))
 
         val existingItem = items[existingIndex]

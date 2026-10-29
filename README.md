@@ -413,7 +413,7 @@ Each task is small, can be completed on its own and leaves the app in a working 
 
 ### Refactoring: Domain & Type Safety
 
-- [ ] **T66** Introduce `@JvmInline value class ItemKey`: encapsulate trimmed case-insensitive name normalization in a dedicated value class (`ItemKey.of(name)`, `String.toItemKey()`, `Item.key`) to eliminate repetitive manual `normalizedName()` calls across the model.
+- [x] **T66** Introduce `@JvmInline value class ItemKey`: encapsulate trimmed case-insensitive name normalization in a dedicated value class (`ItemKey.of(name)`, `String.toItemKey()`, `Item.key`) to eliminate repetitive manual `normalizedName()` calls across the model.
 - [ ] **T67** Introduce typed `Language` enum: replace `String` language codes with `enum class Language(val code: String, val data: LanguageData)` including fallback selection (`select(stored, browser)`) to eliminate hardcoded language lists and runtime validation checks.
 
 ### Refactoring: UI & Architecture

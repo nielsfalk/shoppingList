@@ -6,20 +6,20 @@ class SuggestionOrder(suggestionsByDepartment: Map<Department, List<String>>) {
         val index: Int,
     )
 
-    private val positionsByName = mutableMapOf<String, Position>().apply {
+    private val positionsByKey = mutableMapOf<ItemKey, Position>().apply {
         var index = 0
         Department.entries.forEach { department ->
             suggestionsByDepartment[department].orEmpty().forEach { name ->
-                val normalizedName = name.normalizedName()
-                if (normalizedName !in this) this[normalizedName] = Position(department, index)
+                val key = name.toItemKey()
+                if (key !in this) this[key] = Position(department, index)
                 index++
             }
         }
     }
 
-    fun departmentOf(name: String): Department? = positionsByName[name.normalizedName()]?.department
+    fun departmentOf(name: String): Department? = positionsByKey[name.toItemKey()]?.department
 
-    fun positionOf(name: String): Int? = positionsByName[name.normalizedName()]?.index
+    fun positionOf(name: String): Int? = positionsByKey[name.toItemKey()]?.index
 
     fun <T> sorted(items: List<T>, name: (T) -> String): List<T> =
         items.sortedBy { positionOf(name(it)) ?: Int.MAX_VALUE }

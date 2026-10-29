@@ -7,14 +7,14 @@ data class DefaultList(
         val trimmedName = name.trim()
         if (trimmedName.isEmpty()) return this
 
-        val normalizedName = trimmedName.normalizedName()
-        if (items.any { it.normalizedName() == normalizedName }) return this
+        val targetKey = trimmedName.toItemKey()
+        if (items.any { it.toItemKey() == targetKey }) return this
         return copy(items = items + trimmedName)
     }
 
     fun delete(name: String): DefaultList {
-        val normalizedName = name.normalizedName()
-        return copy(items = items.filterNot { it.normalizedName() == normalizedName })
+        val targetKey = name.toItemKey()
+        return copy(items = items.filterNot { it.toItemKey() == targetKey })
     }
 
     fun differsFrom(initial: List<String>): Boolean = items != initial
