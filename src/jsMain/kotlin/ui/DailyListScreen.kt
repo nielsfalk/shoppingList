@@ -50,6 +50,9 @@ fun DailyListScreen(
                 }
                 items.forEach { item -> DailyListItem(item, texts.delete, actions.onToggle, actions.onDelete) }
             }
+            dailyList.completedItems(suggestionOrder).forEach { item ->
+                DailyListItem(item, texts.delete, actions.onToggle, actions.onDelete)
+            }
         }
     }
 }
