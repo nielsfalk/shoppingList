@@ -1,9 +1,17 @@
 package storage
 
 import kotlinx.browser.window
+import kotlin.js.Promise
+import org.w3c.dom.Navigator
 
-fun requestPersistentStorage(): dynamic {
-    val storageManager = window.navigator.asDynamic().storage
-    if (storageManager == null || storageManager.persist == null) return null
+external interface StorageManager {
+    fun persist(): Promise<Boolean>
+}
+
+val Navigator.storage: StorageManager?
+    get() = asDynamic().storage as? StorageManager
+
+fun requestPersistentStorage(): Promise<Boolean>? {
+    val storageManager = window.navigator.storage ?: return null
     return storageManager.persist().catch { false }
 }
