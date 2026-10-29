@@ -82,6 +82,9 @@ val De = LanguageData(
             "Hirschhornsalat", "Postelein", "Winterpostelein", "Wirsingkohl", "Urkohl", "Jaroma-Kohl", "Palmkohl / Cavolo Nero", "Kohlrabiblätter",
             "Romanesco grün", "Zucchini gelb rund", "Zucchini grün rund", "Kletterzucchini", "Patisson-Kürbis", "Bischofsmütze Kürbis", "Mikrowellenkürbis", "Austernseitlinge",
             "Kräuterseitlinge Bio", "Goldkäppchen", "Shiitake frisch", "Enoki-Pilze", "Shimeji-Pilze", "Maitake-Pilze", "Trüffel schwarz frisch", "Trüffel weiß frisch",
+            "Kochbananen", "Baby-Bananen", "Passionsfrucht lila", "Kaktusfeigen", "Sternfrucht", "Granatapfelkerne frisch", "Grapefruit weiß", "Bergamotte frisch",
+            "Fingerlimes", "Cime di Rapa", "Puntarelle", "Mönchsbart", "Löwenzahnsalat", "Wildkräutersalat", "Broccolini", "Stangenbrokkoli",
+            "Löwenmähnenpilz / Lion's Mane", "Enoki-Pilze weiß", "Shimeji-Pilze braun", "Shimeji-Pilze weiß", "Thai-Basilikum frisch", "Zitronenthymian frisch", "Mungobohnensprossen frisch",
         ),
         BAKERY to listOf(
             "Brot", "Vollkornbrot", "Roggenbrot", "Roggenmischbrot", "Weizenbrot", "Weizenmischbrot", "Sauerteigbrot", "Dinkelbrot",
@@ -100,7 +103,8 @@ val De = LanguageData(
             "Walnussbrot", "Olivenbrot", "Zwiebelbrot", "Karottenbrot", "Chiasamenbrot", "Haferbrot", "Buchweizenbrot", "Maisbrot",
             "Bio-Kaiserbrötchen", "Bio-Dinkelbrötchen", "Röggelchen", "Krusties", "Tafelbrötchen", "Schusterjungen", "Vollkornsemmel", "Kürbiskernsemmel",
             "Mohnbrötchen", "Sesambrötchen", "Käselaugenstange", "Schinken-Käse-Croissant", "Pekanuss-Tasche", "Schokotasche", "Kirschplunder", "Pflaumenkuchen Hefe",
-            "Bienenstich Schnitte", "Donauwelle Schnitte",
+            "Bienenstich Schnitte", "Donauwelle Schnitte", "Krustenbrot vom Bäcker", "Bio-Dinkelkrustenbrot", "Roggen-Vollkorn-Kruste", "Kartoffel-Krustenbrot", "Chia-Dinkelbrot", "Frz. Steinofenbaguette",
+            "Mediterranes Olivenbaguette", "Dinkel-Ciabatta", "Laugen-Burger-Buns", "Brioche-Hotdog-Buns", "Bio-Laugenbrezeln", "Frz. Schokocroissant", "Pekan-Ahornsirup-Tasche", "Vanille-Kopenhagener",
         ),
         DRY_GOODS to listOf(
             "Haferflocken", "Zarte Haferflocken", "Kernige Haferflocken", "Dinkelflocken", "Roggenflocken", "Gerstenflocken", "4-Korn-Flocken", "5-Korn-Flocken",
@@ -129,7 +133,9 @@ val De = LanguageData(
             "Bavette", "Casarecce", "Trofie", "Orecchiette", "Garganelli", "Paccheri", "Campanelle", "Radiatori",
             "Dinkel-Vollkorn-Spaghetti", "Kichererbsen-Fusilli", "Rote-Linsen-Penne", "Grüne-Erbsen-Fusilli", "Buchweizennudeln / Soba", "Bio-Couscous", "Gerösteter Couscous", "Quinoa Tricolore",
             "Amaranth gepufft", "Dinkel gepufft", "Quinoa gepufft", "Buchweizengrütze", "Maniokmehl / Tapiokamehl", "Macadamianüsse geröstet", "Pecannusskerne halbiert", "Pistazienkerne ungesalzen",
-            "Pinienkerne mediterran", "Zedernkerne sibirisch",
+            "Pinienkerne mediterran", "Zedernkerne sibirisch", "Bio-Urkorn-Müsli", "Protein-Haferflocken", "Keimster Bio-Müsli", "Kamut-Spaghetti", "Einkorn-Penne", "Emmer-Fusilli",
+            "Kastanien-Tagliatelle", "Edamame-Spaghetti", "Schwarze-Bohnen-Spaghetti", "Kichererbsen-Reis", "Linsen-Reis", "Puffreis natur", "Buchweizenflocken", "Hirseflocken",
+            "Sojabohnenflocken", "Lupinenflocken", "Bio-Hanfproteinpulver",
         ),
         CANNED_AND_JARS to listOf(
             "Gehackte Tomaten", "Geschälte Tomaten", "Passierte Tomaten", "Stückige Tomaten", "Kirschtomaten in der Dose", "San-Marzano-Tomaten", "Pizzatomaten", "Tomatenmark",
@@ -156,7 +162,9 @@ val De = LanguageData(
             "Kürbissuppe Dose", "Spargelcremesuppe Dose", "Hühnerfrikassee Dose", "Königsberger Klopse Dose", "Datteltomaten in der Dose", "Gelbe Tomaten in der Dose", "Bio-Passata di Pomodoro", "Tomatenmark mit Würzgemüse",
             "Wachsbohnen fein", "Brechbohnen extra fein", "Dicke Bohnen mit Speck im Glas", "Kichererbsen Bio im Glas", "Schwarze Bohnen Bio im Glas", "Weiße Bohnen in Tomatensoße Bio", "Feine Linsen im Glas", "Gedämpfte Linsen Dose",
             "Grüne Linsen im Glas", "Schwarzkirschen im Glas", "Mirabellen im Glas", "Heidelbeeren im Glas", "Waldheidelbeeren im Glas", "Mango in Scheiben im Glas", "Gewürzgurken süß-sauer", "Gurkensticks mit Dill",
-            "Schlemmergurken", "Knoblauchzehen in Öl", "Artischockenherzen in Kräuteröl", "Erdbeer-Rhabarber-Marmelade", "Sauerkirsch-Vanille-Konfitüre", "Heidelbeer-Limette-Marmelade", "Aprikosen-Mandel-Marmelade",
+            "Schlemmergurken", "Knoblauchzehen in Öl", "Artischockenherzen in Kräuteröl", "Erdbeer-Rhabarber-Marmelade", "Sauerkirsch-Vanille-Konfitüre", "Heidelbeer-Limette-Marmelade", "Aprikosen-Mandel-Marmelade", "San-Marzano-DOP-Tomaten",
+            "Bio-Kirschtomaten in Tomatensaft", "Gelbe Datteltomaten im Glas", "Kichererbsen geröstet im Glas", "Edamame in Lake", "Lupinenkerne im Glas", "Artischockenherzen gegrillt", "Pimientos del Piquillo", "Taggiasca-Oliven in Öl",
+            "Castelvetrano-Oliven", "Bio-Cashewmus crunchy", "Bio-Pistazienmus", "Schwarzes Tahini", "Dunkles Mandelmus", "Ahornsirup Grad A", "Ahornsirup Grad C",
         ),
         OILS_SPICES_AND_SAUCES to listOf(
             "Olivenöl", "Natives Olivenöl Extra", "Brat-Olivenöl", "Rapsöl", "Reines Rapsöl", "Kaltgepresstes Rapsöl", "Sonnenblumenöl", "Pflanzenöl",
@@ -195,6 +203,9 @@ val De = LanguageData(
             "Meersalz grob in der Mühle", "Schwarzes Lavasalz", "Rauchsalz Hickory", "Kalahari-Wüstensalz", "Persisches Blausalz", "Kampot-Pfeffer schwarz", "Kampot-Pfeffer rot", "Tellicherry-Pfeffer",
             "Langer Pfeffer / Stangenpfeffer", "Tasmanischer Bergpfeffer", "Bio-Kurkuma gemahlen", "Bio-Kreuzkümmel gemahlen", "Koriander ganz Bio", "Ceylon-Zimt gemahlen Bio", "Zimtstangen Ceylon", "BBQ-Sauce Bourbon",
             "Honey BBQ Sauce", "Chipotle Sauce", "Mango-Chili-Sauce", "Sweet Onion Sauce", "Trüffel-Mayonnaise", "Bio-Gemüsebrühe hefefrei", "Klare Rinderbrühe Bio", "Klare Hühnerbrühe Bio",
+            "Olivenöl Extra Vergine g.g.A.", "Albaöl Butter-Rapsöl", "Bio-Hanföl kaltgepresst", "Arganöl geröstet", "Traubenkernöl kaltgepresst", "Balsamico Bianco Condimento", "Apfel-Balsamessig", "Kräuteressig naturtrüb",
+            "Maldon Meersalzflocken", "Guérande Meersalz", "Rosa Kristall-Salz", "Tasmanischer Pfeffer ganz", "Fermentierter Pfeffer schwarz", "Voatsiperifery Urwaldpfeffer", "Bio-Sumach gemahlen", "Bio-Zaatar Gewürzmischung",
+            "Smoked Chipotle Sauce", "Habanero Mango Sauce", "Trüffel-Pesto", "Bärlauch-Walnuss-Pesto",
         ),
         BAKING to listOf(
             "Mehl", "Weizenmehl Type 405", "Weizenmehl Type 550", "Weizenmehl Type 1050", "Weizenvollkornmehl", "Dinkelmehl Type 630", "Dinkelmehl Type 1050", "Dinkelvollkornmehl",
@@ -217,7 +228,8 @@ val De = LanguageData(
             "Dinkelmehl Type 812", "Einkorn-Vollkornmehl", "Emmer-Vollkornmehl", "Kamut-Mehl", "Hafermehl glutenfrei", "Demerara-Rohrzucker", "Muscovado-Zucker dunkel", "Panela-Vollrohrzucker",
             "Kokosblütenzucker Bio", "Puderzucker aus Rohrzucker", "Trockenhefe Bio", "Frische Bio-Hefe", "Flüssiges Backmalz", "Gerstenmalzextrakt", "Inaktive Hefe", "Madagaskar-Bourbon-Vanilleschote",
             "Tahiti-Vanilleschote", "Vanilleextrakt bio", "Bio-Backkakao fairtrade", "Kakaomasse", "Kartoffelmehl", "Pfeilwurzstärke", "Kakaobutter Bio", "Kakaobutterchips",
-            "Goldpuder essbar", "Silberperlen essbar",
+            "Goldpuder essbar", "Silberperlen essbar", "Bio-Dinkelmehl Type 630 mühlenfrisch", "Bio-Weizenmehl Type 550 mühlenfrisch", "Manitoba-Mehl Type 0", "Semola di Grano Duro Rimacinata", "Bio-Kokosblütenzucker fair", "Erythrit-Stevia-Mischung",
+            "Bio-Weinsteinbackpulver", "Bio-Trockensauerteig Dinkel", "Bourbon-Vanille-Paste Bio", "Valrhona Backkakao", "Callebaut Schoko-Callets Zartbitter", "Callebaut Schoko-Callets Vollmilch", "Bio-Agar-Agar Pulver",
         ),
         SWEETS_AND_SNACKS to listOf(
             "Vegane Schokolade", "Schokolade", "Vollmilchschokolade", "Zartbitterschokolade", "Feinherb-Schokolade", "Bitterschokolade 70%", "Bitterschokolade 85%", "Weiße Schokolade",
@@ -244,7 +256,8 @@ val De = LanguageData(
             "Teigmantel-Erdnüsse", "NicNacs", "Geröstete Mandeln", "Rauchmandeln", "Gesalzene Cashews", "Geröstete Pistazien", "Edamame geröstet", "Kichererbsen geröstet",
             "Bio-Zartbitterschokolade 90%", "Single-Origin-Schokolade 75%", "Vegane Haselnussschokolade", "Vegane Mandel-Nougat-Schokolade", "Dinkel-Butterkekse", "Hafer-Schoko-Kekse", "Dinkel-Doppelkekse", "Glutenfreie Schokokekse",
             "Bio-Mannerwaffeln", "Bio-Fruchtgummis vegan", "Saure Apfelringe", "Saure Pfirsichringe", "Cola-Schnuller", "Kirsch-Fruchtgummis", "Kesselchips Meersalz & Essig", "Kesselchips Sweet Chili",
-            "Kichererbsenchips Paprika", "Linsenchips Meersalz", "Quinoachips Sauerrahm",
+            "Kichererbsenchips Paprika", "Linsenchips Meersalz", "Quinoachips Sauerrahm", "Bio-Edelbitterschokolade 85% Fairtrade", "Vegane Hafermilch-Schokolade", "Vegane Salted Caramel Schokolade", "Dinkel-Vollkorn-Kekse mit Zartbitter", "Bio-Hafer-Cookies mit Cranberries",
+            "Bio-Fruchtgummis ohne Gelatine", "Vegane Schaumzucker-Früchte", "Sauer-Fruchtgummi vegan", "Bio-Kesselchips Rosmarin", "Bio-Kesselchips Paprika geräuchert", "Linsen-Chips Sour Cream vegan", "Kichererbsen-Puffs Meersalz", "Bio-Nuss-Frucht-Mix ungeschwefelt",
         ),
         BEVERAGES to listOf(
             "Wasser", "Mineralwasser", "Stilles Wasser", "Sprudelwasser", "Wasser mit Kohlensäure", "Medium Wasser", "Sanftes Wasser", "Heilwasser",
@@ -282,6 +295,8 @@ val De = LanguageData(
             "Quellwasser still Bio", "Gletscherwasser still", "Premium Mineralwasser medium", "Heilwasser natürlich", "Direktsaft Blutorange", "Direktsaft Pink Grapefruit", "Direktsaft Apfel-Birne", "Direktsaft Apfel-Kirsch",
             "Bio-Apfelsaft naturtrüb", "Bio-Zitronenlimonade naturtrüb", "Bio-Orangenlimonade", "Bio-Kräuterlimonade", "Ginger Beer alkoholfrei", "Tonic Water Mediterranean", "Espresso-Bohnen Arabica 100%", "Kaffee-Bohnen Crema Bio",
             "Kaffee gemahlen Filterfein Bio", "Bio-Lupinenkaffee", "Getreidekaffee löslich", "Bio-Grüntee Sencha", "Bio-Schwarztee Darjeeling First Flush", "Bio-Kräutertee Berggipfel", "Bio-Früchtetee Waldfrucht", "Bio-Chai Tee Classic",
+            "St. Leonhards Quelle still", "Bio-Vulkan-Mineralwasser", "Bio-Direktsaft Orange-Mango", "Bio-Direktsaft Rote Traube", "Bio-Apfelsaft Elstar naturtrüb", "Fritz-Kola zuckerfrei", "Bio-Mate-Teegetränk ungesüßt", "Bio-Ingwer-Shot naturtrüb",
+            "Bio-Kurkuma-Shot", "Cold Brew Kaffee Bio", "Bio-Hafer-Cappuccino Dose", "Bio-Matcha Ceremonial Grade", "Bio-Earl Grey loose", "Bio-Sencha lose", "Bio-Kräutertee Minze-Kamille",
         ),
         CHILLED to listOf(
             "Hafermilch", "Haferdrink Barista", "Haferdrink Ungesüßt", "Haferdrink Schoko", "Haferdrink Vanille", "Sojadrink", "Sojamilch", "Sojadrink Natur",
@@ -336,7 +351,9 @@ val De = LanguageData(
             "Brathering", "Krabben", "Nordseekrabben", "Surimi", "Kaviar", "Forellenkaviar", "Bio-Haferdrink Barista glutenfrei", "Erbsendrink Ungesüßt",
             "Kokosdrink Barista", "Bio-Sojadrink Natur ohne Zucker", "Kokosjoghurt Natur Bio", "Mandeljoghurt Vanille Bio", "Haferjoghurt Beere Bio", "Pflanzlicher Bio-Skyr", "Bio-Tofu Natur fest", "Bio-Räuchertofu mit Mandeln",
             "Bio-Seidentofu", "Tempeh mariniert Bio", "Bio-Hummus mit getrockneten Tomaten", "Hummus mit geröstetem Knoblauch", "Bio-Guacamole mild", "Bio-Pizzateig mit Olivenöl", "Bio-Heumilch 3,8%", "Frische Weidemilch 1,5%",
-            "Bio-Sauerrahmbutter Fassbutter", "Irische Knoblauchbutter", "Bio-Gouda jung Scheiben", "Bio-Emmentaler gerieben", "Bio-Feta g.U.", "Original Büffel-Ricotta", "Pecorino Sardo g.U.",
+            "Bio-Sauerrahmbutter Fassbutter", "Irische Knoblauchbutter", "Bio-Gouda jung Scheiben", "Bio-Emmentaler gerieben", "Bio-Feta g.U.", "Original Büffel-Ricotta", "Pecorino Sardo g.U.", "Bio-Hafermilch Natur ungesüßt",
+            "Bio-Mandelmilch ungesüßt", "Bio-Erbsenprotein-Milch", "Bio-Kokosjoghurt Mango-Maracuja", "Bio-Mandeljoghurt Natur", "Bio-Pflanzlicher Skyr Vanille", "Bio-Räuchertofu mit Kräutern", "Bio-Seidentofu cremig", "Bio-Tempeh Natur fermentiert",
+            "Bio-Hummus mit Pinienkernen", "Bio-Kräuter-Aufstrich Sonnenblumenbasis", "Vegane Bio-Butter mild", "Bio-Heumilchkäse mild", "Bio-Bergkäse 12 Monate gereift", "Parmigiano Reggiano DOP 24 Monate",
         ),
         FROZEN to listOf(
             "Tiefkühlgemüse", "TK-Kaisergemüse", "TK-Buttergemüse", "TK-Wokgemüse", "TK-Suppengrün", "TK-Balkangemüse", "TK-Sommergemüse", "TK-Mischgemüse",
@@ -366,6 +383,8 @@ val De = LanguageData(
             "TK-Blätterteig", "TK-Filoteig / Yufkateig", "Eiswürfel TK", "Crushed Ice TK", "Bio-TK-Erbsen extra fein", "Bio-TK-Prinzessbohnen", "Bio-TK-Brokkoli Röschen", "Bio-TK-Blumenkohl Röschen",
             "Bio-TK-Himbeeren", "Bio-TK-Heidelbeeren wild", "Bio-TK-Erdbeeren ganz", "Bio-TK-Mangowürfel", "Bio-TK-Kräuter 8 Kräuter", "Bio-TK-Petersilie kraus", "Bio-TK-Schnittlauch fein", "Bio-TK-Pommes Frites rustikal",
             "Bio-TK-Süßkartoffel-Wedges", "Bio-TK-Kartoffelpuffer", "Bio-TK-Steinofenpizza Margherita", "Bio-TK-Steinofenpizza Vegetale", "Bio-TK-Pizza vegane Salami", "Bio-TK-Vegane Nuggets", "Bio-TK-Vegane Burger", "Bio-TK-Falafel Bällchen",
+            "Bio-TK-Edamame in Schote", "Bio-TK-Wokgemüse asiatisch", "Bio-TK-Wildheidelbeeren", "Bio-TK-Sauerkirschen entsteinte", "Bio-TK-Petersilie gehackt", "Bio-TK-Schnittlauch gehackt", "Bio-TK-Süßkartoffel-Fritten", "Bio-TK-Kartoffel-Wedges mit Kräutern",
+            "Bio-TK-Steinofenpizza Verdura vegan", "Bio-TK-Vegane Chicken Chunks", "Bio-TK-Bio-Falafel", "Bio-Veganes Vanille-Eis", "Bio-Veganes Schoko-Eis", "Bio-Zitronen-Sorbet",
         ),
         DRUGSTORE_AND_HOUSEHOLD to listOf(
             "Toilettenpapier", "Toilettenpapier 3-lagig", "Toilettenpapier 4-lagig", "Recycling-Toilettenpapier", "Feuchtes Toilettenpapier", "Feuchttücher sensitiv", "Taschentücher", "Taschentücher Box",
@@ -406,7 +425,8 @@ val De = LanguageData(
             "Wärmepflaster", "Bio-Toilettenpapier 4-lagig Bambus", "Taschentücher 100% Recyclingfasern", "Küchenrolle aus Bambus", "Bio-Wattestäbchen Papier", "Damenbinden Bio-Baumwolle", "Slipeinlagen Bio-Baumwolle", "Tampons Bio-Baumwolle",
             "Bio-Flüssigseife Nachfüllpack 1L", "Festes Duschgel Bio", "Festes Shampoo Bio Kokos", "Fester Conditioner Bio", "Bio-Deo-Creme ohne Aluminium", "Bio-Bodylotion Mandelöl", "Bio-Gesichtscreme Aloe Vera", "Bio-Zahncreme Minze ohne Titandioxid",
             "Bambuszahnbürste medium", "Bio-Mundspülung Kräuter", "Öko-Waschmittel flüssig", "Öko-Spülmaschinentabs All in 1", "Öko-Spülmittel Zitrone", "Öko-Allzweckreiniger Essig", "Biotonnenbeutel 10L kompostierbar", "Müllbeutel 35L aus 100% Rezyklat",
-            "Backpapier ungebleicht FSC",
+            "Backpapier ungebleicht FSC", "Recycling-Toilettenpapier 4-lagig Blauer Engel", "Recycling-Küchenrolle 3-lagig", "Bio-Bambus-Taschentücher Box", "Bio-Baumwoll-Wattestäbchen FSC", "Bio-Flüssigseife Nachfüllbeutel 1L Lavendel", "Feste Bio-Duschseife Lemongras", "Feste Bio-Haarseife Rosmarin",
+            "Bio-Mundspülung ohne Alkohol", "Frosch Öko-Spülmittel Citrus", "Frosch Öko-Allzweckreiniger", "Bio-Müllbeutel 20L Maisstärke", "Bio-Backpapier ungebleicht Bogen",
         ),
         NON_FOOD to listOf(
             "Batterien", "AA-Batterien / Mignon", "AAA-Batterien / Micro", "C-Batterien / Baby", "D-Batterien / Mono", "9V-Block-Batterien", "Knopfzellen CR2032", "Knopfzellen CR2025",
@@ -431,7 +451,8 @@ val De = LanguageData(
             "Poliertuch Auto", "Motorenöl 5W-30", "Kabelbinder", "Schraubendreher", "Maßband / Zollstock", "Fahrradschloss", "Fahrrad-Flickzeug", "Fahrradpumpe",
             "Regenschirm", "Taschenschirm", "Wiederaufladbare Akkus Varta Ready2Use", "LED-Leuchtmittel Filament E27 warmweiß", "Mehrfachsteckdose Überspannungsschutz", "Bienenwachskerzen handgerollt", "Teelichter ohne Palmöl", "Grillbriketts aus Kokosschalen",
             "Bio-Pflanzenerde torffrei", "Bio-Flüssigdünger Tomaten", "Bio-Kräuterdünger", "Bio-Katzenfutter Huhn & Karotte", "Katzenstreu aus Pflanzenfasern klumpend", "Bio-Hundefutter Rind mit Äpfeln", "Schreibheft A4 liniert Lineatur 27", "Schreibheft A4 kariert Lineatur 28",
-            "Recycling-Kopierpapier A4",
+            "Recycling-Kopierpapier A4", "Varta Recharge Accu Power AA", "Varta Recharge Accu Power AAA", "Philips LED-Lampe E27 warmweiß", "Bio-Anzündwürfel Holzwolle", "Bio-Tomatendünger organisch", "Bio-Hochbeeterde torffrei", "Animonda Bio-Katzenfutter Huhn",
+            "Yarrah Bio-Hundefutter Rind", "Oxford Collegeblock A4 kariert", "Pelikan Tintenpatronen blau",
         ),
     ),
     aliases = mapOf(
