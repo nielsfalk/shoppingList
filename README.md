@@ -6,7 +6,7 @@ This is a single page app for grocery shopping. It runs entirely in the browser,
 
 **Live app:** https://nielsfalk.github.io/shoppingList/
 
-**Status:** the app is deployed to GitHub Pages; implementation is current through **T59** (see [Tasks](#tasks)).
+**Status:** the app is deployed to GitHub Pages; implementation is current through **T60** (see [Tasks](#tasks)).
 
 ## Getting started
 
@@ -25,7 +25,7 @@ cd shoppingList
 | **Initial list** | the shopping list of a language, built into the app; it is never changed by the user      |
 | **Default list** | the user's own version of the initial list; equal to the initial list until it is changed |
 | **Daily list**   | the shopping list of one day; there is at most one daily list per day                     |
-| **Suggestions**  | the likely items per language, used for autocompletion; vegan items only                  |
+| **Suggestions**  | the likely items per language, used for autocompletion, grouped by supermarket department |
 
 ## Features
 
@@ -38,7 +38,7 @@ cd shoppingList
 - **Delete**: every item has a `✕` button with an accessible label.
 - **Departments**: the items are grouped by supermarket department with the translated department name as a heading, in the walking order of the departments; items that are not in the suggestions are shown in a last group ("Other"/"Sonstiges"). Empty departments are not shown.
 - **Sort order**: unchecked items first, then checked items; within both groups the items follow the suggestion order (supermarket departments), and items that are not in the suggestions come last in their list order.
-- **Suggestions**: autocompletion combines the language suggestions (vegan items only) with items from the default list that are not already in today's list, without duplicates.
+- **Suggestions**: autocompletion combines the language suggestions (all generic supermarket items, vegan and non-vegan) with items from the default list that are not already in today's list, without duplicates.
 - **Add**: at the end there is a text field and two icon buttons: "+" adds the item to today's list, and "★" adds it to the default list **and** to today's list. Both buttons have descriptive accessible labels.
 - **Keyboard**: pressing Enter in the item text field adds a non-blank item to today's list and clears the field.
 - **Duplicates**: names are compared trimmed and case-insensitively. Adding an item that is already on the list does not create a second entry; if the existing item is checked, it becomes unchecked again.
@@ -200,7 +200,7 @@ data class LanguageData(
 }
 ```
 
-The flat `suggestions` list is derived in department order and is passed to the `<datalist>` used for autocompletion. Every department has its own non-empty list of generic, vegan food items and household/non-food items.
+The flat `suggestions` list is derived in department order and is passed to the `<datalist>` used for autocompletion. Every department has its own non-empty list of generic items (no brand names), vegan and non-vegan; the initial list only contains vegan items.
 
 Example `i18n/De.kt`:
 
@@ -421,7 +421,7 @@ Each task is small, can be completed on its own and leaves the app in a working 
 
 ### Suggestions
 
-- [ ] **T60** Add all generic non-vegan items (no brand names) a supermarket usually sells to the suggestions of `de` and `en`, in their departments of T51 (e.g. meat, sausages, fish, milk, cheese, butter, yogurt, cream and eggs in `CHILLED`; frozen fish and meat in `FROZEN`; canned tuna and honey in `CANNED_AND_JARS`; gelatine in `BAKING`; milk chocolate and gummy bears in `SWEETS_AND_SNACKS`). Drop the vegan-only rule for suggestions (the initial list stays vegan), keep the no-duplicates and every-initial-item-is-a-suggestion tests green, and update the glossary, the **Suggestions** feature description and the [Language data](#language-data) section.
+- [x] **T60** Add all generic non-vegan items (no brand names) a supermarket usually sells to the suggestions of `de` and `en`, in their departments of T51 (e.g. meat, sausages, fish, milk, cheese, butter, yogurt, cream and eggs in `CHILLED`; frozen fish and meat in `FROZEN`; canned tuna and honey in `CANNED_AND_JARS`; gelatine in `BAKING`; milk chocolate and gummy bears in `SWEETS_AND_SNACKS`). Drop the vegan-only rule for suggestions (the initial list stays vegan), keep the no-duplicates and every-initial-item-is-a-suggestion tests green, and update the glossary, the **Suggestions** feature description and the [Language data](#language-data) section.
 
 ### Maintenance
 

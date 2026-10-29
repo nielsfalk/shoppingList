@@ -52,39 +52,55 @@ val De = LanguageData(
             "Tomaten", "Gurken", "Paprika", "Karotten", "Kartoffeln", "Zwiebeln", "Knoblauch", "Salat",
             "Spinat", "Brokkoli", "Zucchini", "Champignons", "Kohl", "Süßkartoffeln",
         ),
-        BAKERY to listOf("Brot", "Brötchen", "Toastbrot", "Fladenbrot", "Pita"),
+        BAKERY to listOf(
+            "Brot", "Brötchen", "Toastbrot", "Fladenbrot", "Pita", "Croissants", "Brioche",
+        ),
         DRY_GOODS to listOf(
-            "Haferflocken", "Müsli", "Cornflakes", "Reis", "Nudeln", "Couscous", "Quinoa", "Bulgur",
-            "Linsen", "Getrocknete Bohnen", "Getrocknete Erbsen", "Mandeln", "Walnüsse", "Cashewkerne",
-            "Sonnenblumenkerne", "Chiasamen",
+            "Haferflocken", "Müsli", "Cornflakes", "Reis", "Nudeln", "Couscous", "Quinoa", "Bulgur", "Linsen",
+            "Getrocknete Bohnen", "Getrocknete Erbsen", "Mandeln", "Walnüsse", "Cashewkerne",
+            "Sonnenblumenkerne", "Chiasamen", "Eiernudeln",
         ),
         CANNED_AND_JARS to listOf(
             "Gehackte Tomaten", "Tomatenmark", "Passierte Tomaten", "Mais", "Kidneybohnen", "Kichererbsen",
-            "Apfelmus", "Essiggurken", "Marmelade", "Erdnussbutter",
+            "Apfelmus", "Essiggurken", "Marmelade", "Erdnussbutter", "Thunfisch", "Sardinen", "Honig",
+            "Nuss-Nougat-Creme",
         ),
         OILS_SPICES_AND_SAUCES to listOf(
-            "Olivenöl", "Rapsöl", "Essig", "Salz", "Pfeffer", "Paprikapulver", "Currypulver", "Zimt",
-            "Senf", "Ketchup", "Sojasoße", "Vegane Mayonnaise", "Gemüsebrühe",
+            "Olivenöl", "Rapsöl", "Essig", "Salz", "Pfeffer", "Paprikapulver", "Currypulver", "Zimt", "Senf",
+            "Ketchup", "Sojasoße", "Vegane Mayonnaise", "Gemüsebrühe", "Mayonnaise", "Rinderbrühe",
+            "Hühnerbrühe", "Fischsoße", "Remoulade",
         ),
-        BAKING to listOf("Mehl", "Zucker", "Backpulver", "Hefe", "Vanillezucker", "Kakao", "Speisestärke"),
+        BAKING to listOf(
+            "Mehl", "Zucker", "Backpulver", "Hefe", "Vanillezucker", "Kakao", "Speisestärke", "Gelatine",
+            "Kondensmilch",
+        ),
         SWEETS_AND_SNACKS to listOf(
             "Vegane Schokolade", "Vegane Kekse", "Kartoffelchips", "Popcorn", "Salzstangen", "Trockenfrüchte",
+            "Milchschokolade", "Gummibärchen", "Butterkekse", "Schokoriegel",
         ),
-        BEVERAGES to listOf("Wasser", "Fruchtsaft", "Limonade", "Kaffee", "Tee", "Mineralwasser"),
+        BEVERAGES to listOf(
+            "Wasser", "Fruchtsaft", "Limonade", "Kaffee", "Tee", "Mineralwasser", "Bier", "Wein", "Eiskaffee",
+        ),
         CHILLED to listOf(
             "Hafermilch", "Sojadrink", "Mandeldrink", "Pflanzlicher Joghurt", "Tofu", "Tempeh",
             "Vegane Margarine", "Veganer Aufstrich", "Frische Pasta", "Vegane Sahne", "Veganer Käse",
-            "Räuchertofu",
+            "Räuchertofu", "Milch", "Buttermilch", "Butter", "Käse", "Gouda", "Mozzarella", "Feta",
+            "Parmesan", "Frischkäse", "Quark", "Joghurt", "Sahne", "Schmand", "Eier", "Schinken", "Salami",
+            "Speck", "Würstchen", "Hackfleisch", "Hähnchenbrust", "Schweinekotelett", "Rindersteak", "Lachs",
+            "Räucherlachs", "Garnelen", "Hering",
         ),
         FROZEN to listOf(
             "Tiefkühlgemüse", "Tiefkühlbeeren", "Pommes", "Vegane Pizza", "Veganes Eis", "Tiefkühlspinat",
-            "Edamame", "Vegane Nuggets",
+            "Edamame", "Vegane Nuggets", "Fischstäbchen", "Tiefkühlfisch", "Tiefkühlgarnelen",
+            "Tiefkühlhähnchen", "Speiseeis", "Pizza",
         ),
         DRUGSTORE_AND_HOUSEHOLD to listOf(
             "Toilettenpapier", "Taschentücher", "Küchenrolle", "Seife", "Shampoo", "Zahnpasta", "Waschmittel",
             "Spülmittel", "Müllbeutel", "Schwämme", "Reinigungsmittel", "Zahnseide", "Deodorant",
             "Spülmaschinentabs",
         ),
-        NON_FOOD to listOf("Batterien", "Glühbirnen", "Kerzen", "Alufolie", "Backpapier"),
+        NON_FOOD to listOf(
+            "Batterien", "Glühbirnen", "Kerzen", "Alufolie", "Backpapier", "Katzenfutter", "Hundefutter",
+        ),
     ),
 )
