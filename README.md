@@ -6,7 +6,7 @@ This is a single page app for grocery shopping. It runs entirely in the browser,
 
 **Live app:** https://nielsfalk.github.io/shoppingList/
 
-**Status:** the app is deployed to GitHub Pages; implementation is current through **T54** (see [Tasks](#tasks)).
+**Status:** the app is deployed to GitHub Pages; implementation is current through **T55** (see [Tasks](#tasks)).
 
 ## Getting started
 
@@ -51,51 +51,51 @@ cd shoppingList
 
 ### Initial list
 
-There is an initial list for each language in the [language data](#language-data).
+There is an initial list for each language in the [language data](#language-data), sorted by the suggestion order (supermarket departments).
 
-| German (`de`)      | English (`en`)        |
-|--------------------|-----------------------|
-| Toilettenpapier    | Toilet paper          |
-| Wasser             | Water                 |
-| Senf               | Mustard               |
-| Hafermilch         | Oat milk              |
-| Äpfel              | Apples                |
-| Haferflocken       | Rolled oats           |
-| Bananen            | Bananas               |
-| Orangen            | Oranges               |
-| Tomaten            | Tomatoes              |
-| Gurken             | Cucumbers             |
-| Paprika            | Bell peppers          |
-| Karotten           | Carrots               |
-| Kartoffeln         | Potatoes              |
-| Zwiebeln           | Onions                |
-| Knoblauch          | Garlic                |
-| Salat              | Lettuce               |
-| Brot               | Bread                 |
-| Reis               | Rice                  |
-| Nudeln             | Pasta                 |
-| Linsen             | Lentils               |
-| Getrocknete Bohnen | Dried beans           |
-| Kichererbsen       | Chickpeas             |
-| Mandeln            | Almonds               |
-| Gehackte Tomaten   | Chopped tomatoes      |
-| Olivenöl           | Olive oil             |
-| Salz               | Salt                  |
-| Pfeffer            | Pepper                |
-| Mehl               | Flour                 |
-| Vegane Schokolade  | Vegan chocolate       |
-| Kaffee             | Coffee                |
-| Pflanzlicher Joghurt | Plant-based yogurt  |
-| Tofu               | Tofu                  |
-| Vegane Margarine   | Vegan margarine       |
-| Veganer Aufstrich  | Vegan spread          |
-| Tiefkühlgemüse     | Frozen vegetables     |
-| Shampoo            | Shampoo               |
-| Zahnpasta          | Toothpaste            |
-| Waschmittel        | Laundry detergent     |
-| Spülmittel         | Dish soap             |
-| Müllbeutel         | Trash bags            |
-| Batterien          | Batteries             |
+| German (`de`)        | English (`en`)     |
+|----------------------|--------------------|
+| Äpfel                | Apples             |
+| Bananen              | Bananas            |
+| Orangen              | Oranges            |
+| Tomaten              | Tomatoes           |
+| Gurken               | Cucumbers          |
+| Paprika              | Bell peppers       |
+| Karotten             | Carrots            |
+| Kartoffeln           | Potatoes           |
+| Zwiebeln             | Onions             |
+| Knoblauch            | Garlic             |
+| Salat                | Lettuce            |
+| Brot                 | Bread              |
+| Haferflocken         | Rolled oats        |
+| Reis                 | Rice               |
+| Nudeln               | Pasta              |
+| Linsen               | Lentils            |
+| Getrocknete Bohnen   | Dried beans        |
+| Mandeln              | Almonds            |
+| Gehackte Tomaten     | Chopped tomatoes   |
+| Kichererbsen         | Chickpeas          |
+| Olivenöl             | Olive oil          |
+| Salz                 | Salt               |
+| Pfeffer              | Pepper             |
+| Senf                 | Mustard            |
+| Mehl                 | Flour              |
+| Vegane Schokolade    | Vegan chocolate    |
+| Wasser               | Water              |
+| Kaffee               | Coffee             |
+| Hafermilch           | Oat milk           |
+| Pflanzlicher Joghurt | Plant-based yogurt |
+| Tofu                 | Tofu               |
+| Vegane Margarine     | Vegan margarine    |
+| Veganer Aufstrich    | Vegan spread       |
+| Tiefkühlgemüse       | Frozen vegetables  |
+| Toilettenpapier      | Toilet paper       |
+| Shampoo              | Shampoo            |
+| Zahnpasta            | Toothpaste         |
+| Waschmittel          | Laundry detergent  |
+| Spülmittel           | Dish soap          |
+| Müllbeutel           | Trash bags         |
+| Batterien            | Batteries          |
 
 ### History
 
@@ -408,7 +408,7 @@ Each task is small, can be completed on its own and leaves the app in a working 
 - [x] **T52** Fill the suggestions of `de` and `en` with all generic items (no brand names) a supermarket usually sells, keeping the vegan-only rule for food. Store them per department (e.g. `suggestions: Map<Department, List<String>>` or a list of `(name, Department)`), ordered by department in the order of T51; derive the flat suggestion list for the `<datalist>` from it. Add tests that there are no duplicates (trimmed, case-insensitive) and no empty department, and update the [Language data](#language-data) section (depends on T51).
 - [x] **T53** Add a lookup "department and position of an item name in the suggestion order" (trimmed, case-insensitive); unknown items (not in the suggestions) get no department and sort after all known items, keeping their list order. With data-table tests (depends on T52).
 - [x] **T54** Add to the initial list of `de` and `en` everything a vegan person would usually buy (fruit, vegetables, bread, oats, legumes, rice, pasta, tofu, plant-based milk, nuts, spices, household basics, …); every item of the initial list must also be a suggestion. Update the [Initial list](#initial-list) table (depends on T52).
-- [ ] **T55** Sort the initial list of every language by the suggestion order, with a test that checks the order for all languages (depends on T53, T54).
+- [x] **T55** Sort the initial list of every language by the suggestion order, with a test that checks the order for all languages (depends on T53, T54).
 - [ ] **T56** Sort the daily list by "unchecked first, then suggestion order" (unknown items after the known ones in list order) instead of "unchecked first, then list order"; update the existing sort tests and the **Sort order** feature description (depends on T53).
 - [ ] **T57** Group the items of the daily list by department with the translated department name as a heading, in the department order of T51; items without a department go into a last group (e.g. "Other"/"Sonstiges"). Within each group the sort order of T56 applies; empty departments are not shown (depends on T51, T56).
 

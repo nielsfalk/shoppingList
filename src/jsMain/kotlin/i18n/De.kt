@@ -39,12 +39,12 @@ val De = LanguageData(
         ),
     ),
     initialList = listOf(
-        "Toilettenpapier", "Wasser", "Senf", "Hafermilch", "Äpfel", "Haferflocken", "Bananen", "Orangen",
-        "Tomaten", "Gurken", "Paprika", "Karotten", "Kartoffeln", "Zwiebeln", "Knoblauch", "Salat", "Brot",
-        "Reis", "Nudeln", "Linsen", "Getrocknete Bohnen", "Kichererbsen", "Mandeln", "Gehackte Tomaten",
-        "Olivenöl", "Salz", "Pfeffer", "Mehl", "Vegane Schokolade", "Kaffee", "Pflanzlicher Joghurt", "Tofu",
-        "Vegane Margarine", "Veganer Aufstrich", "Tiefkühlgemüse", "Shampoo", "Zahnpasta", "Waschmittel",
-        "Spülmittel", "Müllbeutel", "Batterien",
+        "Äpfel", "Bananen", "Orangen", "Tomaten", "Gurken", "Paprika", "Karotten", "Kartoffeln", "Zwiebeln",
+        "Knoblauch", "Salat", "Brot", "Haferflocken", "Reis", "Nudeln", "Linsen", "Getrocknete Bohnen", "Mandeln",
+        "Gehackte Tomaten", "Kichererbsen", "Olivenöl", "Salz", "Pfeffer", "Senf", "Mehl", "Vegane Schokolade",
+        "Wasser", "Kaffee", "Hafermilch", "Pflanzlicher Joghurt", "Tofu", "Vegane Margarine", "Veganer Aufstrich",
+        "Tiefkühlgemüse", "Toilettenpapier", "Shampoo", "Zahnpasta", "Waschmittel", "Spülmittel", "Müllbeutel",
+        "Batterien",
     ),
     suggestionsByDepartment = mapOf(
         FRUIT_AND_VEGETABLES to listOf(

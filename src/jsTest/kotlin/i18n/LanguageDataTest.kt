@@ -3,6 +3,7 @@ package i18n
 import de.nielsfalk.dataTables.Data
 import io.kotest.core.spec.style.FreeSpec
 import model.Department
+import model.SuggestionOrder
 import kotlin.test.assertTrue as assert
 
 class LanguageDataTest : FreeSpec({
@@ -26,6 +27,12 @@ class LanguageDataTest : FreeSpec({
         assert(languages.values.all { language ->
             language.ui.departmentNames.keys == Department.entries.toSet() &&
                 language.ui.departmentNames.values.all { it.isNotBlank() }
+        })
+    }
+
+    "the initial list of every language is sorted by the suggestion order" {
+        assert(languages.values.all { language ->
+            SuggestionOrder(language.suggestionsByDepartment).sorted(language.initialList) { it } == language.initialList
         })
     }
 })
