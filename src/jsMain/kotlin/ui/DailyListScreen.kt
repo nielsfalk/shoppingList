@@ -50,8 +50,14 @@ fun DailyListScreen(
                 }
                 items.forEach { item -> DailyListItem(item, texts.delete, actions.onToggle, actions.onDelete) }
             }
-            dailyList.completedItems(suggestionOrder).forEach { item ->
-                DailyListItem(item, texts.delete, actions.onToggle, actions.onDelete)
+            val completedItems = dailyList.completedItems(suggestionOrder)
+            if (completedItems.isNotEmpty()) {
+                H3(attrs = { classes("department-heading") }) {
+                    Text(texts.completed)
+                }
+                completedItems.forEach { item ->
+                    DailyListItem(item, texts.delete, actions.onToggle, actions.onDelete)
+                }
             }
         }
     }

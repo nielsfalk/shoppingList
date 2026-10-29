@@ -37,6 +37,7 @@ val En = LanguageData(
             NON_FOOD to "Non-food",
         ),
         otherDepartment = "Other",
+        completed = "Completed",
     ),
     initialList = listOf(
         "Apples", "Bananas", "Tomatoes", "Carrots", "Lettuce", "Bread", "Rolled oats", "Pasta", "Mustard",

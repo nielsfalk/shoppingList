@@ -36,7 +36,7 @@ cd shoppingList
 - **Add item**: a "+" button next to the daily list header focuses the item input.
 - **Check**: one tap checks an item, another tap unchecks it.
 - **Delete**: every item has a `✕` button with an accessible label.
-- **Departments**: unchecked items are grouped by supermarket department with the translated department name as a heading, in the walking order of the departments; unchecked items that are not in the suggestions are shown in a last group ("Other"/"Sonstiges"). Empty departments are not shown. Completed (checked) items are shown below all departments, sorted by suggestion order.
+- **Departments**: unchecked items are grouped by supermarket department with the translated department name as a heading, in the walking order of the departments; unchecked items that are not in the suggestions are shown in a last group ("Other"/"Sonstiges"). Empty departments are not shown. Completed (checked) items are shown below all departments with a heading ("Completed"/"Erledigt"), sorted by suggestion order.
 - **Sort order**: unchecked items first (grouped by supermarket departments), followed by checked items below all departments; items follow the suggestion order within both groups, and items that are not in the suggestions come last in their list order.
 - **Suggestions**: autocompletion combines the language suggestions (all generic supermarket items, vegan and non-vegan) with items from the default list that are not already in today's list, without duplicates.
 - **Add**: at the end there is a text field and two icon buttons: "+" adds the item to today's list, and "★" adds it to the default list **and** to today's list. Both buttons have descriptive accessible labels.
@@ -398,7 +398,7 @@ Each task is small, can be completed on its own and leaves the app in a working 
 
 ### UI: Daily list improvements (2)
 
-- [x] **T73** Render completed items below all departments in the daily list: show checked items in a separate section at the bottom below all department groups, sorted by the suggestion order (depends on T56, T57).
+- [x] **T73** Render completed items below all departments in the daily list: show checked items in a separate section with a heading at the bottom below all department groups, sorted by the suggestion order (depends on T56, T57).
 
 ### Suggestions
 

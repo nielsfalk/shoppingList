@@ -21,6 +21,7 @@ data class UiTexts(
     val noList: String,
     val departmentNames: Map<Department, String>,
     val otherDepartment: String,
+    val completed: String,
 )
 
 data class LanguageData(
