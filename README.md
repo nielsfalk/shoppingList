@@ -432,7 +432,7 @@ Each task is small, can be completed on its own and leaves the app in a working 
 
 - [x] **T74** Realign supermarket departments with German supermarket layouts: ensure items like eggs and margarine are not classified under `CHILLED` (e.g. eggs in baking/ambient, margarine in oils/fats or baking) and adjust department definitions and item mappings accordingly (depends on T51, T60).
 - [x] **T75** Duplicate all vegan-prefixed suggestions without the vegan prefix across all languages (e.g. "Vegane Schokolade" -> "Schokolade", "Veganer Käse" -> "Käse", "Vegane Margarine" -> "Margarine", "Vegane Pizza" -> "Pizza", "Veganer Joghurt" / "Pflanzlicher Joghurt" -> "Joghurt") so that both vegan and generic variants exist in suggestions (depends on T60, T62).
-- [ ] **T76** Implement aliases and common typo mappings for suggestions: support lookup mappings (e.g. "Kola" -> "Cola", "Mayo" -> "Mayonnaise", common misspellings like "Magerine" -> "Margarine") to resolve to canonical suggestions and their associated departments (depends on T53, T66).
+- [x] **T76** Implement aliases and common typo mappings for suggestions: support lookup mappings (e.g. "Kola" -> "Cola", "Mayo" -> "Mayonnaise", common misspellings like "Magerine" -> "Margarine") to resolve to canonical suggestions and their associated departments (depends on T53, T66).
 - [ ] **T77** Add ~5,000 likely supermarket suggestions across all supported languages (e.g. Nüsse, Cola, Kekse, Saft, Apfelsaft, Balsamico, Skyr, Pudding, ...) and introduce any missing departments (depends on T52, T60, T74).
 - [ ] **T78** Research online supermarket product catalogs to integrate missing product suggestions and missing departments across all supported languages (depends on T77).
 

@@ -28,8 +28,9 @@ data class LanguageData(
     val ui: UiTexts,
     val initialList: List<String>,
     val suggestionsByDepartment: Map<Department, List<String>>,
+    val aliases: Map<String, String> = emptyMap(),
 ) {
     val suggestions: List<String> = Department.entries.flatMap { suggestionsByDepartment[it].orEmpty() }
 
-    val suggestionOrder: SuggestionOrder = SuggestionOrder(suggestionsByDepartment)
+    val suggestionOrder: SuggestionOrder = SuggestionOrder(suggestionsByDepartment, aliases)
 }

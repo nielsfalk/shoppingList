@@ -1,10 +1,15 @@
 package model
 
-class SuggestionOrder(suggestionsByDepartment: Map<Department, List<String>>) {
+class SuggestionOrder(
+    suggestionsByDepartment: Map<Department, List<String>>,
+    aliases: Map<String, String> = emptyMap(),
+) {
     private data class Position(
         val department: Department,
         val index: Int,
     )
+
+    private val aliasesByKey = aliases.mapKeys { it.key.toItemKey() }.mapValues { it.value.toItemKey() }
 
     private val positionsByKey = mutableMapOf<ItemKey, Position>().apply {
         var index = 0
@@ -17,9 +22,11 @@ class SuggestionOrder(suggestionsByDepartment: Map<Department, List<String>>) {
         }
     }
 
-    fun departmentOf(name: String): Department? = positionsByKey[name.toItemKey()]?.department
+    private fun resolveKey(key: ItemKey): ItemKey = aliasesByKey[key] ?: key
 
-    fun positionOf(name: String): Int? = positionsByKey[name.toItemKey()]?.index
+    fun departmentOf(name: String): Department? = positionsByKey[resolveKey(name.toItemKey())]?.department
+
+    fun positionOf(name: String): Int? = positionsByKey[resolveKey(name.toItemKey())]?.index
 
     fun <T> sorted(items: List<T>, name: (T) -> String): List<T> =
         items.sortedBy { positionOf(name(it)) ?: Int.MAX_VALUE }

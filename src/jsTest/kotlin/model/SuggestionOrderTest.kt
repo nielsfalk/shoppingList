@@ -13,13 +13,19 @@ class SuggestionOrderTest : FreeSpec({
             DRY_GOODS to listOf("Oats"),
             CHILLED to listOf("Tofu"),
         ),
+        aliases = mapOf(
+            "Bannanas" to "Bananas",
+            "White Bread" to "Bread",
+        ),
     )
 
-    @Data("name"     ,  "expectedDepartment" , "expectedPosition") SuggestionLookupCases {
-          " apples " ǀǀ FRUIT_AND_VEGETABLES ǀ 0
-          "bReAd"    ǀǀ BAKERY               ǀ 2
-          " TOFU "   ǀǀ CHILLED              ǀ 5
-          "unknown"  ǀǀ null                 ǀ null
+    @Data("name"        ,  "expectedDepartment" , "expectedPosition") SuggestionLookupCases {
+          " apples "    ǀǀ FRUIT_AND_VEGETABLES ǀ 0
+          "bReAd"       ǀǀ BAKERY               ǀ 2
+          " TOFU "      ǀǀ CHILLED              ǀ 5
+          "Bannanas"    ǀǀ FRUIT_AND_VEGETABLES ǀ 1
+          "white bread" ǀǀ BAKERY               ǀ 2
+          "unknown"     ǀǀ null                 ǀ null
     }.each {
         "looks up the department and position of '$name'" {
             assert(suggestionOrder.departmentOf(name) == expectedDepartment)

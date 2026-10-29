@@ -16,6 +16,8 @@ class LanguageDataTest : FreeSpec({
             assertValidList(languageData.suggestions)
             val suggestionNames = languageData.suggestions.map { it.trim().lowercase() }.toSet()
             assert(languageData.initialList.all { it.trim().lowercase() in suggestionNames })
+            assert(languageData.aliases.values.all { it.trim().lowercase() in suggestionNames })
+            assert(languageData.aliases.keys.all { it.isNotBlank() })
             assert(languageData.suggestionsByDepartment.keys == Department.entries.toSet())
             assert(languageData.suggestionsByDepartment.values.all { it.isNotEmpty() })
             assert(languageData.ui.dailyList == expectedDailyList)

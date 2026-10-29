@@ -77,7 +77,7 @@ val En = LanguageData(
             "Milk chocolate", "Gummy bears", "Butter cookies", "Chocolate bars",
         ),
         BEVERAGES to listOf(
-            "Water", "Fruit juice", "Lemonade", "Coffee", "Tea", "Sparkling water", "Beer", "Wine",
+            "Water", "Fruit juice", "Lemonade", "Cola", "Coffee", "Tea", "Sparkling water", "Beer", "Wine",
             "Iced coffee",
         ),
         CHILLED to listOf(
@@ -100,5 +100,20 @@ val En = LanguageData(
         NON_FOOD to listOf(
             "Batteries", "Light bulbs", "Candles", "Aluminium foil", "Baking paper", "Cat food", "Dog food",
         ),
+    ),
+    aliases = mapOf(
+        "Mayo" to "Mayonnaise",
+        "Coke" to "Cola",
+        "Kola" to "Cola",
+        "Margerine" to "Margarine",
+        "Choc" to "Chocolate",
+        "Choco" to "Chocolate",
+        "Toilet roll" to "Toilet paper",
+        "Loo roll" to "Toilet paper",
+        "Kleenex" to "Tissues",
+        "Paper towels" to "Kitchen roll",
+        "French fries" to "Fries",
+        "Chips" to "Potato crisps",
+        "Crisps" to "Potato crisps",
     ),
 )
