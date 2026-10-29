@@ -6,26 +6,26 @@ import kotlin.test.assertTrue as assert
 
 class LanguageTest : FreeSpec({
     @Data("locale" ,  "expectedLanguage") LanguageSelection {
-          "de"     ǀǀ "de"
-          "de-DE"  ǀǀ "de"
-          "en-US"  ǀǀ "en"
-          null     ǀǀ "en"
-          ""       ǀǀ "en"
-          "fr-FR"  ǀǀ "en"
+          "de"     ǀǀ Language.DE
+          "de-DE"  ǀǀ Language.DE
+          "en-US"  ǀǀ Language.EN
+          null     ǀǀ Language.EN
+          ""       ǀǀ Language.EN
+          "fr-FR"  ǀǀ Language.EN
     }.each {
         "selects $expectedLanguage for the browser locale '$locale'" {
-            assert(selectLanguage(locale) == expectedLanguage)
+            assert(Language.select(locale) == expectedLanguage)
         }
     }
 
-    @Data("code" ,  "expectedLanguageData") LanguageDataLookup {
-          "de"   ǀǀ De
-          "DE"   ǀǀ De
-          "en"   ǀǀ En
-          "fr"   ǀǀ En
+    @Data("code" ,  "expectedLanguage") LanguageLookup {
+          "de"   ǀǀ Language.DE
+          "DE"   ǀǀ Language.DE
+          "en"   ǀǀ Language.EN
+          "fr"   ǀǀ null
     }.each {
-        "looks up the language data for '$code'" {
-            assert(languageData(code) === expectedLanguageData)
+        "looks up the language for '$code'" {
+            assert(Language.fromCode(code) == expectedLanguage)
         }
     }
 })

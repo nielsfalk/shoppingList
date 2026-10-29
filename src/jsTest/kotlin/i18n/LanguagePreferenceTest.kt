@@ -3,18 +3,17 @@ package i18n
 import de.nielsfalk.dataTables.Data
 import io.kotest.core.spec.style.FreeSpec
 import kotlinx.browser.localStorage
-import kotlin.test.assertFailsWith
 import kotlin.test.assertTrue as assert
 
 class LanguagePreferenceTest : FreeSpec({
     @Data("storedLanguage" , "browserLocale" ,  "expectedLanguage") LanguagePreference {
-          "de"             ǀ "en-US"         ǀǀ "de"
-          "DE"             ǀ "en-US"         ǀǀ "de"
-          "fr"             ǀ "de-DE"         ǀǀ "de"
-          null             ǀ null            ǀǀ "en"
+          "de"             ǀ "en-US"         ǀǀ Language.DE
+          "DE"             ǀ "en-US"         ǀǀ Language.DE
+          "fr"             ǀ "de-DE"         ǀǀ Language.DE
+          null             ǀ null            ǀǀ Language.EN
     }.each {
         "selects $expectedLanguage for the stored language '$storedLanguage' and the browser locale '$browserLocale'" {
-            assert(selectLanguage(storedLanguage, browserLocale) == expectedLanguage)
+            assert(Language.select(storedLanguage, browserLocale) == expectedLanguage)
         }
     }
 
@@ -25,13 +24,12 @@ class LanguagePreferenceTest : FreeSpec({
             localStorage.removeItem("shoppingList:language")
             assert(storedLanguage() == null)
 
-            storeLanguage("de")
+            storeLanguage(Language.DE)
             assert(storedLanguage() == "de")
-            assert(currentLanguage() == "de")
+            assert(currentLanguage() == Language.DE)
 
-            storeLanguage("en")
-            assert(currentLanguage() == "en")
-            assertFailsWith<IllegalArgumentException> { storeLanguage("fr") }
+            storeLanguage(Language.EN)
+            assert(currentLanguage() == Language.EN)
             assert(storedLanguage() == "en")
         } finally {
             if (previousValue == null) {

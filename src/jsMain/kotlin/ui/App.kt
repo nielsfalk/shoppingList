@@ -36,7 +36,7 @@ fun App() {
 
     Div(attrs = { classes("app") }) {
         H1(attrs = { classes("app-title") }) { Text("shoppingList") }
-        NavigationBar(route, data, state.languageCode, state::switchLanguage)
+        NavigationBar(route, data, state.language, state::switchLanguage)
         when (route) {
             Route.DailyList -> {
                 H1 { Text(data.ui.dailyList) }

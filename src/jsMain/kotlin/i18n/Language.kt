@@ -1,17 +1,19 @@
 package i18n
 
-val languages = mapOf("de" to De, "en" to En)
+enum class Language(val code: String, val data: LanguageData) {
+    DE("de", De),
+    EN("en", En);
 
-fun selectLanguage(browserLanguage: String?): String {
-    val languageCode = browserLanguage
-        ?.substringBefore('-')
-        ?.lowercase()
-    return languageCode?.takeIf { it in languages } ?: "en"
+    companion object {
+        fun fromCode(code: String?): Language? =
+            entries.firstOrNull { it.code == code?.lowercase() }
+
+        fun select(browserLanguage: String?): Language {
+            val code = browserLanguage?.substringBefore('-')
+            return fromCode(code) ?: EN
+        }
+
+        fun select(storedLanguage: String?, browserLanguage: String?): Language =
+            fromCode(storedLanguage) ?: select(browserLanguage)
+    }
 }
-
-fun selectLanguage(storedLanguage: String?, browserLanguage: String?): String {
-    val storedLanguageCode = storedLanguage?.lowercase()?.takeIf { it in languages }
-    return storedLanguageCode ?: selectLanguage(browserLanguage)
-}
-
-fun languageData(languageCode: String): LanguageData = languages[languageCode.lowercase()] ?: En

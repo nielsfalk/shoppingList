@@ -1,7 +1,7 @@
 package ui
 
 import i18n.En
-import i18n.languageData
+import i18n.Language
 import io.kotest.core.spec.style.FreeSpec
 import kotlinx.datetime.LocalDate
 import model.DailyList
@@ -13,26 +13,26 @@ import kotlin.test.assertTrue as assert
 class AppStateTest : FreeSpec({
     "switching the language persists the choice and loads its initial list" {
         val storage = Storage(prefix = "shoppingList:test:${Random.nextLong()}:")
-        val persistedLanguages = mutableListOf<String>()
+        val persistedLanguages = mutableListOf<Language>()
         val date = LocalDate.parse("2026-10-27")
 
         try {
-            val state = AppState(storage, initialLanguageCode = "de", languagePersistence = {
+            val state = AppState(storage, initialLanguage = Language.DE, languagePersistence = {
                 persistedLanguages += it
             }, todayDate = date)
 
             assert(state.dailyList.date == date)
-            assert(state.dailyList.items.map { it.name } == languageData("de").initialList)
+            assert(state.dailyList.items.map { it.name } == Language.DE.data.initialList)
             val firstItem = state.dailyList.items.first()
             state.toggleItem(firstItem.name)
             assert(state.dailyList.items.first().checked)
             assert(storage.get<DailyList>("day:$date") == state.dailyList)
 
-            state.switchLanguage("en")
+            state.switchLanguage(Language.EN)
 
             assert(state.languageCode == "en")
             assert(state.languageData == En)
-            assert(state.defaultList.items == languageData("en").initialList)
+            assert(state.defaultList.items == Language.EN.data.initialList)
             assert(state.dailyList.items.first().name == firstItem.name)
             assert(state.dailyList.items.first().checked)
 
@@ -40,7 +40,7 @@ class AppStateTest : FreeSpec({
 
             assert(!state.dailyList.items.any { it.name == firstItem.name })
             assert(storage.get<DailyList>("day:$date") == state.dailyList)
-            assert(persistedLanguages == listOf("en"))
+            assert(persistedLanguages == listOf(Language.EN))
         } finally {
             storage.keys().forEach(storage::remove)
         }
@@ -51,7 +51,7 @@ class AppStateTest : FreeSpec({
         val date = LocalDate.parse("2026-10-27")
 
         try {
-            val state = AppState(storage, initialLanguageCode = "en", languagePersistence = {}, todayDate = date)
+            val state = AppState(storage, initialLanguage = Language.EN, languagePersistence = {}, todayDate = date)
 
             state.addToDailyList("  New daily item ")
             state.addToDefaultList("New default item")
@@ -70,7 +70,7 @@ class AppStateTest : FreeSpec({
         val date = LocalDate.parse("2026-10-27")
 
         try {
-            val state = AppState(storage, initialLanguageCode = "en", languagePersistence = {}, todayDate = date)
+            val state = AppState(storage, initialLanguage = Language.EN, languagePersistence = {}, todayDate = date)
             state.deleteDefaultItem(state.defaultList.items.first())
             state.addToDefaultList("Tea")
             state.toggleItem("Water")
@@ -87,10 +87,10 @@ class AppStateTest : FreeSpec({
 
     "deletes a default item, persists the default list and keeps today's list" {
         val storage = Storage(prefix = "shoppingList:test:${Random.nextLong()}:")
-        val initialList = languageData("en").initialList
+        val initialList = Language.EN.data.initialList
 
         try {
-            val state = AppState(storage, initialLanguageCode = "en", languagePersistence = {}, todayDate = LocalDate.parse("2026-10-27"))
+            val state = AppState(storage, initialLanguage = Language.EN, languagePersistence = {}, todayDate = LocalDate.parse("2026-10-27"))
 
             assert(storage.getString("defaultList") == null)
 
@@ -107,10 +107,10 @@ class AppStateTest : FreeSpec({
 
     "resets the default list to the initial list and removes the stored list" {
         val storage = Storage(prefix = "shoppingList:test:${Random.nextLong()}:")
-        val initialList = languageData("en").initialList
+        val initialList = Language.EN.data.initialList
 
         try {
-            val state = AppState(storage, initialLanguageCode = "en", languagePersistence = {}, todayDate = LocalDate.parse("2026-10-27"))
+            val state = AppState(storage, initialLanguage = Language.EN, languagePersistence = {}, todayDate = LocalDate.parse("2026-10-27"))
             state.deleteDefaultItem(initialList[0])
             state.addDefaultItem("New default item")
 
@@ -130,7 +130,7 @@ class AppStateTest : FreeSpec({
 
         try {
             storage.set("day:$pastDay", DailyList(pastDay, listOf(Item("Bread", checked = true))))
-            val state = AppState(storage, initialLanguageCode = "en", languagePersistence = {}, todayDate = today)
+            val state = AppState(storage, initialLanguage = Language.EN, languagePersistence = {}, todayDate = today)
 
             assert(state.storedDays() == setOf(pastDay, today))
             assert(state.dailyListOn(pastDay)?.items == listOf(Item("Bread", checked = true)))
@@ -148,7 +148,7 @@ class AppStateTest : FreeSpec({
 
         try {
             storage.set("day:$pastDay", DailyList(pastDay, listOf(Item("Past item", checked = true), Item("water"))))
-            val state = AppState(storage, initialLanguageCode = "en", languagePersistence = {}, todayDate = today)
+            val state = AppState(storage, initialLanguage = Language.EN, languagePersistence = {}, todayDate = today)
             val initialItems = state.dailyList.items
 
             state.copyToToday(pastDay)
@@ -172,7 +172,7 @@ class AppStateTest : FreeSpec({
         val date2 = LocalDate.parse("2026-10-28")
 
         try {
-            val state = AppState(storage, initialLanguageCode = "en", languagePersistence = {}, todayDate = date1)
+            val state = AppState(storage, initialLanguage = Language.EN, languagePersistence = {}, todayDate = date1)
             assert(state.today == date1)
             assert(state.dailyList.date == date1)
 

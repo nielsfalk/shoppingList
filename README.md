@@ -391,10 +391,11 @@ Each task is small, can be completed on its own and leaves the app in a working 
 - [x] **T56** Sort the daily list by "unchecked first, then suggestion order" (unknown items after the known ones in list order) instead of "unchecked first, then list order"; update the existing sort tests and the **Sort order** feature description (depends on T53).
 - [x] **T57** Group the items of the daily list by department with the translated department name as a heading, in the department order of T51; items without a department go into a last group (e.g. "Other"/"Sonstiges"). Within each group the sort order of T56 applies; empty departments are not shown (depends on T51, T56).
 
-### UI: Default list improvements (2)
+### UI: Daily list improvements (2)
 
 - [x] **T58** Add a refresh button with a refresh icon (text as `aria-label`) to the default list that resets it to the initial list of the current language; the stored `shoppingList:defaultList` key is removed. The button is only enabled when the default list differs from the initial list.
 - [x] **T59** Remove the manual sorting of the default list: drop the up/down buttons (T30) from `DefaultListScreen`, `DefaultList.moveUp`/`moveDown`, `AppState.moveDefaultItemUp`/`moveDefaultItemDown`, the `moveUp`/`moveDown` texts in `UiTexts`, `De.kt` and `En.kt`, the now unused `.move-button` styles and the move tests. Newly added items are still appended at the end; the daily list gets its order from the suggestion order (T56). Update the [Default list](#default-list) feature description.
+- [ ] **T73** Render completed items below all departments in the daily list: show checked items in a separate section at the bottom below all department groups, sorted by the suggestion order (depends on T56, T57).
 
 ### Suggestions
 
@@ -414,13 +415,13 @@ Each task is small, can be completed on its own and leaves the app in a working 
 ### Refactoring: Domain & Type Safety
 
 - [x] **T66** Introduce `@JvmInline value class ItemKey`: encapsulate trimmed case-insensitive name normalization in a dedicated value class (`ItemKey.of(name)`, `String.toItemKey()`, `Item.key`) to eliminate repetitive manual `normalizedName()` calls across the model.
-- [ ] **T67** Introduce typed `Language` enum: replace `String` language codes with `enum class Language(val code: String, val data: LanguageData)` including fallback selection (`select(stored, browser)`) to eliminate hardcoded language lists and runtime validation checks.
+- [x] **T67** Introduce typed `Language` enum: replace `String` language codes with `enum class Language(val code: String, val data: LanguageData)` including fallback selection (`select(stored, browser)`) to eliminate hardcoded language lists and runtime validation checks.
 
 ### Refactoring: UI & Architecture
 
 - [ ] **T68** Unify screen parameter signatures and extract `DailyListActions`: group `DailyListScreen`'s loose translation and callback parameters into `UiTexts` and a `DailyListActions` handler class, aligning its API with other screens.
 - [ ] **T69** Extract reusable `ItemNameInput` composable: deduplicate the text input field, Enter-key submission, blank check, and button rendering shared between `AddItemForm` and `DefaultListScreen`.
-- [ ] **T70** Extract UI constants for CSS classes and glyphs: define `Styles` and `Glyphs` constants for CSS class names and symbol literals (`"☑"`, `"☐"`, `"↻"`, `"★"`, `"✕"`).
+- [ ] **T70** (obsolete) Extract UI constants for CSS classes and glyphs: define `Styles` and `Glyphs` constants for CSS class names and symbol literals (`"☑"`, `"☐"`, `"↻"`, `"★"`, `"✕"`).
 - [ ] **T71** Centralize persistence and introduce repository abstractions: group storage free functions into repositories (`DailyListRepository`, `LanguageRepository`) and add an `updateDailyList` helper in `AppState` to eliminate repetitive state mutation and save pairs.
 - [ ] **T72** Replace untyped `dynamic` browser calls with typed external declarations: add typed `external` declarations for `ServiceWorker`, `StorageManager`, and DOM event listeners.
 

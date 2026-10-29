@@ -1,9 +1,8 @@
 package ui
 
+import i18n.Language
 import i18n.LanguageData
 import i18n.currentLanguage
-import i18n.languageData
-import i18n.languages
 import i18n.storeLanguage
 import kotlinx.datetime.LocalDate
 import androidx.compose.runtime.getValue
@@ -23,30 +22,32 @@ import storage.storedDays
 
 class AppState(
     private val storage: Storage = Storage(),
-    initialLanguageCode: String = currentLanguage(),
-    private val languagePersistence: (String) -> Unit = ::storeLanguage,
+    initialLanguage: Language = currentLanguage(),
+    private val languagePersistence: (Language) -> Unit = ::storeLanguage,
     todayDate: LocalDate = today(),
 ) {
     var today by mutableStateOf(todayDate)
         private set
 
-    var languageCode by mutableStateOf(initialLanguageCode)
+    var language by mutableStateOf(initialLanguage)
         private set
 
-    var defaultList by mutableStateOf(loadDefaultList(storage, languageData(initialLanguageCode).initialList))
+    val languageCode: String
+        get() = language.code
+
+    val languageData: LanguageData
+        get() = language.data
+
+    var defaultList by mutableStateOf(loadDefaultList(storage, initialLanguage.data.initialList))
         private set
 
     var dailyList by mutableStateOf(loadOrCreateDailyList(storage, todayDate, defaultList))
         private set
 
-    val languageData: LanguageData
-        get() = languageData(languageCode)
-
-    fun switchLanguage(languageCode: String) {
-        require(languageCode in languages) { "Unsupported language: $languageCode" }
-        languagePersistence(languageCode)
-        this.languageCode = languageCode
-        defaultList = loadDefaultList(storage, languageData(languageCode).initialList)
+    fun switchLanguage(language: Language) {
+        languagePersistence(language)
+        this.language = language
+        defaultList = loadDefaultList(storage, language.data.initialList)
     }
 
     fun updateToday(newToday: LocalDate = today()) {

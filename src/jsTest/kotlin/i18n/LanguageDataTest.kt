@@ -24,16 +24,16 @@ class LanguageDataTest : FreeSpec({
     }
 
     "every department has a non-blank translated name in every language" {
-        assert(languages.values.all { language ->
-            language.ui.departmentNames.keys == Department.entries.toSet() &&
-                language.ui.departmentNames.values.all { it.isNotBlank() } &&
-                language.ui.otherDepartment.isNotBlank()
+        assert(Language.entries.all { language ->
+            language.data.ui.departmentNames.keys == Department.entries.toSet() &&
+                language.data.ui.departmentNames.values.all { it.isNotBlank() } &&
+                language.data.ui.otherDepartment.isNotBlank()
         })
     }
 
     "the initial list of every language is sorted by the suggestion order" {
-        assert(languages.values.all { language ->
-            SuggestionOrder(language.suggestionsByDepartment).sorted(language.initialList) { it } == language.initialList
+        assert(Language.entries.all { language ->
+            SuggestionOrder(language.data.suggestionsByDepartment).sorted(language.data.initialList) { it } == language.data.initialList
         })
     }
 })
