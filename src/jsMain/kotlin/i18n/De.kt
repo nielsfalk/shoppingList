@@ -455,17 +455,5 @@ val De = LanguageData(
             "Yarrah Bio-Hundefutter Rind", "Oxford Collegeblock A4 kariert", "Pelikan Tintenpatronen blau",
         ),
     ),
-    aliases = mapOf(
-        "Kola" to "Cola",
-        "Mayo" to "Mayonnaise",
-        "Magerine" to "Margarine",
-        "Schoko" to "Schokolade",
-        "Klopapier" to "Toilettenpapier",
-        "WC-Papier" to "Toilettenpapier",
-        "Tempo" to "Taschentücher",
-        "Zewa" to "Küchenrolle",
-        "Küchentücher" to "Küchenrolle",
-        "Spüli" to "Spülmittel",
-        "Pommes frites" to "Pommes",
-    ),
+    aliases = deAliases,
 )
