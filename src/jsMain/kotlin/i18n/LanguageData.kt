@@ -14,8 +14,6 @@ data class UiTexts(
     val resetToDefault: String,
     val resetDefaultList: String,
     val copyToToday: String,
-    val moveUp: String,
-    val moveDown: String,
     val previousMonth: String,
     val nextMonth: String,
     val monthNames: List<String>,

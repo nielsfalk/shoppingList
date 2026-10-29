@@ -6,16 +6,6 @@ import kotlinx.datetime.LocalDate
 import kotlin.test.assertTrue as assert
 
 class DefaultListTest : FreeSpec({
-    "moves items up and down without crossing list boundaries" {
-        val defaultList = DefaultList(items = listOf("Bread", "Water", "Apples"))
-
-        assert(defaultList.moveUp(" water ").items == listOf("Water", "Bread", "Apples"))
-        assert(defaultList.moveDown("WATER").items == listOf("Bread", "Apples", "Water"))
-        assert(defaultList.moveUp("Bread") == defaultList)
-        assert(defaultList.moveDown("Apples") == defaultList)
-        assert(defaultList.moveUp("Missing") == defaultList)
-    }
-
     "deletes an item by trimmed case-insensitive name" {
         val defaultList = DefaultList(items = listOf("Bread", "Water", "Apples"))
 

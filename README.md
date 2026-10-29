@@ -6,7 +6,7 @@ This is a single page app for grocery shopping. It runs entirely in the browser,
 
 **Live app:** https://nielsfalk.github.io/shoppingList/
 
-**Status:** the app is deployed to GitHub Pages; implementation is current through **T58** (see [Tasks](#tasks)).
+**Status:** the app is deployed to GitHub Pages; implementation is current through **T59** (see [Tasks](#tasks)).
 
 ## Getting started
 
@@ -46,7 +46,7 @@ cd shoppingList
 ### Default list
 
 - The default list starts as the initial list of the current language.
-- Items can be deleted with a `✕` button and their order can be changed with up/down buttons.
+- Items can be deleted with a `✕` button. There is no manual sorting: new items are appended at the end, and the daily list is sorted by the suggestion order.
 - It is only stored in local storage if it differs from the initial list; otherwise the initial list of the current language is used.
 - A "↻" button (with an accessible label) resets the default list to the initial list of the current language; it is only enabled when the default list differs from the initial list.
 - The default-list text field and "★" button add an item only to the default list, following the duplicate rule; the daily-list "add to default list" action adds to both lists.
@@ -417,7 +417,7 @@ Each task is small, can be completed on its own and leaves the app in a working 
 ### UI: Default list improvements (2)
 
 - [x] **T58** Add a refresh button with a refresh icon (text as `aria-label`) to the default list that resets it to the initial list of the current language; the stored `shoppingList:defaultList` key is removed. The button is only enabled when the default list differs from the initial list.
-- [ ] **T59** Remove the manual sorting of the default list: drop the up/down buttons (T30) from `DefaultListScreen`, `DefaultList.moveUp`/`moveDown`, `AppState.moveDefaultItemUp`/`moveDefaultItemDown`, the `moveUp`/`moveDown` texts in `UiTexts`, `De.kt` and `En.kt`, the now unused `.move-button` styles and the move tests. Newly added items are still appended at the end; the daily list gets its order from the suggestion order (T56). Update the [Default list](#default-list) feature description.
+- [x] **T59** Remove the manual sorting of the default list: drop the up/down buttons (T30) from `DefaultListScreen`, `DefaultList.moveUp`/`moveDown`, `AppState.moveDefaultItemUp`/`moveDefaultItemDown`, the `moveUp`/`moveDown` texts in `UiTexts`, `De.kt` and `En.kt`, the now unused `.move-button` styles and the move tests. Newly added items are still appended at the end; the daily list gets its order from the suggestion order (T56). Update the [Default list](#default-list) feature description.
 
 ### Suggestions
 

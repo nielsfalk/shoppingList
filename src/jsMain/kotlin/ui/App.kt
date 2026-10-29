@@ -53,8 +53,6 @@ fun App() {
                     state.defaultList,
                     data.initialList,
                     data.ui,
-                    state::moveDefaultItemUp,
-                    state::moveDefaultItemDown,
                     state::deleteDefaultItem,
                     state::addDefaultItem,
                     state::resetDefaultList,
