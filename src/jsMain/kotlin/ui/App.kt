@@ -48,7 +48,12 @@ fun App() {
                     texts = data.ui,
                     actions = DailyListActions(
                         onResetToDefault = state::resetToDefault,
-                        onAddItem = { (document.getElementById("add-item-input") as? HTMLElement)?.focus() },
+                        onAddItem = {
+                            (document.getElementById("add-item-input") as? HTMLElement)?.let { input ->
+                                input.scrollIntoView()
+                                input.focus()
+                            }
+                        },
                         onToggle = state::toggleItem,
                         onDelete = state::deleteItem,
                     ),

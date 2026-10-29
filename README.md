@@ -438,7 +438,7 @@ Each task is small, can be completed on its own and leaves the app in a working 
 
 ### UI: Daily list improvements (3)
 
-- [ ] **T79** Refocus and scroll to input field when pressing the top "+" button in the daily list header, ensuring the input field is re-focused and brought into view even if it was already focused.
+- [x] **T79** Refocus and scroll to input field when pressing the top "+" button in the daily list header, ensuring the input field is re-focused and brought into view even if it was already focused.
 - [ ] **T80** Add a confirmation dialog before resetting: prompt the user for confirmation when clicking the reset button on the daily list or default list to prevent accidental data loss (depends on T43, T58).
 - [ ] **T81** Share daily list via URL parameter: add a share button encoding today's list into a shareable URL parameter; when opening a shared link, if the local daily list has modifications compared to the default list and is not already loaded, display a confirmation dialog before overwriting (depends on T26, T43).
 
