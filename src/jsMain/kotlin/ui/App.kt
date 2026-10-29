@@ -1,7 +1,9 @@
 package ui
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.SideEffect
+import androidx.compose.runtime.remember
 import kotlinx.browser.document
 import kotlinx.browser.window
 import model.suggestionsFor
@@ -14,9 +16,21 @@ import routing.toHash
 
 @Composable
 fun App() {
-    val state = androidx.compose.runtime.remember { AppState() }
+    val state = remember { AppState() }
     val route = rememberRoute()
     val data = state.languageData
+
+    DisposableEffect(state) {
+        val onFocusOrVisible: (dynamic) -> Unit = {
+            state.updateToday()
+        }
+        window.addEventListener("focus", onFocusOrVisible)
+        document.addEventListener("visibilitychange", onFocusOrVisible)
+        onDispose {
+            window.removeEventListener("focus", onFocusOrVisible)
+            document.removeEventListener("visibilitychange", onFocusOrVisible)
+        }
+    }
 
     SideEffect { document.documentElement?.setAttribute("lang", state.languageCode) }
 

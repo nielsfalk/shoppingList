@@ -27,7 +27,8 @@ class AppState(
     private val languagePersistence: (String) -> Unit = ::storeLanguage,
     todayDate: LocalDate = today(),
 ) {
-    val today: LocalDate = todayDate
+    var today by mutableStateOf(todayDate)
+        private set
 
     var languageCode by mutableStateOf(initialLanguageCode)
         private set
@@ -46,6 +47,12 @@ class AppState(
         languagePersistence(languageCode)
         this.languageCode = languageCode
         defaultList = loadDefaultList(storage, languageData(languageCode).initialList)
+    }
+
+    fun updateToday(newToday: LocalDate = today()) {
+        if (newToday == today) return
+        today = newToday
+        dailyList = loadOrCreateDailyList(storage, newToday, defaultList)
     }
 
     fun storedDays(): Set<LocalDate> = storedDays(storage).toSet()

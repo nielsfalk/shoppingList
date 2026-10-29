@@ -405,7 +405,25 @@ Each task is small, can be completed on its own and leaves the app in a working 
 
 - [ ] **T61** Update all dependencies to their latest stable versions: Gradle wrapper, Kotlin (and the power-assert plugin), Compose, KSP, Kotest, the Kotlin Datatable Plugin, `kotlinx.serialization`, `kotlinx-datetime`, the npm/yarn lock in `kotlin-js-store`, and the GitHub Actions in `.github/workflows/pages.yml`. Keep `./gradlew build` green. Add a table to this README of every dependency that was **not** updated to the latest version, with its current version, the latest version and the reason (e.g. incompatible with the Kotlin version, breaks the Kotlin/JS browser tests).
 
+### Stability & Bugfixes
+
+- [x] **T63** Fix midnight date rollover: recompute/update `AppState.today` when the app regains focus or visibility (`visibilitychange` / `window.onfocus`) so long-running PWA sessions roll over to the new day automatically.
+- [ ] **T64** Make `Storage.get` deserialization fault-tolerant: wrap JSON deserialization in `runCatching` with fallback handling to prevent corrupt or incompatible `localStorage` entries from crashing app startup.
+- [ ] **T65** Optimize history storage scan: avoid scanning all `localStorage` keys on every Compose recomposition of the history screen by reading/caching `storedDays` only when needed.
+
+### Refactoring: Domain & Type Safety
+
+- [ ] **T66** Introduce `@JvmInline value class ItemKey`: encapsulate trimmed case-insensitive name normalization in a dedicated value class (`ItemKey.of(name)`, `String.toItemKey()`, `Item.key`) to eliminate repetitive manual `normalizedName()` calls across the model.
+- [ ] **T67** Introduce typed `Language` enum: replace `String` language codes with `enum class Language(val code: String, val data: LanguageData)` including fallback selection (`select(stored, browser)`) to eliminate hardcoded language lists and runtime validation checks.
+
+### Refactoring: UI & Architecture
+
+- [ ] **T68** Unify screen parameter signatures and extract `DailyListActions`: group `DailyListScreen`'s loose translation and callback parameters into `UiTexts` and a `DailyListActions` handler class, aligning its API with other screens.
+- [ ] **T69** Extract reusable `ItemNameInput` composable: deduplicate the text input field, Enter-key submission, blank check, and button rendering shared between `AddItemForm` and `DefaultListScreen`.
+- [ ] **T70** Extract UI constants for CSS classes and glyphs: define `Styles` and `Glyphs` constants for CSS class names and symbol literals (`"☑"`, `"☐"`, `"↻"`, `"★"`, `"✕"`).
+- [ ] **T71** Centralize persistence and introduce repository abstractions: group storage free functions into repositories (`DailyListRepository`, `LanguageRepository`) and add an `updateDailyList` helper in `AppState` to eliminate repetitive state mutation and save pairs.
+- [ ] **T72** Replace untyped `dynamic` browser calls with typed external declarations: add typed `external` declarations for `ServiceWorker`, `StorageManager`, and DOM event listeners.
+
 ## License
 
 [MIT](LICENSE)
-IT](LICENSE)

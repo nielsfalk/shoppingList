@@ -165,4 +165,24 @@ class AppStateTest : FreeSpec({
             storage.keys().forEach(storage::remove)
         }
     }
+
+    "updateToday advances the date and loads or creates the new day's list" {
+        val storage = Storage(prefix = "shoppingList:test:${Random.nextLong()}:")
+        val date1 = LocalDate.parse("2026-10-27")
+        val date2 = LocalDate.parse("2026-10-28")
+
+        try {
+            val state = AppState(storage, initialLanguageCode = "en", languagePersistence = {}, todayDate = date1)
+            assert(state.today == date1)
+            assert(state.dailyList.date == date1)
+
+            state.updateToday(date2)
+
+            assert(state.today == date2)
+            assert(state.dailyList.date == date2)
+            assert(storage.get<DailyList>("day:$date2") == state.dailyList)
+        } finally {
+            storage.keys().forEach(storage::remove)
+        }
+    }
 })
