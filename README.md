@@ -6,7 +6,7 @@ This is a single page app for grocery shopping. It runs entirely in the browser,
 
 **Live app:** https://nielsfalk.github.io/shoppingList/
 
-**Status:** the app is deployed to GitHub Pages; implementation is current through **T51** (see [Tasks](#tasks)).
+**Status:** the app is deployed to GitHub Pages; implementation is current through **T52** (see [Tasks](#tasks)).
 
 ## Getting started
 
@@ -141,6 +141,8 @@ src/jsTest/kotlin/
 The UI texts, the initial list and the suggestions of each language are plain Kotlin objects in `src/jsMain/kotlin/i18n/`. They are part of the app bundle, so they are available immediately (no loading state) and work offline without extra caching. All texts are constructor parameters without default values, so a missing translation fails the build.
 
 ```kotlin
+import model.Department
+
 data class UiTexts(
     val dailyList: String,
     val defaultList: String,
@@ -149,14 +151,19 @@ data class UiTexts(
     val addToDefaultList: String,
     val delete: String,
     val copyToToday: String,
+    val departmentNames: Map<Department, String>,
 )
 
 data class LanguageData(
     val ui: UiTexts,
     val initialList: List<String>,
-    val suggestions: List<String>,
-)
+    val suggestionsByDepartment: Map<Department, List<String>>,
+) {
+    val suggestions: List<String> = Department.entries.flatMap { suggestionsByDepartment[it].orEmpty() }
+}
 ```
+
+The flat `suggestions` list is derived in department order and is passed to the `<datalist>` used for autocompletion. Every department has its own non-empty list of generic, vegan food items and household/non-food items.
 
 Example `i18n/De.kt`:
 
@@ -170,9 +177,36 @@ val De = LanguageData(
         addToDefaultList = "Zur Standardliste",
         delete = "Löschen",
         copyToToday = "In heutige Liste übernehmen",
+        departmentNames = mapOf(
+            Department.FRUIT_AND_VEGETABLES to "Obst und Gemüse",
+            Department.BAKERY to "Bäckerei",
+            Department.DRY_GOODS to "Trockenwaren",
+            Department.CANNED_AND_JARS to "Konserven und Gläser",
+            Department.OILS_SPICES_AND_SAUCES to "Öle, Gewürze und Soßen",
+            Department.BAKING to "Backzutaten",
+            Department.SWEETS_AND_SNACKS to "Süßigkeiten und Snacks",
+            Department.BEVERAGES to "Getränke",
+            Department.CHILLED to "Kühlregal",
+            Department.FROZEN to "Tiefkühlprodukte",
+            Department.DRUGSTORE_AND_HOUSEHOLD to "Drogerie und Haushalt",
+            Department.NON_FOOD to "Non-Food",
+        ),
     ),
     initialList = listOf("Klopapier", "Wasser", "Senf", "Hafermilch", "Äpfel", "Haferflocken"),
-    suggestions = listOf("Brot", "Margarine", "Sojamilch", "Tofu", "Linsen", "Bananen", "Tomaten", "Nudeln"),
+    suggestionsByDepartment = mapOf(
+        Department.FRUIT_AND_VEGETABLES to listOf("Äpfel", "Bananen", "Tomaten"),
+        Department.BAKERY to listOf("Brot"),
+        Department.DRY_GOODS to listOf("Haferflocken", "Linsen", "Nudeln"),
+        Department.CANNED_AND_JARS to listOf("Kichererbsen"),
+        Department.OILS_SPICES_AND_SAUCES to listOf("Senf"),
+        Department.BAKING to listOf("Mehl"),
+        Department.SWEETS_AND_SNACKS to listOf("Vegane Kekse"),
+        Department.BEVERAGES to listOf("Wasser"),
+        Department.CHILLED to listOf("Vegane Margarine", "Hafermilch", "Tofu"),
+        Department.FROZEN to listOf("Tiefkühlgemüse"),
+        Department.DRUGSTORE_AND_HOUSEHOLD to listOf("Klopapier"),
+        Department.NON_FOOD to listOf("Batterien"),
+    ),
 )
 ```
 
@@ -334,7 +368,7 @@ Each task is small, can be completed on its own and leaves the app in a working 
   10. `FROZEN` (all frozen products in one block: frozen vegetables, fruit, fries, pizza, ice cream)
   11. `DRUGSTORE_AND_HOUSEHOLD` (toilet paper, soap, toothpaste, detergent, dish soap, trash bags)
   12. `NON_FOOD` (all other non-food in one block: batteries, light bulbs, candles, aluminium foil)
-- [ ] **T52** Fill the suggestions of `de` and `en` with all generic items (no brand names) a supermarket usually sells, keeping the vegan-only rule for food. Store them per department (e.g. `suggestions: Map<Department, List<String>>` or a list of `(name, Department)`), ordered by department in the order of T51; derive the flat suggestion list for the `<datalist>` from it. Add tests that there are no duplicates (trimmed, case-insensitive) and no empty department, and update the [Language data](#language-data) section (depends on T51).
+- [x] **T52** Fill the suggestions of `de` and `en` with all generic items (no brand names) a supermarket usually sells, keeping the vegan-only rule for food. Store them per department (e.g. `suggestions: Map<Department, List<String>>` or a list of `(name, Department)`), ordered by department in the order of T51; derive the flat suggestion list for the `<datalist>` from it. Add tests that there are no duplicates (trimmed, case-insensitive) and no empty department, and update the [Language data](#language-data) section (depends on T51).
 - [ ] **T53** Add a lookup "department and position of an item name in the suggestion order" (trimmed, case-insensitive); unknown items (not in the suggestions) get no department and sort after all known items, keeping their list order. With data-table tests (depends on T52).
 - [ ] **T54** Add to the initial list of `de` and `en` everything a vegan person would usually buy (fruit, vegetables, bread, oats, legumes, rice, pasta, tofu, plant-based milk, nuts, spices, household basics, …); every item of the initial list must also be a suggestion. Update the [Initial list](#initial-list) table (depends on T52).
 - [ ] **T55** Sort the initial list of every language by the suggestion order, with a test that checks the order for all languages (depends on T53, T54).

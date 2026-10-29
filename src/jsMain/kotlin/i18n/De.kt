@@ -39,5 +39,45 @@ val De = LanguageData(
         ),
     ),
     initialList = listOf("Klopapier", "Wasser", "Senf", "Hafermilch", "Äpfel", "Haferflocken"),
-    suggestions = listOf("Brot", "Margarine", "Sojamilch", "Tofu", "Linsen", "Bananen", "Tomaten", "Nudeln"),
+    suggestionsByDepartment = mapOf(
+        Department.FRUIT_AND_VEGETABLES to listOf(
+            "Äpfel", "Birnen", "Bananen", "Orangen", "Zitronen", "Beeren", "Trauben", "Avocados",
+            "Tomaten", "Gurken", "Paprika", "Karotten", "Kartoffeln", "Zwiebeln", "Knoblauch", "Salat",
+            "Spinat", "Brokkoli", "Zucchini", "Champignons", "Kohl", "Süßkartoffeln",
+        ),
+        Department.BAKERY to listOf("Brot", "Brötchen", "Toastbrot", "Fladenbrot", "Pita"),
+        Department.DRY_GOODS to listOf(
+            "Haferflocken", "Müsli", "Cornflakes", "Reis", "Nudeln", "Couscous", "Quinoa", "Bulgur",
+            "Linsen", "Getrocknete Bohnen", "Getrocknete Erbsen", "Mandeln", "Walnüsse", "Cashewkerne",
+            "Sonnenblumenkerne", "Chiasamen",
+        ),
+        Department.CANNED_AND_JARS to listOf(
+            "Gehackte Tomaten", "Tomatenmark", "Passierte Tomaten", "Mais", "Kidneybohnen", "Kichererbsen",
+            "Apfelmus", "Essiggurken", "Marmelade", "Erdnussbutter",
+        ),
+        Department.OILS_SPICES_AND_SAUCES to listOf(
+            "Olivenöl", "Rapsöl", "Essig", "Salz", "Pfeffer", "Paprikapulver", "Currypulver", "Zimt",
+            "Senf", "Ketchup", "Sojasoße", "Vegane Mayonnaise", "Gemüsebrühe",
+        ),
+        Department.BAKING to listOf("Mehl", "Zucker", "Backpulver", "Hefe", "Vanillezucker", "Kakao", "Speisestärke"),
+        Department.SWEETS_AND_SNACKS to listOf(
+            "Vegane Schokolade", "Vegane Kekse", "Kartoffelchips", "Popcorn", "Salzstangen", "Trockenfrüchte",
+        ),
+        Department.BEVERAGES to listOf("Wasser", "Fruchtsaft", "Limonade", "Kaffee", "Tee", "Mineralwasser"),
+        Department.CHILLED to listOf(
+            "Hafermilch", "Sojadrink", "Mandeldrink", "Pflanzlicher Joghurt", "Tofu", "Tempeh",
+            "Vegane Margarine", "Veganer Aufstrich", "Frische Pasta", "Vegane Sahne", "Veganer Käse",
+            "Räuchertofu",
+        ),
+        Department.FROZEN to listOf(
+            "Tiefkühlgemüse", "Tiefkühlbeeren", "Pommes", "Vegane Pizza", "Veganes Eis", "Tiefkühlspinat",
+            "Edamame", "Vegane Nuggets",
+        ),
+        Department.DRUGSTORE_AND_HOUSEHOLD to listOf(
+            "Toilettenpapier", "Taschentücher", "Küchenrolle", "Seife", "Shampoo", "Zahnpasta", "Waschmittel",
+            "Spülmittel", "Müllbeutel", "Schwämme", "Reinigungsmittel", "Zahnseide", "Deodorant",
+            "Spülmaschinentabs",
+        ),
+        Department.NON_FOOD to listOf("Batterien", "Glühbirnen", "Kerzen", "Alufolie", "Backpapier"),
+    ),
 )

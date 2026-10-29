@@ -25,5 +25,7 @@ data class UiTexts(
 data class LanguageData(
     val ui: UiTexts,
     val initialList: List<String>,
-    val suggestions: List<String>,
-)
+    val suggestionsByDepartment: Map<Department, List<String>>,
+) {
+    val suggestions: List<String> = Department.entries.flatMap { suggestionsByDepartment[it].orEmpty() }
+}

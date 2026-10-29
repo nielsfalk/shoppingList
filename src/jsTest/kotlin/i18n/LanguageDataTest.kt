@@ -14,6 +14,8 @@ class LanguageDataTest : FreeSpec({
             assert(languageData.initialList == expectedInitialList)
             assertValidList(languageData.initialList)
             assertValidList(languageData.suggestions)
+            assert(languageData.suggestionsByDepartment.keys == Department.entries.toSet())
+            assert(languageData.suggestionsByDepartment.values.all { it.isNotEmpty() })
             assert(languageData.ui.dailyList == expectedDailyList)
             assert(languageData.ui.copyToToday == expectedCopyToToday)
         }
