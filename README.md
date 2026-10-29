@@ -36,8 +36,8 @@ cd shoppingList
 - **Add item**: a "+" button next to the daily list header focuses the item input.
 - **Check**: one tap checks an item, another tap unchecks it.
 - **Delete**: every item has a `✕` button with an accessible label.
-- **Departments**: the items are grouped by supermarket department with the translated department name as a heading, in the walking order of the departments; items that are not in the suggestions are shown in a last group ("Other"/"Sonstiges"). Empty departments are not shown.
-- **Sort order**: unchecked items first, then checked items; within both groups the items follow the suggestion order (supermarket departments), and items that are not in the suggestions come last in their list order.
+- **Departments**: unchecked items are grouped by supermarket department with the translated department name as a heading, in the walking order of the departments; unchecked items that are not in the suggestions are shown in a last group ("Other"/"Sonstiges"). Empty departments are not shown. Completed (checked) items are shown below all departments, sorted by suggestion order.
+- **Sort order**: unchecked items first (grouped by supermarket departments), followed by checked items below all departments; items follow the suggestion order within both groups, and items that are not in the suggestions come last in their list order.
 - **Suggestions**: autocompletion combines the language suggestions (all generic supermarket items, vegan and non-vegan) with items from the default list that are not already in today's list, without duplicates.
 - **Add**: at the end there is a text field and two icon buttons: "+" adds the item to today's list, and "★" adds it to the default list **and** to today's list. Both buttons have descriptive accessible labels.
 - **Keyboard**: pressing Enter in the item text field adds a non-blank item to today's list and clears the field.
@@ -408,7 +408,7 @@ Each task is small, can be completed on its own and leaves the app in a working 
 ### Stability & Bugfixes
 
 - [x] **T63** Fix midnight date rollover: recompute/update `AppState.today` when the app regains focus or visibility (`visibilitychange` / `window.onfocus`) so long-running PWA sessions roll over to the new day automatically.
-- [ ] **T64** Make `Storage.get` deserialization fault-tolerant: wrap JSON deserialization in `runCatching` with fallback handling to prevent corrupt or incompatible `localStorage` entries from crashing app startup.
+- [x] **T64** Make `Storage.get` deserialization fault-tolerant: wrap JSON deserialization in `runCatching` with fallback handling to prevent corrupt or incompatible `localStorage` entries from crashing app startup.
 - [ ] **T65** Optimize history storage scan: avoid scanning all `localStorage` keys on every Compose recomposition of the history screen by reading/caching `storedDays` only when needed.
 
 ### Refactoring: Domain & Type Safety

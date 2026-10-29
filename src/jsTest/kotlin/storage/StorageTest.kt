@@ -38,4 +38,18 @@ class StorageTest : FreeSpec({
             localStorage.removeItem(unrelatedKey)
         }
     }
+
+    "returns null on corrupt or incompatible JSON without throwing" {
+        val storage = Storage(prefix = "shoppingList:test:${Random.nextLong()}:")
+
+        try {
+            storage.setString("corrupt", "not a valid json")
+            storage.setString("incompatible", "{\"wrong\":\"structure\"}")
+
+            assert(storage.get<Item>("corrupt") == null)
+            assert(storage.get<Item>("incompatible") == null)
+        } finally {
+            storage.keys().forEach(storage::remove)
+        }
+    }
 })

@@ -31,7 +31,9 @@ class Storage(
         .filter { it.startsWith(prefix) }
         .map { it.removePrefix(prefix) }
 
-    inline fun <reified T> get(key: String): T? = getString(key)?.let(json::decodeFromString)
+    inline fun <reified T> get(key: String): T? = getString(key)?.let { serialized ->
+        runCatching { json.decodeFromString<T>(serialized) }.getOrNull()
+    }
 
     inline fun <reified T> set(key: String, value: T) {
         setString(key, json.encodeToString(value))
