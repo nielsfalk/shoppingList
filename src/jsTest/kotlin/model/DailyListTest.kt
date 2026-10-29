@@ -182,4 +182,16 @@ class DailyListTest : FreeSpec({
         assert(json.encodeToString(dailyList) == expectedJson)
         assert(json.decodeFromString<DailyList>(expectedJson) == dailyList)
     }
+
+    "detects whether daily list differs from default list" {
+        val today = LocalDate.parse("2026-10-27")
+        val defaultList = DefaultList(items = listOf("Water", "Oat milk"))
+        val matching = DailyList(today, listOf(Item("Water"), Item("Oat milk")))
+        val modifiedItems = DailyList(today, listOf(Item("Water"), Item("Bread")))
+        val checkedItem = DailyList(today, listOf(Item("Water", checked = true), Item("Oat milk")))
+
+        assert(!matching.differsFrom(defaultList))
+        assert(modifiedItems.differsFrom(defaultList))
+        assert(checkedItem.differsFrom(defaultList))
+    }
 })

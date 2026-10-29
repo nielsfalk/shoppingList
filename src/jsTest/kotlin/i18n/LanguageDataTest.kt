@@ -32,7 +32,9 @@ class LanguageDataTest : FreeSpec({
                 language.data.ui.otherDepartment.isNotBlank() &&
                 language.data.ui.completed.isNotBlank() &&
                 language.data.ui.confirmResetDailyList.isNotBlank() &&
-                language.data.ui.confirmResetDefaultList.isNotBlank()
+                language.data.ui.confirmResetDefaultList.isNotBlank() &&
+                language.data.ui.share.isNotBlank() &&
+                language.data.ui.confirmOverwriteDailyList.isNotBlank()
         })
     }
 

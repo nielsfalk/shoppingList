@@ -432,7 +432,7 @@ Each task is small, can be completed on its own and leaves the app in a working 
 
 - [x] **T74** Realign supermarket departments with German supermarket layouts: ensure items like eggs and margarine are not classified under `CHILLED` (e.g. eggs in baking/ambient, margarine in oils/fats or baking) and adjust department definitions and item mappings accordingly (depends on T51, T60).
 - [x] **T75** Duplicate all vegan-prefixed suggestions without the vegan prefix across all languages (e.g. "Vegane Schokolade" -> "Schokolade", "Veganer Käse" -> "Käse", "Vegane Margarine" -> "Margarine", "Vegane Pizza" -> "Pizza", "Veganer Joghurt" / "Pflanzlicher Joghurt" -> "Joghurt") so that both vegan and generic variants exist in suggestions (depends on T60, T62).
-- [x] **T76** Implement aliases and common typo mappings for suggestions: support lookup mappings (e.g. "Kola" -> "Cola", "Mayo" -> "Mayonnaise", common misspellings like "Magerine" -> "Margarine") to resolve to canonical suggestions and their associated departments (depends on T53, T66).
+- [ ] **T76** Implement aliases and common typo mappings for suggestions: support lookup mappings (e.g. "Kola" -> "Cola", "Mayo" -> "Mayonnaise", common misspellings like "Magerine" -> "Margarine") to resolve to canonical suggestions and their associated departments; once T77 and T78 add the full suggestion catalog, expand with ~10,000 comprehensive aliases across all languages (depends on T53, T66, T77, T78).
 - [ ] **T77** Add ~5,000 likely supermarket suggestions across all supported languages (e.g. Nüsse, Cola, Kekse, Saft, Apfelsaft, Balsamico, Skyr, Pudding, ...) and introduce any missing departments (depends on T52, T60, T74).
 - [ ] **T78** Research online supermarket product catalogs to integrate missing product suggestions and missing departments across all supported languages (depends on T77).
 
@@ -440,7 +440,7 @@ Each task is small, can be completed on its own and leaves the app in a working 
 
 - [x] **T79** Refocus and scroll to input field when pressing the top "+" button in the daily list header, ensuring the input field is re-focused and brought into view even if it was already focused.
 - [x] **T80** Add a confirmation dialog before resetting: prompt the user for confirmation when clicking the reset button on the daily list or default list to prevent accidental data loss (depends on T43, T58).
-- [ ] **T81** Share daily list via URL parameter: add a share button encoding today's list into a shareable URL parameter; when opening a shared link, if the local daily list has modifications compared to the default list and is not already loaded, display a confirmation dialog before overwriting (depends on T26, T43).
+- [x] **T81** Share daily list via URL parameter: add a share button encoding today's list into a shareable URL parameter; when opening a shared link, if the local daily list has modifications compared to the default list and is not already loaded, display a confirmation dialog before overwriting (depends on T26, T43).
 
 ## License
 

@@ -15,6 +15,8 @@ data class UiTexts(
     val resetDefaultList: String,
     val confirmResetDailyList: String,
     val confirmResetDefaultList: String,
+    val share: String,
+    val confirmOverwriteDailyList: String,
     val copyToToday: String,
     val previousMonth: String,
     val nextMonth: String,

@@ -13,7 +13,7 @@ import routing.toHash
 @Composable
 fun NavigationBar(route: Route, languageData: LanguageData, currentLanguage: Language, onLanguageChange: (Language) -> Unit) {
     Div(attrs = { classes("navigation") }) {
-        navigationLink(Route.DailyList, route, languageData.ui.dailyList)
+        navigationLink(Route.DailyList(), route, languageData.ui.dailyList)
         navigationLink(Route.DefaultList, route, languageData.ui.defaultList)
         navigationLink(Route.History(), route, languageData.ui.history)
         Div(attrs = { classes("language-switch") }) {
@@ -36,7 +36,7 @@ private fun navigationLink(target: Route, current: Route, label: String) {
         href = target.toHash(),
         attrs = {
             classes("navigation-link")
-            if (current == target || (target == Route.History() && current is Route.History)) {
+            if (current == target || (target is Route.DailyList && current is Route.DailyList) || (target == Route.History() && current is Route.History)) {
                 attr("aria-current", "page")
             }
         },

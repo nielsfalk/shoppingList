@@ -76,6 +76,8 @@ class AppState(
 
     fun resetToDefault() = updateDailyList { dailyListFor(today, null, defaultList) }
 
+    fun setDailyListItems(items: List<model.Item>) = updateDailyList { it.copy(items = items) }
+
     fun toggleItem(name: String) = updateDailyList { it.toggle(name) }
 
     fun deleteItem(name: String) = updateDailyList { it.delete(name) }

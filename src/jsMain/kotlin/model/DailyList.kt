@@ -57,6 +57,8 @@ data class DailyList(
     }
 
     fun copyFrom(old: DailyList): DailyList = old.items.fold(this) { dailyList, item -> dailyList.add(item.name) }
+
+    fun differsFrom(defaultList: DefaultList): Boolean = items != defaultList.items.map(::Item)
 }
 
 fun dailyListFor(today: LocalDate, existing: DailyList?, defaultList: DefaultList): DailyList {

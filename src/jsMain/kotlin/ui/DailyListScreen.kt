@@ -14,6 +14,7 @@ import org.jetbrains.compose.web.dom.Text
 class DailyListActions(
     val onResetToDefault: () -> Unit,
     val onAddItem: () -> Unit,
+    val onShare: () -> Unit,
     val onToggle: (String) -> Unit,
     val onDelete: (String) -> Unit,
 )
@@ -34,6 +35,13 @@ fun DailyListScreen(
                 onClick { actions.onResetToDefault() }
             }) {
                 Text("↻")
+            }
+            Button(attrs = {
+                classes("icon-button")
+                attr("aria-label", texts.share)
+                onClick { actions.onShare() }
+            }) {
+                Text("⎘")
             }
             Button(attrs = {
                 classes("icon-button")

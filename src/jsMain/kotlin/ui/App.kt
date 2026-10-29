@@ -2,6 +2,7 @@ package ui
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.remember
 import kotlinx.browser.document
@@ -22,6 +23,22 @@ fun App() {
     val route = rememberRoute()
     val data = state.languageData
 
+    LaunchedEffect(route) {
+        if (route is Route.DailyList && route.sharedItems != null) {
+            val sharedItems = route.sharedItems
+            if (state.dailyList.items != sharedItems) {
+                val shouldOverwrite = if (state.dailyList.differsFrom(state.defaultList)) {
+                    window.confirm(data.ui.confirmOverwriteDailyList)
+                } else {
+                    true
+                }
+                if (shouldOverwrite) {
+                    state.setDailyListItems(sharedItems)
+                }
+            }
+        }
+    }
+
     DisposableEffect(state) {
         val onFocusOrVisible: (Event) -> Unit = {
             state.updateToday()
@@ -40,7 +57,7 @@ fun App() {
         H1(attrs = { classes("app-title") }) { Text("shoppingList") }
         NavigationBar(route, data, state.language, state::switchLanguage)
         when (route) {
-            Route.DailyList -> {
+            is Route.DailyList -> {
                 H1 { Text(data.ui.dailyList) }
                 DailyListScreen(
                     dailyList = state.dailyList,
@@ -56,6 +73,14 @@ fun App() {
                             (document.getElementById("add-item-input") as? HTMLElement)?.let { input ->
                                 input.scrollIntoView()
                                 input.focus()
+                            }
+                        },
+                        onShare = {
+                            val hash = Route.DailyList(state.dailyList.items).toHash()
+                            window.location.hash = hash
+                            runCatching {
+                                val fullUrl = "${window.location.origin}${window.location.pathname}$hash"
+                                window.navigator.asDynamic().clipboard?.writeText(fullUrl)
                             }
                         },
                         onToggle = state::toggleItem,
@@ -97,7 +122,7 @@ fun App() {
                     suggestionOrder = data.suggestionOrder,
                     onCopyToToday = { date ->
                         state.copyToToday(date)
-                        window.location.hash = Route.DailyList.toHash()
+                        window.location.hash = Route.DailyList().toHash()
                     },
                 )
             }
