@@ -37,6 +37,7 @@ val En = LanguageData(
             DRUGSTORE_AND_HOUSEHOLD to "Drugstore and household",
             NON_FOOD to "Non-food",
         ),
+        otherDepartment = "Other",
     ),
     initialList = listOf(
         "Apples", "Bananas", "Oranges", "Tomatoes", "Cucumbers", "Bell peppers", "Carrots", "Potatoes", "Onions",

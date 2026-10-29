@@ -26,7 +26,8 @@ class LanguageDataTest : FreeSpec({
     "every department has a non-blank translated name in every language" {
         assert(languages.values.all { language ->
             language.ui.departmentNames.keys == Department.entries.toSet() &&
-                language.ui.departmentNames.values.all { it.isNotBlank() }
+                language.ui.departmentNames.values.all { it.isNotBlank() } &&
+                language.ui.otherDepartment.isNotBlank()
         })
     }
 

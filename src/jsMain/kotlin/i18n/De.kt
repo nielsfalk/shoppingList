@@ -37,6 +37,7 @@ val De = LanguageData(
             DRUGSTORE_AND_HOUSEHOLD to "Drogerie und Haushalt",
             NON_FOOD to "Non-Food",
         ),
+        otherDepartment = "Sonstiges",
     ),
     initialList = listOf(
         "Äpfel", "Bananen", "Orangen", "Tomaten", "Gurken", "Paprika", "Karotten", "Kartoffeln", "Zwiebeln",

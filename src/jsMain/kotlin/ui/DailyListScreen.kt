@@ -2,16 +2,21 @@ package ui
 
 import androidx.compose.runtime.Composable
 import model.DailyList
+import model.Department
+import model.Item
 import model.SuggestionOrder
 import org.jetbrains.compose.web.dom.Button
 import org.jetbrains.compose.web.dom.Div
 import org.jetbrains.compose.web.dom.H2
+import org.jetbrains.compose.web.dom.H3
 import org.jetbrains.compose.web.dom.Text
 
 @Composable
 fun DailyListScreen(
     dailyList: DailyList,
     suggestionOrder: SuggestionOrder,
+    departmentNames: Map<Department, String>,
+    otherDepartmentName: String,
     deleteLabel: String,
     resetToDefaultLabel: String,
     addItemLabel: String,
@@ -39,24 +44,32 @@ fun DailyListScreen(
             }
         }
         Div(attrs = { classes("shopping-list") }) {
-            dailyList.sortedItems(suggestionOrder).forEach { item ->
-                Div(attrs = { classes("shopping-list-item") }) {
-                    Button(attrs = {
-                        classes("shopping-item")
-                        attr("aria-pressed", item.checked.toString())
-                        onClick { onToggle(item.name) }
-                    }) {
-                        Text("${if (item.checked) "☑" else "☐"} ${item.name}")
-                    }
-                    Button(attrs = {
-                        classes("delete-button")
-                        attr("aria-label", "$deleteLabel ${item.name}")
-                        onClick { onDelete(item.name) }
-                    }) {
-                        Text("✕")
-                    }
+            dailyList.groupedItems(suggestionOrder).forEach { (department, items) ->
+                H3(attrs = { classes("department-heading") }) {
+                    Text(department?.let(departmentNames::get) ?: otherDepartmentName)
                 }
+                items.forEach { item -> DailyListItem(item, deleteLabel, onToggle, onDelete) }
             }
+        }
+    }
+}
+
+@Composable
+private fun DailyListItem(item: Item, deleteLabel: String, onToggle: (String) -> Unit, onDelete: (String) -> Unit) {
+    Div(attrs = { classes("shopping-list-item") }) {
+        Button(attrs = {
+            classes("shopping-item")
+            attr("aria-pressed", item.checked.toString())
+            onClick { onToggle(item.name) }
+        }) {
+            Text("${if (item.checked) "☑" else "☐"} ${item.name}")
+        }
+        Button(attrs = {
+            classes("delete-button")
+            attr("aria-label", "$deleteLabel ${item.name}")
+            onClick { onDelete(item.name) }
+        }) {
+            Text("✕")
         }
     }
 }

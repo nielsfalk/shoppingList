@@ -50,6 +50,33 @@ class DailyListTest : FreeSpec({
         assert(sortedItems.map { it.name } == listOf("apples", "Tofu", "Unknown", "Apples ", "Bread", "Checked unknown"))
     }
 
+    "groups items by department in department order with unknown items in a last group" {
+        val suggestionOrder = SuggestionOrder(
+            mapOf(
+                FRUIT_AND_VEGETABLES to listOf("Apples", "Bananas"),
+                BAKERY to listOf("Bread"),
+                CHILLED to listOf("Tofu"),
+            ),
+        )
+        val dailyList = DailyList(
+            date = LocalDate.parse("2026-10-27"),
+            items = listOf(
+                Item(name = "Unknown"),
+                Item(name = "Tofu"),
+                Item(name = "Apples", checked = true),
+                Item(name = "Bananas"),
+            ),
+        )
+
+        val groupedItems = dailyList.groupedItems(suggestionOrder)
+
+        assert(groupedItems.map { (department, items) -> department to items.map { it.name } } == listOf(
+            FRUIT_AND_VEGETABLES to listOf("Bananas", "Apples"),
+            CHILLED to listOf("Tofu"),
+            null to listOf("Unknown"),
+        ))
+    }
+
     "toggles and deletes items by trimmed case-insensitive name" {
         val water = Item(name = "Water")
         val milk = Item(name = "Oat milk", checked = true)

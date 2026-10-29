@@ -6,7 +6,7 @@ This is a single page app for grocery shopping. It runs entirely in the browser,
 
 **Live app:** https://nielsfalk.github.io/shoppingList/
 
-**Status:** the app is deployed to GitHub Pages; implementation is current through **T56** (see [Tasks](#tasks)).
+**Status:** the app is deployed to GitHub Pages; implementation is current through **T57** (see [Tasks](#tasks)).
 
 ## Getting started
 
@@ -36,6 +36,7 @@ cd shoppingList
 - **Add item**: a "+" button next to the daily list header focuses the item input.
 - **Check**: one tap checks an item, another tap unchecks it.
 - **Delete**: every item has a `✕` button with an accessible label.
+- **Departments**: the items are grouped by supermarket department with the translated department name as a heading, in the walking order of the departments; items that are not in the suggestions are shown in a last group ("Other"/"Sonstiges"). Empty departments are not shown.
 - **Sort order**: unchecked items first, then checked items; within both groups the items follow the suggestion order (supermarket departments), and items that are not in the suggestions come last in their list order.
 - **Suggestions**: autocompletion combines the language suggestions (vegan items only) with items from the default list that are not already in today's list, without duplicates.
 - **Add**: at the end there is a text field and two icon buttons: "+" adds the item to today's list, and "★" adds it to the default list **and** to today's list. Both buttons have descriptive accessible labels.
@@ -410,7 +411,7 @@ Each task is small, can be completed on its own and leaves the app in a working 
 - [x] **T54** Add to the initial list of `de` and `en` everything a vegan person would usually buy (fruit, vegetables, bread, oats, legumes, rice, pasta, tofu, plant-based milk, nuts, spices, household basics, …); every item of the initial list must also be a suggestion. Update the [Initial list](#initial-list) table (depends on T52).
 - [x] **T55** Sort the initial list of every language by the suggestion order, with a test that checks the order for all languages (depends on T53, T54).
 - [x] **T56** Sort the daily list by "unchecked first, then suggestion order" (unknown items after the known ones in list order) instead of "unchecked first, then list order"; update the existing sort tests and the **Sort order** feature description (depends on T53).
-- [ ] **T57** Group the items of the daily list by department with the translated department name as a heading, in the department order of T51; items without a department go into a last group (e.g. "Other"/"Sonstiges"). Within each group the sort order of T56 applies; empty departments are not shown (depends on T51, T56).
+- [x] **T57** Group the items of the daily list by department with the translated department name as a heading, in the department order of T51; items without a department go into a last group (e.g. "Other"/"Sonstiges"). Within each group the sort order of T56 applies; empty departments are not shown (depends on T51, T56).
 
 ### UI: Default list improvements (2)
 

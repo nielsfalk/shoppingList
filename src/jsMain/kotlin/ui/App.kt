@@ -29,6 +29,8 @@ fun App() {
                 DailyListScreen(
                     state.dailyList,
                     data.suggestionOrder,
+                    data.ui.departmentNames,
+                    data.ui.otherDepartment,
                     data.ui.delete,
                     data.ui.resetToDefault,
                     data.ui.addItem,

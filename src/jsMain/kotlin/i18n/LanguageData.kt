@@ -21,6 +21,7 @@ data class UiTexts(
     val weekdayNames: List<String>,
     val noList: String,
     val departmentNames: Map<Department, String>,
+    val otherDepartment: String,
 )
 
 data class LanguageData(
