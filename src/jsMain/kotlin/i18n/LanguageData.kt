@@ -1,6 +1,7 @@
 package i18n
 
 import model.Department
+import model.SuggestionOrder
 
 data class UiTexts(
     val dailyList: String,
@@ -28,4 +29,6 @@ data class LanguageData(
     val suggestionsByDepartment: Map<Department, List<String>>,
 ) {
     val suggestions: List<String> = Department.entries.flatMap { suggestionsByDepartment[it].orEmpty() }
+
+    val suggestionOrder: SuggestionOrder = SuggestionOrder(suggestionsByDepartment)
 }

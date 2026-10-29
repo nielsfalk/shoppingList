@@ -11,7 +11,8 @@ data class DailyList(
     val date: LocalDate,
     val items: List<Item>,
 ) {
-    fun sortedItems(): List<Item> = items.filterNot { it.checked } + items.filter { it.checked }
+    fun sortedItems(order: SuggestionOrder): List<Item> =
+        order.sorted(items.filterNot { it.checked }, Item::name) + order.sorted(items.filter { it.checked }, Item::name)
 
     fun toggle(name: String): DailyList {
         val normalizedName = name.normalizedName()

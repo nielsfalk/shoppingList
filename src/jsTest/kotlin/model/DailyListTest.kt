@@ -5,10 +5,11 @@ import kotlinx.datetime.LocalDate
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
+import model.Department.*
 import kotlin.test.assertTrue as assert
 
 class DailyListTest : FreeSpec({
-    "sorts unchecked items first without changing their relative order" {
+    "sorts unchecked items first and keeps the list order of unknown items" {
         val checkedFirst = Item(name = "Checked first", checked = true)
         val uncheckedFirst = Item(name = "Unchecked first")
         val checkedSecond = Item(name = "Checked second", checked = true)
@@ -18,10 +19,35 @@ class DailyListTest : FreeSpec({
             items = listOf(checkedFirst, uncheckedFirst, checkedSecond, uncheckedSecond),
         )
 
-        val sortedItems = dailyList.sortedItems()
+        val sortedItems = dailyList.sortedItems(SuggestionOrder(emptyMap()))
 
         assert(sortedItems == listOf(uncheckedFirst, uncheckedSecond, checkedFirst, checkedSecond))
         assert(dailyList.items == listOf(checkedFirst, uncheckedFirst, checkedSecond, uncheckedSecond))
+    }
+
+    "sorts unchecked items first, then by suggestion order with unknown items last" {
+        val suggestionOrder = SuggestionOrder(
+            mapOf(
+                FRUIT_AND_VEGETABLES to listOf("Apples"),
+                BAKERY to listOf("Bread"),
+                CHILLED to listOf("Tofu"),
+            ),
+        )
+        val dailyList = DailyList(
+            date = LocalDate.parse("2026-10-27"),
+            items = listOf(
+                Item(name = "Unknown"),
+                Item(name = "Tofu"),
+                Item(name = "Bread", checked = true),
+                Item(name = "apples"),
+                Item(name = "Checked unknown", checked = true),
+                Item(name = "Apples ", checked = true),
+            ),
+        )
+
+        val sortedItems = dailyList.sortedItems(suggestionOrder)
+
+        assert(sortedItems.map { it.name } == listOf("apples", "Tofu", "Unknown", "Apples ", "Bread", "Checked unknown"))
     }
 
     "toggles and deletes items by trimmed case-insensitive name" {

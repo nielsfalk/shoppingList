@@ -28,6 +28,7 @@ fun App() {
                 H1 { Text(data.ui.dailyList) }
                 DailyListScreen(
                     state.dailyList,
+                    data.suggestionOrder,
                     data.ui.delete,
                     data.ui.resetToDefault,
                     data.ui.addItem,
@@ -63,6 +64,7 @@ fun App() {
                     storedDays = state.storedDays(),
                     selectedList = route.date?.let(state::dailyListOn),
                     texts = data.ui,
+                    suggestionOrder = data.suggestionOrder,
                     onCopyToToday = { date ->
                         state.copyToToday(date)
                         window.location.hash = Route.DailyList.toHash()

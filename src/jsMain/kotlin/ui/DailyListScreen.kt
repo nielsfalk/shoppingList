@@ -2,6 +2,7 @@ package ui
 
 import androidx.compose.runtime.Composable
 import model.DailyList
+import model.SuggestionOrder
 import org.jetbrains.compose.web.dom.Button
 import org.jetbrains.compose.web.dom.Div
 import org.jetbrains.compose.web.dom.H2
@@ -10,6 +11,7 @@ import org.jetbrains.compose.web.dom.Text
 @Composable
 fun DailyListScreen(
     dailyList: DailyList,
+    suggestionOrder: SuggestionOrder,
     deleteLabel: String,
     resetToDefaultLabel: String,
     addItemLabel: String,
@@ -37,7 +39,7 @@ fun DailyListScreen(
             }
         }
         Div(attrs = { classes("shopping-list") }) {
-            dailyList.sortedItems().forEach { item ->
+            dailyList.sortedItems(suggestionOrder).forEach { item ->
                 Div(attrs = { classes("shopping-list-item") }) {
                     Button(attrs = {
                         classes("shopping-item")
