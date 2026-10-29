@@ -417,6 +417,10 @@ Each task is small, can be completed on its own and leaves the app in a working 
 - [ ] **T58** Add a refresh button with a refresh icon (text as `aria-label`) to the default list that resets it to the initial list of the current language; the stored `shoppingList:defaultList` key is removed. The button is only enabled when the default list differs from the initial list.
 - [ ] **T59** Remove the manual sorting of the default list: drop the up/down buttons (T30) from `DefaultListScreen`, `DefaultList.moveUp`/`moveDown`, `AppState.moveDefaultItemUp`/`moveDefaultItemDown`, the `moveUp`/`moveDown` texts in `UiTexts`, `De.kt` and `En.kt`, the now unused `.move-button` styles and the move tests. Newly added items are still appended at the end; the daily list gets its order from the suggestion order (T56). Update the [Default list](#default-list) feature description.
 
+### Suggestions
+
+- [ ] **T60** Add all generic non-vegan items (no brand names) a supermarket usually sells to the suggestions of `de` and `en`, in their departments of T51 (e.g. meat, sausages, fish, milk, cheese, butter, yogurt, cream and eggs in `CHILLED`; frozen fish and meat in `FROZEN`; canned tuna and honey in `CANNED_AND_JARS`; gelatine in `BAKING`; milk chocolate and gummy bears in `SWEETS_AND_SNACKS`). Drop the vegan-only rule for suggestions (the initial list stays vegan), keep the no-duplicates and every-initial-item-is-a-suggestion tests green, and update the glossary, the **Suggestions** feature description and the [Language data](#language-data) section.
+
 ## License
 
 [MIT](LICENSE)
