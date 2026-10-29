@@ -422,6 +422,10 @@ Each task is small, can be completed on its own and leaves the app in a working 
 
 - [ ] **T60** Add all generic non-vegan items (no brand names) a supermarket usually sells to the suggestions of `de` and `en`, in their departments of T51 (e.g. meat, sausages, fish, milk, cheese, butter, yogurt, cream and eggs in `CHILLED`; frozen fish and meat in `FROZEN`; canned tuna and honey in `CANNED_AND_JARS`; gelatine in `BAKING`; milk chocolate and gummy bears in `SWEETS_AND_SNACKS`). Drop the vegan-only rule for suggestions (the initial list stays vegan), keep the no-duplicates and every-initial-item-is-a-suggestion tests green, and update the glossary, the **Suggestions** feature description and the [Language data](#language-data) section.
 
+### Maintenance
+
+- [ ] **T61** Update all dependencies to their latest stable versions: Gradle wrapper, Kotlin (and the power-assert plugin), Compose, KSP, Kotest, the Kotlin Datatable Plugin, `kotlinx.serialization`, `kotlinx-datetime`, the npm/yarn lock in `kotlin-js-store`, and the GitHub Actions in `.github/workflows/pages.yml`. Keep `./gradlew build` green. Add a table to this README of every dependency that was **not** updated to the latest version, with its current version, the latest version and the reason (e.g. incompatible with the Kotlin version, breaks the Kotlin/JS browser tests).
+
 ## License
 
 [MIT](LICENSE)
