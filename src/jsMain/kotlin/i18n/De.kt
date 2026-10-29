@@ -66,14 +66,14 @@ val De = LanguageData(
         OILS_SPICES_AND_SAUCES to listOf(
             "Olivenöl", "Rapsöl", "Essig", "Salz", "Pfeffer", "Paprikapulver", "Currypulver", "Zimt", "Senf",
             "Ketchup", "Sojasoße", "Vegane Mayonnaise", "Gemüsebrühe", "Mayonnaise", "Rinderbrühe",
-            "Hühnerbrühe", "Fischsoße", "Remoulade", "Vegane Margarine",
+            "Hühnerbrühe", "Fischsoße", "Remoulade", "Vegane Margarine", "Margarine",
         ),
         BAKING to listOf(
             "Mehl", "Zucker", "Backpulver", "Hefe", "Vanillezucker", "Kakao", "Speisestärke", "Gelatine",
             "Kondensmilch", "Eier",
         ),
         SWEETS_AND_SNACKS to listOf(
-            "Vegane Schokolade", "Vegane Kekse", "Kartoffelchips", "Popcorn", "Salzstangen", "Trockenfrüchte",
+            "Vegane Schokolade", "Schokolade", "Vegane Kekse", "Kekse", "Kartoffelchips", "Popcorn", "Salzstangen", "Trockenfrüchte",
             "Milchschokolade", "Gummibärchen", "Butterkekse", "Schokoriegel",
         ),
         BEVERAGES to listOf(
@@ -81,15 +81,15 @@ val De = LanguageData(
         ),
         CHILLED to listOf(
             "Hafermilch", "Sojadrink", "Mandeldrink", "Pflanzlicher Joghurt", "Tofu", "Tempeh",
-            "Veganer Aufstrich", "Frische Pasta", "Vegane Sahne", "Veganer Käse",
+            "Veganer Aufstrich", "Aufstrich", "Frische Pasta", "Vegane Sahne", "Veganer Käse",
             "Räuchertofu", "Milch", "Buttermilch", "Butter", "Käse", "Gouda", "Mozzarella", "Feta",
             "Parmesan", "Frischkäse", "Quark", "Joghurt", "Sahne", "Schmand", "Schinken", "Salami",
             "Speck", "Würstchen", "Hackfleisch", "Hähnchenbrust", "Schweinekotelett", "Rindersteak", "Lachs",
             "Räucherlachs", "Garnelen", "Hering",
         ),
         FROZEN to listOf(
-            "Tiefkühlgemüse", "Tiefkühlbeeren", "Pommes", "Vegane Pizza", "Veganes Eis", "Tiefkühlspinat",
-            "Edamame", "Vegane Nuggets", "Fischstäbchen", "Tiefkühlfisch", "Tiefkühlgarnelen",
+            "Tiefkühlgemüse", "Tiefkühlbeeren", "Pommes", "Vegane Pizza", "Veganes Eis", "Eis", "Tiefkühlspinat",
+            "Edamame", "Vegane Nuggets", "Nuggets", "Fischstäbchen", "Tiefkühlfisch", "Tiefkühlgarnelen",
             "Tiefkühlhähnchen", "Speiseeis", "Pizza",
         ),
         DRUGSTORE_AND_HOUSEHOLD to listOf(

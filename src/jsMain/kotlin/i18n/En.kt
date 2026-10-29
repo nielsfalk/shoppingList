@@ -66,14 +66,14 @@ val En = LanguageData(
         OILS_SPICES_AND_SAUCES to listOf(
             "Olive oil", "Rapeseed oil", "Vinegar", "Salt", "Pepper", "Paprika", "Curry powder", "Cinnamon",
             "Mustard", "Ketchup", "Soy sauce", "Vegan mayonnaise", "Vegetable stock", "Mayonnaise",
-            "Beef stock", "Chicken stock", "Fish sauce", "Tartar sauce", "Vegan margarine",
+            "Beef stock", "Chicken stock", "Fish sauce", "Tartar sauce", "Vegan margarine", "Margarine",
         ),
         BAKING to listOf(
             "Flour", "Sugar", "Baking powder", "Yeast", "Vanilla sugar", "Cocoa", "Cornstarch", "Gelatine",
             "Condensed milk", "Eggs",
         ),
         SWEETS_AND_SNACKS to listOf(
-            "Vegan chocolate", "Vegan cookies", "Potato crisps", "Popcorn", "Pretzels", "Dried fruit",
+            "Vegan chocolate", "Chocolate", "Vegan cookies", "Cookies", "Potato crisps", "Popcorn", "Pretzels", "Dried fruit",
             "Milk chocolate", "Gummy bears", "Butter cookies", "Chocolate bars",
         ),
         BEVERAGES to listOf(
@@ -82,14 +82,14 @@ val En = LanguageData(
         ),
         CHILLED to listOf(
             "Oat milk", "Soy milk", "Almond milk", "Plant-based yogurt", "Tofu", "Tempeh",
-            "Vegan spread", "Fresh pasta", "Vegan cream", "Vegan cheese", "Smoked tofu", "Milk", "Buttermilk",
+            "Vegan spread", "Spread", "Fresh pasta", "Vegan cream", "Vegan cheese", "Smoked tofu", "Milk", "Buttermilk",
             "Butter", "Cheese", "Gouda", "Mozzarella", "Feta", "Parmesan", "Cream cheese", "Quark", "Yogurt",
             "Cream", "Sour cream", "Ham", "Salami", "Bacon", "Sausages", "Minced meat",
             "Chicken breast", "Pork chops", "Beef steak", "Salmon", "Smoked salmon", "Shrimp", "Herring",
         ),
         FROZEN to listOf(
             "Frozen vegetables", "Frozen berries", "Fries", "Vegan pizza", "Vegan ice cream",
-            "Frozen spinach", "Edamame", "Vegan nuggets", "Fish fingers", "Frozen fish", "Frozen shrimp",
+            "Frozen spinach", "Edamame", "Vegan nuggets", "Nuggets", "Fish fingers", "Frozen fish", "Frozen shrimp",
             "Frozen chicken", "Ice cream", "Pizza",
         ),
         DRUGSTORE_AND_HOUSEHOLD to listOf(
